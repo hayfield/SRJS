@@ -1,3 +1,3 @@
-SRJS.Arena = {
+SRJS.Arena = function(){
 	
 };
