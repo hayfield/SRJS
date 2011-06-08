@@ -1,0 +1,3 @@
+SRJS.Init = function(){
+	
+}
