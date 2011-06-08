@@ -3,7 +3,7 @@ SRJS.Arena2011 = function(){
 	args = {};
 	
 	var camera, scene, renderer,
-    geometry, material, mesh;
+    geometry, material, mesh, stats;
 
 	args.initScene = function(){
 		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -70,12 +70,19 @@ SRJS.Arena2011 = function(){
         document.body.appendChild( renderer.domElement );
  
 		renderer.render( scene, camera );
+		
+		stats = new Stats();
+		stats.domElement.style.position = 'absolute';
+		stats.domElement.style.top = '0px';
+		container.appendChild( stats.domElement );
 	};
 	args.initScene();
 	args.scene = scene;
 	args.animate = function(){
 		requestAnimationFrame( args.animate );
         args.render();
+		
+		stats.update();
 	};
 	args.render = function(){
 
