@@ -6,14 +6,31 @@ SRJS.Arena2011 = function(){
     geometry, material, mesh;
 
 	args.initScene = function(){
-		camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
+		camera = new THREE.QuakeCamera( {
+ 
+					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
+					constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
+					movementSpeed: 1000, lookSpeed: 0.125, noFly: false, lookVertical: true, autoForward: false
+ 
+				} );
         camera.position.z = 1000;
 
         scene = new THREE.Scene();
 
         geometry = new THREE.Cube( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-
+		
+		var cube, cubeMesh;
+		// floor
+		scene.addObject( new THREE.Mesh( new THREE.Cube( 800, 100, 800 ), SRJS.Material.white ) );
+		// 4 walls
+		cube = new THREE.Cube( 100, 60, 800 );
+		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
+		cubeMesh.position.x = 450;
+		cubeMesh.position.y = 80;
+		scene.addObject( cubeMesh );
+		
         mesh = new THREE.Mesh( geometry, material );
         scene.addObject( mesh );
 
