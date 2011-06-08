@@ -23,7 +23,8 @@ SRJS.Arena2011 = function(){
 		
 		var cube, cubeMesh;
 		// floor
-		scene.addObject( new THREE.Mesh( new THREE.Cube( 800, 100, 800 ), SRJS.Material.white ) );
+		scene.addObject( new SRJS.Wall( 800, 100, 800 ) );
+		//scene.addObject( new THREE.Mesh( new THREE.Cube( 800, 100, 800 ), SRJS.Material.white ) );
 		// 4 walls
 		cube = new THREE.Cube( 100, 60, 1000 );
 		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
