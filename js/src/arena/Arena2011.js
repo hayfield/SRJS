@@ -25,10 +25,27 @@ SRJS.Arena2011 = function(){
 		// floor
 		scene.addObject( new THREE.Mesh( new THREE.Cube( 800, 100, 800 ), SRJS.Material.white ) );
 		// 4 walls
-		cube = new THREE.Cube( 100, 60, 800 );
+		cube = new THREE.Cube( 100, 60, 1000 );
 		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
 		cubeMesh.position.x = 450;
 		cubeMesh.position.y = 80;
+		scene.addObject( cubeMesh );
+		cube = new THREE.Cube( 100, 60, 1000 );
+		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
+		cubeMesh.position.x = -450;
+		cubeMesh.position.y = 80;
+		scene.addObject( cubeMesh );
+		cube = new THREE.Cube( 100, 60, 1000 );
+		cubeMesh = new THREE.Mesh( cube, SRJS.Material.blue );
+		cubeMesh.position.z = -450;
+		cubeMesh.position.y = 80;
+		cubeMesh.rotation.y = Math.PI / 2;
+		scene.addObject( cubeMesh );
+		cube = new THREE.Cube( 100, 60, 1000 );
+		cubeMesh = new THREE.Mesh( cube, SRJS.Material.blue );
+		cubeMesh.position.z = 450;
+		cubeMesh.position.y = 80;
+		cubeMesh.rotation.y = Math.PI / 2;
 		scene.addObject( cubeMesh );
 		
         mesh = new THREE.Mesh( geometry, material );
