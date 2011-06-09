@@ -50,6 +50,46 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, 80, 450 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
+		// eight inner walls
+		// the large section
+		// two long walls
+		scene.addObject( new SRJS.Wall( 400, 20, 5,
+										new THREE.Vector3( 0, 60, 197.5 )
+									) );
+		scene.addObject( new SRJS.Wall( 400, 20, 5,
+										new THREE.Vector3( 197.5, 60, 0 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		// two short walls connecting the long ones
+		scene.addObject( new SRJS.Wall( 100, 20, 5,
+										new THREE.Vector3( 150, 60, -197.5 )
+									) );
+		scene.addObject( new SRJS.Wall( 100, 20, 5,
+										new THREE.Vector3( -197.5, 60, 150 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		// diagonal wall to complete this section
+		scene.addObject( new SRJS.Wall( 425, 20, 5,
+										new THREE.Vector3( -48.1, 60, -48.1 ),
+										new THREE.Vector3( 0, Math.PI / 4, 0 )
+									) );
+									
+		// the smaller triangle
+		// two straight walls
+		scene.addObject( new SRJS.Wall( 200, 20, 5,
+										new THREE.Vector3( -100, 60, -197.5 )
+									) );
+		scene.addObject( new SRJS.Wall( 200, 20, 5,
+										new THREE.Vector3( -197.5, 60, -100 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		// the diagonal to close off this triangle
+		scene.addObject( new SRJS.Wall( 276, 20, 5,
+										new THREE.Vector3( -99.3, 60, -99.3 ),
+										new THREE.Vector3( 0, Math.PI / 4, 0 )
+									) );
+		
+		// bob = new SRJS.Arena2011();
 		
 		
         mesh = new THREE.Mesh( geometry, material );
