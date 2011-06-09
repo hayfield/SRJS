@@ -30,7 +30,6 @@ SRJS.Arena2011 = function(){
 		pointLight.position.y = 150;
 		pointLight.position.x = -250;
 		pointLight.position.z = -250;
-		pointLight.distance = 100000;
 		pointLight.intensity = 0.5;
 		scene.addLight( pointLight );
 
@@ -94,24 +93,24 @@ SRJS.Arena2011 = function(){
 		// the blue blobs around the arena
 		for( var i = 0; i < 27; i++ ){
 			// one long side
-			scene.addObject( new SRJS.Cube( 5,
-										new THREE.Vector3( 197.4 - i * 15, 52.5, 197.52 ),
+			scene.addObject( new SRJS.Cube( 4.9,
+										new THREE.Vector3( 197.4 - i * 15, 52.45, 197.57 ),
 										SRJS.Material.blue
 									) );
 			// the other long side
-			scene.addObject( new SRJS.Cube( 5,
-										new THREE.Vector3( 197.52, 52.5, -197.4 + i * 15 ),
+			scene.addObject( new SRJS.Cube( 4.9,
+										new THREE.Vector3( 197.57, 52.45, -197.4 + i * 15 ),
 										SRJS.Material.blue
 									) );
-			var height = i < 14 && i > 6 ? 47.52 : 52.5;
+			var height = i < 14 && i > 6 ? 47.57 : 52.45;
 			// one broken side
-			scene.addObject( new SRJS.Cube( 5,
-										new THREE.Vector3( 197.4 - i * 15, height, -197.52 ),
+			scene.addObject( new SRJS.Cube( 4.9,
+										new THREE.Vector3( 197.4 - i * 15, height, -197.57 ),
 										SRJS.Material.blue
 									) );
 			// the other broken side
-			scene.addObject( new SRJS.Cube( 5,
-										new THREE.Vector3( -197.52, height, 197.4 - i * 15 ),
+			scene.addObject( new SRJS.Cube( 4.9,
+										new THREE.Vector3( -197.57, height, 197.4 - i * 15 ),
 										SRJS.Material.blue
 									) );
 		}
