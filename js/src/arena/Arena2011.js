@@ -28,6 +28,8 @@ SRJS.Arena2011 = function(){
  
 		var pointLight = new THREE.PointLight( 0xff0000 );
 		pointLight.position.y = 150;
+		pointLight.position.x = 250;
+		pointLight.position.z = 250;
 		pointLight.distance = 100000;
 		pointLight.intensity = 0.5;
 		scene.addLight( pointLight );
@@ -88,6 +90,22 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( -99.3, 60, -99.3 ),
 										new THREE.Vector3( 0, Math.PI / 4, 0 )
 									) );
+		
+		// the blue blobs around the arena
+		// one long side
+		for( var i = 0; i < 27; i++ ){
+			scene.addObject( new SRJS.Cube( 5,
+										new THREE.Vector3( 197.4 - i * 15, 52.5, 197.52 ),
+										SRJS.Material.blue
+									) );
+		}
+		// the other long side
+		for( var i = 0; i < 27; i++ ){
+			scene.addObject( new SRJS.Cube( 5,
+										new THREE.Vector3( 197.52, 52.5, -197.4 + i * 15 ),
+										SRJS.Material.blue
+									) );
+		}
 		
 		// bob = new SRJS.Arena2011();
 		

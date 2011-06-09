@@ -1,7 +1,7 @@
-SRJS.Wall = function( width, height, depth, position, rotation ){
+SRJS.Wall = function( width, height, depth, position, rotation, material ){
 	
 	var geometry = new THREE.Cube( width, height, depth );
-	var materials = SRJS.Material.white;
+	var materials = material || SRJS.Material.white;
 	
 	THREE.Mesh.call( this, geometry, materials );
 	
