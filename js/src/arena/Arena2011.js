@@ -115,6 +115,30 @@ SRJS.Arena2011 = function(){
 									) );
 		}
 		
+		// add the quadrant triggers
+		var quadrantTrigger = function(){
+			console.log('i want my mummy');
+		};
+		scene.addObject( new SRJS.Trigger( 300, 100, 1,
+										new THREE.Vector3( -300, 100, 300 ),
+										new THREE.Vector3( 0, Math.PI / 4, 0 ),
+										quadrantTrigger
+									) );
+		scene.addObject( new SRJS.Trigger( 300, 100, 1,
+										new THREE.Vector3( -300, 100, -300 ),
+										new THREE.Vector3( 0, -Math.PI / 4, 0 ),
+										quadrantTrigger
+									) );
+		scene.addObject( new SRJS.Trigger( 300, 100, 1,
+										new THREE.Vector3( 300, 100, 300 ),
+										new THREE.Vector3( 0, -Math.PI / 4, 0 ),
+										quadrantTrigger
+									) );
+		scene.addObject( new SRJS.Trigger( 300, 100, 1,
+										new THREE.Vector3( 300, 100, -300 ),
+										new THREE.Vector3( 0, Math.PI / 4, 0 ),
+										quadrantTrigger
+									) );
 		
 		// bob = new SRJS.Arena2011();
 		
