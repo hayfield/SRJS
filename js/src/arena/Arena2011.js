@@ -3,7 +3,7 @@ SRJS.Arena2011 = function(){
 	args = {};
 	
 	var camera, scene, renderer,
-    geometry, material, mesh, stats, light;
+    geometry, material, mesh, stats;
 
 	args.initScene = function(){
 		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
@@ -38,8 +38,8 @@ SRJS.Arena2011 = function(){
 		var cube, cubeMesh, wall, position, rotation;
 		// floor
 		scene.addObject( new SRJS.Wall( 800, 100, 800 ) );
-		//scene.addObject( new THREE.Mesh( new THREE.Cube( 800, 100, 800 ), SRJS.Material.white ) );
-		// 4 walls
+
+		// 4 outer walls
 		scene.addObject( new SRJS.Wall( 100, 60, 1000, new THREE.Vector3( 450, 80, 0 ) ) );
 		scene.addObject( new SRJS.Wall( 100, 60, 1000, new THREE.Vector3( -450, 80, 0 ) ) );
 		scene.addObject( new SRJS.Wall( 100, 60, 1000,
@@ -50,30 +50,7 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, 80, 450 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
-		/*
-		cube = new THREE.Cube( 100, 60, 1000 );
-		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
-		cubeMesh.position.x = 450;
-		cubeMesh.position.y = 80;
-		scene.addObject( cubeMesh );
-		cube = new THREE.Cube( 100, 60, 1000 );
-		cubeMesh = new THREE.Mesh( cube, SRJS.Material.red );
-		cubeMesh.position.x = -450;
-		cubeMesh.position.y = 80;
-		scene.addObject( cubeMesh );
-		cube = new THREE.Cube( 100, 60, 1000 );
-		cubeMesh = new THREE.Mesh( cube, SRJS.Material.blue );
-		cubeMesh.position.z = -450;
-		cubeMesh.position.y = 80;
-		cubeMesh.rotation.y = Math.PI / 2;
-		scene.addObject( cubeMesh );
-		cube = new THREE.Cube( 100, 60, 1000 );
-		cubeMesh = new THREE.Mesh( cube, SRJS.Material.blue );
-		cubeMesh.position.z = 450;
-		cubeMesh.position.y = 80;
-		cubeMesh.rotation.y = Math.PI / 2;
-		scene.addObject( cubeMesh );
-		*/
+		
 		
         mesh = new THREE.Mesh( geometry, material );
         scene.addObject( mesh );
