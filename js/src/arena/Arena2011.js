@@ -33,7 +33,7 @@ SRJS.Arena2011 = function(){
 		pointLight.intensity = 0.5;
 		scene.addLight( pointLight );
 
-        geometry = new THREE.Cube( 200, 200, 200 );
+        geometry = new THREE.CubeGeometry( 200, 200, 200 );
         material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 		
 		var cube, cubeMesh, wall, position, rotation;
