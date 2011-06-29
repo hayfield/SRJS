@@ -135,7 +135,8 @@ SRJS.Arena2011 = function(){
 										quadrantTrigger
 									) );
 									
-		scene.addObject( new SRJS.Robot() );
+		robot = new SRJS.Robot();
+		scene.addObject( robot );
 		
 		// bob = new SRJS.Arena2011();
 
@@ -154,6 +155,8 @@ SRJS.Arena2011 = function(){
 	args.initScene();
 	args.scene = scene;
 	args.animate = function(){
+		robot.translateZ( 1 );
+		robot.rotation.y -= 0.005;
 		requestAnimationFrame( args.animate );
         args.render();
 		
