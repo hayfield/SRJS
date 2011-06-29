@@ -142,7 +142,7 @@ SRJS.Arena2011 = function(){
 
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
-
+        //document.getElementById('cellTopLeft').appendChild( renderer.domElement );
         document.body.appendChild( renderer.domElement );
  
 		if( SRJS.floatyCam ){
@@ -181,6 +181,6 @@ SRJS.Arena2011 = function(){
     };
 	args.animate();
 	
-	console.log(args);
+	console.log('args', args);
 	
 };
