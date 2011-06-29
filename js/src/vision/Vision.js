@@ -1,0 +1,5 @@
+SRJS.Vision = function(){
+
+	
+
+};
