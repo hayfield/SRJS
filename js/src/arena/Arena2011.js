@@ -134,6 +134,8 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 ),
 										quadrantTrigger
 									) );
+									
+		scene.addObject( new SRJS.Robot() );
 		
 		// bob = new SRJS.Arena2011();
 

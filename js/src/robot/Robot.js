@@ -1,6 +1,8 @@
 SRJS.Robot = function(){
 	
-	SRJS.Cube.call( this, 50 );
+	SRJS.Cube.call( this, 50,
+					new THREE.Vector3( 340, 75, -340 ),
+					SRJS.Material.green );
 	
 	
 
