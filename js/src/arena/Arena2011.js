@@ -145,7 +145,7 @@ SRJS.Arena2011 = function(){
 
         document.body.appendChild( renderer.domElement );
  
-		renderer.render( scene, robot.camera );
+		renderer.render( scene, camera );
 		
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
@@ -155,8 +155,9 @@ SRJS.Arena2011 = function(){
 	args.initScene();
 	args.scene = scene;
 	args.animate = function(){
-		robot.translateZ( -1 );
-		robot.rotation.y += 0.005;
+		//robot.translateZ( -1 );
+		//robot.rotation.y += 0.005;
+		robot.move();
 		requestAnimationFrame( args.animate );
         args.render();
 		
@@ -167,7 +168,7 @@ SRJS.Arena2011 = function(){
 					robot.rotation.y, robot.camera.rotation.y,
 					robot.rotation.z, robot.camera.rotation.z);
        */
-	    renderer.render( scene, robot.camera );
+	    renderer.render( scene, camera );
 
     };
 	args.animate();

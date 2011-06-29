@@ -5,6 +5,7 @@ SRJS.Motor = function(){
 
 };
 
+// https://developer.mozilla.org/en/Core_JavaScript_1.5_Guide/Working_with_Objects#Defining_Getters_and_Setters
 SRJS.Motor.prototype.__defineGetter__('target',
 	function(){
 		return this._target;
