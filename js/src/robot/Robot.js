@@ -7,8 +7,9 @@ SRJS.Robot = function(){
 	this.camera = new THREE.Camera();
 	this.addChild( this.camera );
 	
-	console.log('pos', this.position, this);
-	
+	this.motor = new Array();
+	this.motor[0] = new SRJS.Motor();
+	this.motor[1] = new SRJS.Motor();
 
 };
 
