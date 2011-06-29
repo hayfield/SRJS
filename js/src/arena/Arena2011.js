@@ -2,13 +2,11 @@ SRJS.Arena2011 = function(){
 	
 	args = {};
 	
-	var camera, scene, renderer,
-    geometry, material, mesh, stats;
+	var camera, scene, renderer, mesh, stats;
 
 	args.initScene = function(){
 		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 		camera = new THREE.QuakeCamera( {
- 
 					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
 					constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
 					movementSpeed: 1000, lookSpeed: 0.125, noFly: false, lookVertical: true, autoForward: false
@@ -33,9 +31,6 @@ SRJS.Arena2011 = function(){
 		pointLight.intensity = 0.5;
 		scene.addLight( pointLight );
 
-        geometry = new THREE.CubeGeometry( 200, 200, 200 );
-        material = new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
-		
 		var cube, cubeMesh, wall, position, rotation;
 		// floor
 		scene.addObject( new SRJS.Wall( 800, 100, 800 ) );
@@ -141,10 +136,6 @@ SRJS.Arena2011 = function(){
 									) );
 		
 		// bob = new SRJS.Arena2011();
-		
-		
-        mesh = new THREE.Mesh( geometry, material );
-        scene.addObject( mesh );
 
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth, window.innerHeight );
@@ -167,9 +158,6 @@ SRJS.Arena2011 = function(){
 		stats.update();
 	};
 	args.render = function(){
-
-        mesh.rotation.x += 0.01;
-        mesh.rotation.y += 0.02;
 
         renderer.render( scene, camera );
 
