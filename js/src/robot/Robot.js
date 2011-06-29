@@ -4,13 +4,8 @@ SRJS.Robot = function(){
 					new THREE.Vector3( 340, 75, 0 ),
 					SRJS.Material.green );
 	
-	/*this.camera = new THREE.Camera();
-	this.camera.position = this.position;
-	this.camera.rotation = this.rotation;*/
-	
-	this.addChild( new THREE.Camera() );
-	this.camera = this.children[0];
-	this.children[0].rotation.x = Math.PI;
+	this.camera = new THREE.Camera();
+	this.addChild( this.camera );
 	
 	console.log('pos', this.position, this);
 	
