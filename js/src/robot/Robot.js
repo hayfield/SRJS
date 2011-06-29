@@ -32,7 +32,6 @@ SRJS.Robot.prototype.move = function(){
 	// move each wheel forward
 	var left = this.speed * this.motor[0].target * elapsed;
 	var right = this.speed * this.motor[1].target * elapsed;
-	//console.log(left, right, this.speed, elapsed);
 	
 	// work out the angle between the two wheels
 	var opp = Math.max(left, right) - Math.min(left, right);

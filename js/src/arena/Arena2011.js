@@ -145,7 +145,11 @@ SRJS.Arena2011 = function(){
 
         document.body.appendChild( renderer.domElement );
  
-		renderer.render( scene, camera );
+		if( SRJS.floatyCam ){
+			renderer.render( scene, camera );
+		} else {
+			renderer.render( scene, robot.camera );
+		}
 		
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
@@ -167,8 +171,12 @@ SRJS.Arena2011 = function(){
 		/*console.log(robot.rotation.x, robot.camera.rotation.x,
 					robot.rotation.y, robot.camera.rotation.y,
 					robot.rotation.z, robot.camera.rotation.z);
-       */
-	    renderer.render( scene, camera );
+        */
+	    if( SRJS.floatyCam ){
+			renderer.render( scene, camera );
+		} else {
+			renderer.render( scene, robot.camera );
+		}
 
     };
 	args.animate();
