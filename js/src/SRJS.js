@@ -1,3 +1,3 @@
 var SRJS = SRJS || {};
 
-SRJS.floatyCam = true;
+SRJS.floatyCam = false;

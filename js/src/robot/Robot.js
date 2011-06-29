@@ -16,8 +16,8 @@ SRJS.Robot = function(){
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
 	
-	this.motor[0].target = 50;
-	this.motor[1].target = 40;
+	this.motor[0].target = 40;
+	this.motor[1].target = 50;
 
 };
 
@@ -34,9 +34,9 @@ SRJS.Robot.prototype.move = function(){
 	var right = this.speed * this.motor[1].target * elapsed;
 	
 	// work out the angle between the two wheels
-	var opp = Math.max(left, right) - Math.min(left, right);
-	var adj = 50;
-	var angle = Math.atan( opp / adj );
+	var opposite = Math.max(left, right) - Math.min(left, right);
+	var adjacent = 50;
+	var angle = Math.atan( opposite / adjacent );
 	
 	if( this.motor[0].target > this.motor[1].target ){
 		angle = -angle;
