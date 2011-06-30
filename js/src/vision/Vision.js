@@ -25,7 +25,6 @@ SRJS.Vision.prototype.processData = function( imgData ){
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
 		}
 	}
-	//console.log(hsv, hsv.h, hsv.s, hsv.v, dataLength);
 	
 	return imgData;
 };
@@ -49,7 +48,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 	} catch ( e ) {
 		throw new Error('Unable to access image data: ' + e);
 	}
-	//console.log( canvasContext, width, height, x, y, imgData.length );
+
 	return imgData;
 };
 
