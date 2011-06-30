@@ -23,7 +23,9 @@ SRJS.Vision = function(){
 };
 
 SRJS.Vision.prototype.blueMin = 235;
-SRJS.Vision.prototype.blueMax = 250;
+SRJS.Vision.prototype.blueMax = 255;
+SRJS.Vision.prototype.greenMin = 115;
+SRJS.Vision.prototype.greenMax = 125;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
@@ -40,9 +42,13 @@ SRJS.Vision.prototype.processData = function( imgData ){
 				&& hsv.h < SRJS.Vision.prototype.blueMax ){
 			// show as white
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
+		} else if ( hsv.h > SRJS.Vision.prototype.greenMin
+				&& hsv.h < SRJS.Vision.prototype.greenMax ){
+			// show as a lisghting grey
+			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 170;
 		} else {
 			// show as a darkish grey
-			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
+			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 40;
 		}
 	}
 	
