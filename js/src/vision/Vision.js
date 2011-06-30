@@ -17,8 +17,14 @@ SRJS.Vision = function(){
 			vision.context.drawImage( img, 0, 0 );
 			var imageData = vision.processData( vision.getImageData( vision.context ));
 			vision.context.putImageData( imageData, 0, 0 );
+			vision.detectBlobs( imageData );
 		};
 		img.src = renderer.domElement.toDataURL('image/png');
+	};
+	
+	this.detectBlobs = function( imgData ){
+		// imgData should already have been run through this.processData()
+		console.log(imgData.height, imgData.width);
 	};
 
 };
@@ -34,6 +40,7 @@ SRJS.Vision.prototype.redSaturationMin = 0.9;
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
 	var dataLength = imgData.data.length / 4; // rgba
+	imgData.colors = new Array();
 	
 	for( var i = 0; i < dataLength; i++ ){
 		// convert the rgb data to hsv
@@ -47,18 +54,22 @@ SRJS.Vision.prototype.processData = function( imgData ){
 				&& hsv.h < SRJS.Vision.prototype.blueMax ){
 			// show as white
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
+			imgData.colors[i] = SRJS.BLUE;
 		} else if ( hsv.h > SRJS.Vision.prototype.greenMin
 				&& hsv.h < SRJS.Vision.prototype.greenMax ){
 			// show as a lightish grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 170;
+			imgData.colors[i] = SRJS.GREEN;
 		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
 				&& hsv.h > SRJS.Vision.prototype.redMin
 				&& hsv.h < SRJS.Vision.prototype.redMax ){
 			// show as a darkish grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
+			imgData.colors[i] = SRJS.RED;
 		} else {
 			// show as a dark grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 40;
+			imgData.colors[i] = SRJS.NOTHING;
 		}
 	}
 	
