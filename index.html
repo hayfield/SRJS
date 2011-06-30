@@ -29,6 +29,7 @@
 	<script type="text/javascript" src="js/src/vision/Vision.js"></script>
 	<script type="text/javascript" src="js/src/vision/Blob.js"></script>
 	<script type="text/javascript" src="js/src/vision/Colors.js"></script>
+
 </head> 
 <body> 
 	<div id="container">
@@ -38,10 +39,16 @@
 			<td id="cellTopRight"></td>
 		</tr>
 		<tr>
-			<td id="cellBottomLeft"></td>
+			<td id="cellBottomLeft">
+				<canvas id="visionDebug" />
+			</td>
 			<td id="cellBottomRight"></td>
 		</tr>
 	</table>
 	</div>
+	
+	<script type="text/javascript">
+		SRJS.Init();
+	</script>
 </body> 
 </html>

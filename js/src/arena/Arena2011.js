@@ -141,9 +141,11 @@ SRJS.Arena2011 = function(){
 		// bob = new SRJS.Arena2011();
 
         renderer = new THREE.WebGLRenderer();
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
         //document.getElementById('cellTopLeft').appendChild( renderer.domElement );
         document.body.appendChild( renderer.domElement );
+		debugCanvas.width = window.innerWidth / 2;
+		debugCanvas.height = window.innerHeight / 2;
  
 		if( SRJS.floatyCam ){
 			renderer.render( scene, camera );
@@ -177,6 +179,16 @@ SRJS.Arena2011 = function(){
 		} else {
 			renderer.render( scene, robot.camera );
 		}
+		
+		/*debugContext.fillStyle = 'rgba(51,153,255,0.3)';
+        debugContext.strokeStyle = 'rgb(150,205,255)';
+        debugContext.fillRect( 50, 50, 200, 200 );*/
+		var img = new Image();
+		img.onload = function(){
+			debugContext.clearRect( 0, 0, debugCanvas.width, debugCanvas.height );
+			debugContext.drawImage( img, 0, 0 );
+		};
+		img.src = renderer.domElement.toDataURL("image/png");
 
     };
 	args.animate();
