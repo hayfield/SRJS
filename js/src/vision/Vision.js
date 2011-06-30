@@ -4,6 +4,29 @@ SRJS.Vision = function(){
 
 };
 
+SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
+	var imgData;
+	x = x || 0;
+	y = y || 0;
+	width = width || canvasContext.canvas.width;
+	height = height || canvasContext.canvas.height;
+	
+	// http://blog.project-sierra.de/archives/1577
+	// http://stackoverflow.com/questions/4121142/javascript-getimagedata-for-canvas-html5
+	try {
+		try { 
+			imgData = canvasContext.getImageData( x, y, width, height );
+		} catch( e ) { 
+			netscape.security.PrivilegeManager.enablePrivilege('UniversalBrowserRead');
+			imgData = canvasContext.getImageData( x, y, width, height );
+		}						  
+	} catch ( e ) {
+		throw new Error('Unable to access image data: ' + e);
+	}
+	
+	return imgData;
+};
+
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
 SRJS.Vision.prototype.rgbToHsv = function( r, g, b ){
 	var hsv = {};
@@ -70,7 +93,7 @@ SRJS.Vision.prototype.hsvToRgb = function( h, s, v ){
 			rgb.g = v;
 			rgb.b = p;
 			break;
-		case 2
+		case 2:
 			rgb.r = p;
 			rgb.g = v;
 			rgb.b = t;
