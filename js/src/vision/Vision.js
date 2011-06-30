@@ -15,7 +15,8 @@ SRJS.Vision = function(){
 		img.onload = function(){
 			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
 			vision.context.drawImage( img, 0, 0 );
-			vision.context.putImageData( vision.processData( vision.getImageData(vision.context)),0,0);
+			var imageData = vision.processData( vision.getImageData( vision.context ));
+			vision.context.putImageData( imageData, 0, 0 );
 		};
 		img.src = renderer.domElement.toDataURL('image/png');
 	};
