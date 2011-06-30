@@ -26,6 +26,9 @@ SRJS.Vision.prototype.blueMin = 235;
 SRJS.Vision.prototype.blueMax = 255;
 SRJS.Vision.prototype.greenMin = 115;
 SRJS.Vision.prototype.greenMax = 125;
+SRJS.Vision.prototype.redMin = -1;
+SRJS.Vision.prototype.redMax = 10;
+SRJS.Vision.prototype.redSaturationMin = 0.9;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
@@ -44,10 +47,15 @@ SRJS.Vision.prototype.processData = function( imgData ){
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
 		} else if ( hsv.h > SRJS.Vision.prototype.greenMin
 				&& hsv.h < SRJS.Vision.prototype.greenMax ){
-			// show as a lisghting grey
+			// show as a lightish grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 170;
-		} else {
+		} else if ( hsv.h > SRJS.Vision.prototype.redMin
+				&& hsv.h < SRJS.Vision.prototype.redMax
+				&& hsv.s > SRJS.Vision.prototype.redSaturationMin ){
 			// show as a darkish grey
+			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
+		} else {
+			// show as a dark grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 40;
 		}
 	}
