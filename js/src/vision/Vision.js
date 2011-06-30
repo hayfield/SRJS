@@ -4,8 +4,8 @@ SRJS.Vision = function(){
 
 };
 
-SRJS.Vision.prototype.blueMin = 90;
-SRJS.Vision.prototype.blueMax = 115;
+SRJS.Vision.prototype.blueMin = 235;
+SRJS.Vision.prototype.blueMax = 250;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
