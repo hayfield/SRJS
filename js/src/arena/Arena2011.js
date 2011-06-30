@@ -146,8 +146,6 @@ SRJS.Arena2011 = function(){
         renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
         //document.getElementById('cellTopLeft').appendChild( renderer.domElement );
         document.body.appendChild( renderer.domElement );
-		debugCanvas.width = window.innerWidth / 2;
-		debugCanvas.height = window.innerHeight / 2;
  
 		if( SRJS.floatyCam ){
 			renderer.render( scene, camera );
@@ -174,7 +172,7 @@ SRJS.Arena2011 = function(){
 		
 		stats.update();
 	};
-	var vis = new SRJS.Vision();
+	//var vis = new SRJS.Vision();
 	args.render = function(){
 		/*console.log(robot.rotation.x, robot.camera.rotation.x,
 					robot.rotation.y, robot.camera.rotation.y,
@@ -185,19 +183,21 @@ SRJS.Arena2011 = function(){
 		} else {
 			renderer.render( scene, robot.camera );
 		}
+		
+		robot.vision.update( renderer );
 
 //debugContext.putImageData( vis.processData( vis.getImageData(rendererContext),0,0));
 
 		/*debugContext.fillStyle = 'rgba(51,153,255,0.3)';
         debugContext.strokeStyle = 'rgb(150,205,255)';
-        debugContext.fillRect( 50, 50, 200, 200 );*/
+        debugContext.fillRect( 50, 50, 200, 200 );
 		var img = new Image();
 		img.onload = function(){
 			debugContext.clearRect( 0, 0, debugCanvas.width, debugCanvas.height );
 			debugContext.drawImage( img, 0, 0 );
 debugContext.putImageData( vis.processData( vis.getImageData(debugContext)),0,0);
 		};
-		img.src = renderer.domElement.toDataURL("image/png");
+		img.src = renderer.domElement.toDataURL("image/png");*/
 
     };
 	args.animate();

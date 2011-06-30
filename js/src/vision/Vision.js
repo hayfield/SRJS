@@ -1,6 +1,24 @@
 SRJS.Vision = function(){
 
 	this.blobs = new Array();
+	
+	this.canvas = document.createElement('canvas');
+	this.canvas.width = window.innerWidth / 2;
+	this.canvas.height = window.innerHeight / 2;
+	document.body.appendChild( this.canvas );
+	this.context = this.canvas.getContext('2d');
+	
+	console.log(this.canvas.width);
+	
+	this.update = function( renderer ){
+		var img = new Image();
+		img.onload = function(){
+			this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
+			this.context.drawImage( img, 0, 0 );
+this.context.putImageData( this.processData( this.getImageData(this.context)),0,0);
+		};
+		img.src = renderer.domElement.toDataURL('image/png');
+	};
 
 };
 
@@ -10,14 +28,16 @@ SRJS.Vision.prototype.blueMax = 250;
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
 	var dataLength = imgData.data.length / 4; // rgba
-	var vis = new SRJS.Vision();
 	
 	for( var i = 0; i < dataLength; i++ ){
 		// convert the rgb data to hsv
-		hsv = vis.rgbToHsv( imgData.data[i*4], imgData.data[i*4 + 1], imgData.data[i*4 + 2] );
+		hsv = SRJS.Vision.prototype.rgbToHsv( imgData.data[i*4],
+							imgData.data[i*4 + 1],
+							imgData.data[i*4 + 2] );
 		
 		// check to see if the value is within the required range
-		if( hsv.h > vis.blueMin && hsv.h < vis.blueMax ){
+		if( hsv.h > SRJS.Vision.prototype.blueMin
+				&& hsv.h < SRJS.Vision.prototype.blueMax ){
 			// show as white
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
 		} else {
