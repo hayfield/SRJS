@@ -38,7 +38,8 @@ SRJS.Vision.prototype.processData = function( imgData ){
 		// convert the rgb data to hsv
 		hsv = SRJS.Vision.prototype.rgbToHsv( imgData.data[i*4],
 							imgData.data[i*4 + 1],
-							imgData.data[i*4 + 2] );
+							imgData.data[i*4 + 2],
+							hsv );
 		
 		// check to see if the value is within the required range for each color
 		if( hsv.h > SRJS.Vision.prototype.blueMin
@@ -64,8 +65,8 @@ SRJS.Vision.prototype.processData = function( imgData ){
 };
 
 SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
-	var imgData;
-	x = x || 0;
+	var imgData,
+	x = x || 0,
 	y = y || 0;
 	width = width || canvasContext.canvas.width;
 	height = height || canvasContext.canvas.height;
@@ -87,8 +88,8 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 };
 
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
-SRJS.Vision.prototype.rgbToHsv = function( r, g, b ){
-	var hsv = {};
+SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
+	var hsv = hsv || {};
 	var min, max, delta;
 	
 	min = Math.min( r, g, b );
