@@ -2,20 +2,20 @@ SRJS.Vision = function(){
 
 	this.blobs = new Array();
 	
-	this.canvas = document.createElement('canvas');
+	var canvas = document.createElement('canvas');
+	this.canvas = canvas;
 	this.canvas.width = window.innerWidth / 2;
 	this.canvas.height = window.innerHeight / 2;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	
-	console.log(this.canvas.width);
-	
 	this.update = function( renderer ){
 		var img = new Image();
+		var vision = this;
 		img.onload = function(){
-			this.context.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-			this.context.drawImage( img, 0, 0 );
-this.context.putImageData( this.processData( this.getImageData(this.context)),0,0);
+			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
+			vision.context.drawImage( img, 0, 0 );
+			vision.context.putImageData( vision.processData( vision.getImageData(vision.context)),0,0);
 		};
 		img.src = renderer.domElement.toDataURL('image/png');
 	};
