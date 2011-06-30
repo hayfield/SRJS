@@ -40,7 +40,7 @@ SRJS.Vision.prototype.processData = function( imgData ){
 							imgData.data[i*4 + 1],
 							imgData.data[i*4 + 2] );
 		
-		// check to see if the value is within the required range
+		// check to see if the value is within the required range for each color
 		if( hsv.h > SRJS.Vision.prototype.blueMin
 				&& hsv.h < SRJS.Vision.prototype.blueMax ){
 			// show as white
@@ -49,9 +49,9 @@ SRJS.Vision.prototype.processData = function( imgData ){
 				&& hsv.h < SRJS.Vision.prototype.greenMax ){
 			// show as a lightish grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 170;
-		} else if ( hsv.h > SRJS.Vision.prototype.redMin
-				&& hsv.h < SRJS.Vision.prototype.redMax
-				&& hsv.s > SRJS.Vision.prototype.redSaturationMin ){
+		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
+				&& hsv.h > SRJS.Vision.prototype.redMin
+				&& hsv.h < SRJS.Vision.prototype.redMax ){
 			// show as a darkish grey
 			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
 		} else {
