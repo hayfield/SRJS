@@ -2,9 +2,11 @@ SRJS.Arena2011 = function(){
 	
 	args = {};
 	
-	var camera, scene, renderer, mesh, stats;
+	var camera, scene, renderer, rendererContext, mesh, stats, container;
 
 	args.initScene = function(){
+		container = document.createElement( 'div' );
+		document.body.appendChild( container );
 		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 		camera = new THREE.QuakeCamera( {
 					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
@@ -153,6 +155,9 @@ SRJS.Arena2011 = function(){
 			renderer.render( scene, robot.camera );
 		}
 		
+		rendererContext = renderer.domElement.getContext('experimental-webgl');
+		console.log('ren', rendererContext);
+		
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
 		stats.domElement.style.top = '0px';
@@ -169,6 +174,7 @@ SRJS.Arena2011 = function(){
 		
 		stats.update();
 	};
+	var vis = new SRJS.Vision();
 	args.render = function(){
 		/*console.log(robot.rotation.x, robot.camera.rotation.x,
 					robot.rotation.y, robot.camera.rotation.y,
@@ -179,7 +185,9 @@ SRJS.Arena2011 = function(){
 		} else {
 			renderer.render( scene, robot.camera );
 		}
-		
+
+//debugContext.putImageData( vis.processData( vis.getImageData(rendererContext),0,0));
+
 		/*debugContext.fillStyle = 'rgba(51,153,255,0.3)';
         debugContext.strokeStyle = 'rgb(150,205,255)';
         debugContext.fillRect( 50, 50, 200, 200 );*/
@@ -187,6 +195,7 @@ SRJS.Arena2011 = function(){
 		img.onload = function(){
 			debugContext.clearRect( 0, 0, debugCanvas.width, debugCanvas.height );
 			debugContext.drawImage( img, 0, 0 );
+debugContext.putImageData( vis.processData( vis.getImageData(debugContext)),0,0);
 		};
 		img.src = renderer.domElement.toDataURL("image/png");
 

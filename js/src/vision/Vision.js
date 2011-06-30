@@ -4,6 +4,32 @@ SRJS.Vision = function(){
 
 };
 
+SRJS.Vision.prototype.blueMin = 90;
+SRJS.Vision.prototype.blueMax = 115;
+
+SRJS.Vision.prototype.processData = function( imgData ){
+	var hsv = {};
+	var dataLength = imgData.data.length / 4; // rgba
+	var vis = new SRJS.Vision();
+	
+	for( var i = 0; i < dataLength; i++ ){
+		// convert the rgb data to hsv
+		hsv = vis.rgbToHsv( imgData.data[i*4], imgData.data[i*4 + 1], imgData.data[i*4 + 2] );
+		
+		// check to see if the value is within the required range
+		if( hsv.h > vis.blueMin && hsv.h < vis.blueMax ){
+			// show as white
+			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
+		} else {
+			// show as a darkish grey
+			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
+		}
+	}
+	//console.log(hsv, hsv.h, hsv.s, hsv.v, dataLength);
+	
+	return imgData;
+};
+
 SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
 	var imgData;
 	x = x || 0;
@@ -23,7 +49,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 	} catch ( e ) {
 		throw new Error('Unable to access image data: ' + e);
 	}
-	
+	//console.log( canvasContext, width, height, x, y, imgData.length );
 	return imgData;
 };
 
