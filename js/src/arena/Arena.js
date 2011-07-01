@@ -13,10 +13,6 @@ SRJS.Arena = function( args ){
 		this.scene = args.scene || new THREE.Scene();
 		
 		this.robots = new Array();
-		this.addRobot();
-		var robby = new SRJS.Robot();
-		robby.motor[0].target = 30;
-		this.addRobot( robby );
 		
 		this.renderer = args.renderer || function(){
 			console.error('Incomplete arguments passed to SRJS.Arena() - missing renderer');
@@ -46,7 +42,7 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			if( SRJS.floatyCam ){
+			if( SRJS.floatyCam || arena.robots.length === 0 ){
 				arena.renderer.render( arena.scene, arena.camera );
 			} else {
 				arena.renderer.render( arena.scene, arena.robots[0].camera );
