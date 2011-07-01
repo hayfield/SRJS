@@ -6,7 +6,7 @@ SRJS.Arena2011 = function(){
 
 	args.initScene = function(){
 		
-		container = document.createElement( 'div' );
+		container = document.createElement('div');
 		document.body.appendChild( container );
 		camera = new THREE.QuakeCamera( {
 					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
@@ -33,7 +33,6 @@ SRJS.Arena2011 = function(){
 		pointLight.intensity = 0.5;
 		scene.addLight( pointLight );
 
-		var cube, cubeMesh, wall, position, rotation;
 		// floor
 		scene.addObject( new SRJS.Wall( 800, 100, 800 ) );
 

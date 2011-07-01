@@ -15,9 +15,6 @@ SRJS.Arena = function( args ){
 		this.robot = new SRJS.Robot();
 		this.scene.addObject( this.robot );
 		
-		this.init = args.init || function(){
-			console.error('Incomplete arguments passed to SRJS.Arena() - missing init');
-		};
 		this.renderer = args.renderer || function(){
 			console.error('Incomplete arguments passed to SRJS.Arena() - missing renderer');
 		};
