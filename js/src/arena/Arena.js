@@ -42,14 +42,15 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			if( SRJS.floatyCam || arena.robots.length === 0 ){
+			/*if( SRJS.floatyCam || arena.robots.length === 0 ){
 				arena.renderer.render( arena.scene, arena.camera );
 			} else {
 				arena.renderer.render( arena.scene, arena.robots[0].camera );
-			}
+			}*/
 			
 			var robot = 0;
 			while( robot < arena.robots.length ){
+				arena.renderer.render( arena.scene, arena.robots[robot].camera );
 				arena.robots[robot].vision.update( arena.renderer );
 				
 				robot++;

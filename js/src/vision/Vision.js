@@ -4,8 +4,8 @@ SRJS.Vision = function(){
 	
 	var canvas = document.createElement('canvas');
 	this.canvas = canvas;
-	this.canvas.width = window.innerWidth / 2;
-	this.canvas.height = window.innerHeight / 2;
+	this.canvas.width = SRJS.CURRENT_ARENA.renderer.domElement.width;
+	this.canvas.height = SRJS.CURRENT_ARENA.renderer.domElement.height;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	

@@ -138,7 +138,7 @@ SRJS.Arena2011 = function(){
 
         renderer = new THREE.WebGLRenderer();
         //renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
-        renderer.setSize( 100, 100 );
+        renderer.setSize( 200, 200 );
         document.body.appendChild( renderer.domElement );
 		
 		rendererContext = renderer.domElement.getContext('experimental-webgl');
