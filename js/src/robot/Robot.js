@@ -16,6 +16,10 @@ SRJS.Robot = function(){
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
 	
+	this.main = function(){
+		
+	};
+	
 	this.motor[0].target = 40;
 	this.motor[1].target = 50;
 	

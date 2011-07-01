@@ -12,8 +12,11 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
-		this.robot = new SRJS.Robot();
-		this.scene.addObject( this.robot );
+		this.robots = new Array();
+		this.addRobot();
+		var robby = new SRJS.Robot();
+		robby.motor[0].target = 30;
+		this.addRobot( robby );
 		
 		this.renderer = args.renderer || function(){
 			console.error('Incomplete arguments passed to SRJS.Arena() - missing renderer');
@@ -26,11 +29,18 @@ SRJS.Arena = function( args ){
 		};
 		
 		this.animate = function(){
-			SRJS.CURRENT_ARENA.robot.move();
-			requestAnimationFrame( SRJS.CURRENT_ARENA.animate );
-			SRJS.CURRENT_ARENA.render();
+			var arena = SRJS.CURRENT_ARENA;
+			var robot = 0;
+			while( robot < arena.robots.length ){
+				arena.robots[robot].move();
+				arena.robots[robot].main();
+				robot++;
+			}
 			
-			SRJS.CURRENT_ARENA.stats.update();
+			requestAnimationFrame( arena.animate );
+			arena.render();
+			
+			arena.stats.update();
 		};
 		
 		this.render = function(){
@@ -39,10 +49,15 @@ SRJS.Arena = function( args ){
 			if( SRJS.floatyCam ){
 				arena.renderer.render( arena.scene, arena.camera );
 			} else {
-				arena.renderer.render( arena.scene, arena.robot.camera );
+				arena.renderer.render( arena.scene, arena.robots[0].camera );
 			}
 			
-			arena.robot.vision.update( arena.renderer );
+			var robot = 0;
+			while( robot < arena.robots.length ){
+				arena.robots[robot].vision.update( arena.renderer );
+				
+				robot++;
+			}
 		};
 		
 		SRJS.CURRENT_ARENA = this;
@@ -51,4 +66,9 @@ SRJS.Arena = function( args ){
 	
 	}
 	
+};
+
+SRJS.Arena.prototype.addRobot = function( robot ){
+	this.robots[this.robots.length] = robot || new SRJS.Robot();
+	this.scene.addObject( this.robots[this.robots.length - 1] );
 };
