@@ -15,6 +15,7 @@ SRJS.Vision = function(){
 		img.onload = function(){
 			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
 			vision.context.drawImage( img, 0, 0 );
+			
 			var imageData = vision.processData( vision.getImageData( vision.context ));
 			vision.context.putImageData( imageData, 0, 0 );
 			vision.detectBlobs( imageData );
@@ -24,7 +25,35 @@ SRJS.Vision = function(){
 	
 	this.detectBlobs = function( imgData ){
 		// imgData should already have been run through this.processData()
-		console.log(imgData.height, imgData.width);
+		
+		var colorValue, oldColorValue, span, spanStart, spans, colors, pixel;
+		colorValue = oldColorValue = SRJS.NOTHING;
+		spans = new Array();
+		colors = imgData.colors;
+		pixel = 1;
+		
+		// loop through the rows of the image
+		for( var row = 0; row < imgData.height; row++ ){
+			span = spanStart = 0;
+			
+			// and do things with each column of each row
+			for( var col = 1; col < imgData.width; col++ ){
+				// if two pixels next to each other aren't the same color
+				if( colors[ pixel ] !== colors[ pixel - 1 ] ){
+					// indicate that you're starting a new span
+					if( col - spanStart > this.spanMinLength ){
+						spanStart = col;
+						
+						continue;
+					} else {
+						
+					}
+				}
+				
+				pixel++;
+			}
+			pixel++;
+		}
 	};
 
 };
@@ -36,6 +65,8 @@ SRJS.Vision.prototype.greenMax = 125;
 SRJS.Vision.prototype.redMin = -1;
 SRJS.Vision.prototype.redMax = 10;
 SRJS.Vision.prototype.redSaturationMin = 0.9;
+
+SRJS.Vision.prototype.spanMinLength = 3;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
