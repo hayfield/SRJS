@@ -1,13 +1,13 @@
 SRJS.Arena2011 = function(){
 	
-	args = {};
+	var args = {};
 	
-	var camera, scene, renderer, rendererContext, mesh, stats, container;
+	var camera, scene, renderer, rendererContext, stats, container;
 
 	args.initScene = function(){
+		
 		container = document.createElement( 'div' );
 		document.body.appendChild( container );
-		//camera = new THREE.Camera( 75, window.innerWidth / window.innerHeight, 1, 10000 );
 		camera = new THREE.QuakeCamera( {
 					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
 					constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
@@ -114,7 +114,7 @@ SRJS.Arena2011 = function(){
 		
 		// add the quadrant triggers
 		var quadrantTrigger = function(){
-			console.log('i want my mummy');
+			console.log('Quadrant trigger has been triggered');
 		};
 		scene.addObject( new SRJS.Trigger( 300, 100, 1,
 										new THREE.Vector3( -300, 100, 300 ),
@@ -136,72 +136,30 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 ),
 										quadrantTrigger
 									) );
-									
-		robot = new SRJS.Robot();
-		scene.addObject( robot );
-		
-		// bob = new SRJS.Arena2011();
 
         renderer = new THREE.WebGLRenderer();
         renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
-        //document.getElementById('cellTopLeft').appendChild( renderer.domElement );
         document.body.appendChild( renderer.domElement );
- 
-		if( SRJS.floatyCam ){
-			renderer.render( scene, camera );
-		} else {
-			renderer.render( scene, robot.camera );
-		}
 		
 		rendererContext = renderer.domElement.getContext('experimental-webgl');
-		console.log('ren', rendererContext);
 		
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
 		stats.domElement.style.top = '0px';
 		container.appendChild( stats.domElement );
-	};
-	args.initScene();
-	args.scene = scene;
-	args.animate = function(){
-		//robot.translateZ( -1 );
-		//robot.rotation.y += 0.005;
-		robot.move();
-		requestAnimationFrame( args.animate );
-        args.render();
 		
-		stats.update();
+		this.camera = camera;
+		this.scene = scene;
+		this.renderer = renderer;
+		this.rendererContext = rendererContext;
+		this.stats = stats;
+		this.container = container;
 	};
-	//var vis = new SRJS.Vision();
-	args.render = function(){
-		/*console.log(robot.rotation.x, robot.camera.rotation.x,
-					robot.rotation.y, robot.camera.rotation.y,
-					robot.rotation.z, robot.camera.rotation.z);
-        */
-	    if( SRJS.floatyCam ){
-			renderer.render( scene, camera );
-		} else {
-			renderer.render( scene, robot.camera );
-		}
-		
-		robot.vision.update( renderer );
-
-//debugContext.putImageData( vis.processData( vis.getImageData(rendererContext),0,0));
-
-		/*debugContext.fillStyle = 'rgba(51,153,255,0.3)';
-        debugContext.strokeStyle = 'rgb(150,205,255)';
-        debugContext.fillRect( 50, 50, 200, 200 );
-		var img = new Image();
-		img.onload = function(){
-			debugContext.clearRect( 0, 0, debugCanvas.width, debugCanvas.height );
-			debugContext.drawImage( img, 0, 0 );
-debugContext.putImageData( vis.processData( vis.getImageData(debugContext)),0,0);
-		};
-		img.src = renderer.domElement.toDataURL("image/png");*/
-
-    };
-	args.animate();
 	
-	console.log('args', args);
+	args.initScene();
+	
+	var arena = new SRJS.Arena( args );
+	
+	console.log('Arena 2011 args', args);
 	
 };

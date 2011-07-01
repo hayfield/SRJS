@@ -12,6 +12,7 @@ SRJS.Vision = function(){
 	this.update = function( renderer ){
 		var img = new Image();
 		var vision = this;
+		
 		img.onload = function(){
 			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
 			vision.context.drawImage( img, 0, 0 );
