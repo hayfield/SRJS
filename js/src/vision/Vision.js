@@ -72,7 +72,7 @@ SRJS.Vision = function(){
 				for( i = 0; i < span; i++ ){
 					for( j = 0; j < spansAbove.length; j++ ){
 						// if the span on the current row and the one above are part of the same object
-						if( spans[i].color === spansAbove[j].color
+						if( spans[i].color === spansAbove[j].color && spansAbove[j].yMax === (row - 1)
 							&& Math.abs(spans[i].xMinBottom - spansAbove[j].xMinBottom) < this.spanMaxOffset
 							&& Math.abs(spans[i].xMaxBottom - spansAbove[j].xMaxBottom) < this.spanMaxOffset ){
 							// merge the span on the current row into the ane above
@@ -124,7 +124,23 @@ SRJS.Vision = function(){
 	};
 	
 	this.displayBlobs = function(){
-		console.log('dibby blobs', this);
+		var blob = 0;
+		while( blob < this.blobs.length ){
+			// set the colour to outline the blob
+			if( this.blobs[blob].color === SRJS.RED ){
+				this.context.strokeStyle = 'rgb(255,0,0)';
+			} else if ( this.blobs[blob].color === SRJS.GREEN ){
+				this.context.strokeStyle = 'rgb(0,255,0)';
+			} else if ( this.blobs[blob].color === SRJS.BLUE ){
+				this.context.strokeStyle = 'rgb(0,0,255)';
+			}
+			
+			// draw the blob
+			this.context.strokeRect( this.blobs[blob].x, this.blobs[blob].y,
+										this.blobs[blob].width, this.blobs[blob].height );
+			
+			blob++;
+		}
 	};
 
 };
