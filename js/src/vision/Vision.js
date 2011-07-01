@@ -42,7 +42,11 @@ SRJS.Vision = function(){
 				if( colors[ pixel ] !== colors[ pixel - 1 ] ){
 					// add the span just passed to the array if there's something there
 					if( colors[ pixel - 1 ] !== SRJS.NOTHING ){
-						spans[span] = new SRJS.Span( spanStart, col - 1, colors[ pixel - 1 ] );
+						spans[span] = {};
+						spans[span].xMin = spans[span].xMinBottom = spanStart;
+						spans[span].xMax = spans[span].xMaxBottom = col - 1;
+						spans[span].yMin = spans[span].yMax = row;
+						
 						span++;
 					}
 									
