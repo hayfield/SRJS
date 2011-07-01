@@ -159,6 +159,4 @@ SRJS.Arena2011 = function(){
 	
 	var arena = new SRJS.Arena( args );
 	
-	console.log('Arena 2011 args', args);
-	
 };
