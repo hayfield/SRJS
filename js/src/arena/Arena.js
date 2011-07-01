@@ -55,6 +55,8 @@ SRJS.Arena = function( args ){
 				
 				robot++;
 			}
+			
+			arena.renderer.render( arena.scene, arena.camera );
 		};
 		
 		SRJS.CURRENT_ARENA = this;
