@@ -1,5 +1,5 @@
 SRJS.Vision.detectBlobs()
- - Can create large numbers of span objects per frame. Possibly cache or reuse.
+ - Can create large numbers of span objects per frame. Possibly reuse to give the garbage collector some love.
 
 SRJS.Vision.prototype.rgbToHsv()
  - ~30% of time when profiling. Could do with optimisation.
