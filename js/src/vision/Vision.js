@@ -56,7 +56,7 @@ SRJS.Vision = function(){
 						spans[span].xMax = spans[span].xMaxBottom = col - 1;
 						spans[span].yMin = spans[span].yMax = row;
 						spans[span].color = colors[ pixel - 1 ];
-						
+
 						span++;
 					}
 									
@@ -100,7 +100,7 @@ SRJS.Vision = function(){
 			
 			// if you've found the first colored spans, make the fact known
 			if( !foundSpan && span > 0 ){
-				spansAbove = spans;
+				spansAbove = spans.slice(0, span - 1);
 				foundSpan = true;
 			}
 			
@@ -154,7 +154,7 @@ SRJS.Vision.prototype.redMax = 10;
 SRJS.Vision.prototype.redSaturationMin = 0.9;
 
 SRJS.Vision.prototype.spanMinLength = 3;
-SRJS.Vision.prototype.spanMaxOffset = 8;
+SRJS.Vision.prototype.spanMaxOffset = 14;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
