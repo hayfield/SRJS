@@ -26,15 +26,22 @@ SRJS.Vision = function(){
 	this.detectBlobs = function( imgData ){
 		// imgData should already have been run through this.processData()
 		
-		var colorValue, oldColorValue, span, spanStart, spans, colors, pixel;
+		var colorValue, oldColorValue,
+			span, spanStart, spans, spansAbove,
+			colors, pixel,
+			i, j,
+			foundSpan;
 		colorValue = oldColorValue = SRJS.NOTHING;
-		spans = new Array();
 		colors = imgData.colors;
 		pixel = 1;
+		foundSpan = false;
 		
 		// loop through the rows of the image
 		for( var row = 0; row < imgData.height; row++ ){
 			span = spanStart = 0;
+			if( spans.length > 0 ){
+				spans = new Array();
+			}
 			
 			// and do things with each column of each row
 			for( var col = 1; col < imgData.width; col++ ){
@@ -46,6 +53,7 @@ SRJS.Vision = function(){
 						spans[span].xMin = spans[span].xMinBottom = spanStart;
 						spans[span].xMax = spans[span].xMaxBottom = col - 1;
 						spans[span].yMin = spans[span].yMax = row;
+						spans[span].color = colors[ pixel - 1 ];
 						
 						span++;
 					}
@@ -57,9 +65,56 @@ SRJS.Vision = function(){
 				pixel++;
 			}
 			
-			// make comparisons with the row above
+			// make comparisons with the row above and join the two
+			if( foundSpan && span > 0 ){
+				for( i = 0; i < span; i++ ){
+					for( j = 0; j < spansAbove.length; j++ ){
+						// if the span on the current row and the one above are part of the same object
+						if( spans[i].color === spansAbove[j].color
+							&& Math.abs(spans[i].xMinBottom - spansAbove[j].xMinBottom) < this.spanMaxOffset
+							&& Math.abs(spans[i].xMaxBottom - spansAbove[j].xMaxBottom) < this.spanMaxOffset ){
+							// merge the span on the current row into the ane above
+							spansAbove[j].xMin = Math.min(spans[i].xMin, spansAbove[j].xMin);
+							spansAbove[j].xMax = Math.max(spans[i].xMax, spansAbove[j].xMax);
+							spansAbove[j].yMax = row;
+							spansAbove[j].xMinBottom = spans[i].xMinBottom;
+							spansAbove[j].xMaxBottom = spans[i].xMaxBottom;
+							
+							// indicate that the span has been used
+							spans[i].color = SRJS.NOTHING;
+							
+							break;
+						}
+					}
+				}
+				
+				// if there are any spans that haven't been merged, add them
+				for( i = 0; i < span; i++ ){
+					if( spans[i].color !== SRJS.NOTHING ){
+						spansAbove.push( spans[i] );
+					}
+				}
+			}
+			
+			// if you've found the first colored spans, make the fact known
+			if( !foundSpan && span > 0 ){
+				spansAbove = spans;
+				foundSpan = true;
+			}
 			
 			pixel++;
+		}
+		
+		// create the blobs
+		var blob = 0;
+		while( blob < spansAbove.length ){
+			this.blobs.push( new SRJS.Blob( spansAbove[blob].xMin,
+										spansAbove[blob].yMin,
+										spansAbove[blob].xMax - spansAbove[blob].xMin,
+										spansAbove[blob].yMax - spansAbove[blob].yMin,
+										spansAbove[blob].color ) );
+			
+			blob++;
 		}
 	};
 
@@ -74,7 +129,7 @@ SRJS.Vision.prototype.redMax = 10;
 SRJS.Vision.prototype.redSaturationMin = 0.9;
 
 SRJS.Vision.prototype.spanMinLength = 3;
-SRJS.Vision.prototype.spanMaxOffset = 3;
+SRJS.Vision.prototype.spanMaxOffset = 8;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
