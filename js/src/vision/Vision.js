@@ -40,18 +40,21 @@ SRJS.Vision = function(){
 			for( var col = 1; col < imgData.width; col++ ){
 				// if two pixels next to each other aren't the same color
 				if( colors[ pixel ] !== colors[ pixel - 1 ] ){
-					// indicate that you're starting a new span
-					if( col - spanStart > this.spanMinLength ){
-						spanStart = col;
-						
-						continue;
-					} else {
-						
+					// add the span just passed to the array if there's something there
+					if( colors[ pixel - 1 ] !== SRJS.NOTHING ){
+						spans[span] = new SRJS.Span( spanStart, col - 1, colors[ pixel - 1 ] );
+						span++;
 					}
+									
+					// indicate that you're starting a new span
+					spanStart = col;
 				}
 				
 				pixel++;
 			}
+			
+			// make comparisons with the row above
+			
 			pixel++;
 		}
 	};
@@ -67,6 +70,7 @@ SRJS.Vision.prototype.redMax = 10;
 SRJS.Vision.prototype.redSaturationMin = 0.9;
 
 SRJS.Vision.prototype.spanMinLength = 3;
+SRJS.Vision.prototype.spanMaxOffset = 3;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {};
