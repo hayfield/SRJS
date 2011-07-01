@@ -35,6 +35,7 @@ SRJS.Vision = function(){
 		colors = imgData.colors;
 		pixel = 1;
 		foundSpan = false;
+		spans = new Array();
 		
 		// loop through the rows of the image
 		for( var row = 0; row < imgData.height; row++ ){
@@ -106,15 +107,17 @@ SRJS.Vision = function(){
 		}
 		
 		// create the blobs
-		var blob = 0;
-		while( blob < spansAbove.length ){
-			this.blobs.push( new SRJS.Blob( spansAbove[blob].xMin,
-										spansAbove[blob].yMin,
-										spansAbove[blob].xMax - spansAbove[blob].xMin,
-										spansAbove[blob].yMax - spansAbove[blob].yMin,
-										spansAbove[blob].color ) );
-			
-			blob++;
+		if( typeof spansAbove === 'object' && typeof spansAbove.length === 'number' ){
+			var blob = 0;
+			while( blob < spansAbove.length ){
+				this.blobs.push( new SRJS.Blob( spansAbove[blob].xMin,
+											spansAbove[blob].yMin,
+											spansAbove[blob].xMax - spansAbove[blob].xMin,
+											spansAbove[blob].yMax - spansAbove[blob].yMin,
+											spansAbove[blob].color ) );
+				
+				blob++;
+			}
 		}
 	};
 
