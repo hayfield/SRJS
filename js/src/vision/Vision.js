@@ -19,6 +19,7 @@ SRJS.Vision = function(){
 			var imageData = vision.processData( vision.getImageData( vision.context ));
 			vision.context.putImageData( imageData, 0, 0 );
 			vision.detectBlobs( imageData );
+			vision.displayBlobs();
 		};
 		img.src = renderer.domElement.toDataURL('image/png');
 	};
@@ -107,6 +108,7 @@ SRJS.Vision = function(){
 		}
 		
 		// create the blobs
+		this.blobs = new Array();
 		if( typeof spansAbove === 'object' && typeof spansAbove.length === 'number' ){
 			var blob = 0;
 			while( blob < spansAbove.length ){
@@ -119,6 +121,10 @@ SRJS.Vision = function(){
 				blob++;
 			}
 		}
+	};
+	
+	this.displayBlobs = function(){
+		console.log('dibby blobs', this);
 	};
 
 };
