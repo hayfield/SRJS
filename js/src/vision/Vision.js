@@ -49,7 +49,8 @@ SRJS.Vision = function(){
 			// and do things with each column of each row
 			for( var col = 1; col < imgData.width; col++ ){
 				// if two pixels next to each other aren't the same color
-				if( colors[ pixel ] !== colors[ pixel - 1 ] ){
+				if( colors[ pixel ] !== colors[ pixel - 1 ]
+					|| col === imgData.width - 1 ){ // or you're going off the right of the screen
 					// add the span just passed to the array if there's something there
 					if( colors[ pixel - 1 ] !== SRJS.NOTHING ){
 						spans[span] = {};
