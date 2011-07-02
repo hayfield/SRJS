@@ -5,14 +5,6 @@ SRJS.Arena2011 = function(){
 	var camera, scene;
 
 	args.initScene = function(){
-		
-		camera = new THREE.QuakeCamera( {
-					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
-					constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
-					movementSpeed: 1000, lookSpeed: 0.125, noFly: false, lookVertical: true, autoForward: false
- 
-				} );
-        camera.position.y = 100;
 
         scene = new THREE.Scene();
 		
@@ -133,8 +125,7 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 ),
 										quadrantTrigger
 									) );
-		
-		this.camera = camera;
+
 		this.scene = scene;
 	};
 	
