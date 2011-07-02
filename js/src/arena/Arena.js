@@ -15,8 +15,7 @@ SRJS.Arena = function( args ){
 		this.robots = new Array();
 		
 		this.renderer = new THREE.WebGLRenderer();
-		//renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
-		this.renderer.setSize( 200, 200 );
+		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
 		document.body.appendChild( this.renderer.domElement );
 		
 		this.rendererContext = this.renderer.domElement.getContext('experimental-webgl');
