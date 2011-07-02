@@ -2,7 +2,7 @@ SRJS.Arena2011 = function(){
 	
 	var args = {};
 	
-	var camera, scene, renderer, rendererContext, stats, container;
+	var camera, scene;
 
 	args.initScene = function(){
 		
@@ -133,28 +133,9 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 ),
 										quadrantTrigger
 									) );
-
-        renderer = new THREE.WebGLRenderer();
-        //renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
-        renderer.setSize( 200, 200 );
-        document.body.appendChild( renderer.domElement );
-		
-		rendererContext = renderer.domElement.getContext('experimental-webgl');
-		
-		container = document.createElement('div');
-		document.body.appendChild( container );
-		
-		stats = new Stats();
-		stats.domElement.style.position = 'absolute';
-		stats.domElement.style.top = '0px';
-		container.appendChild( stats.domElement );
 		
 		this.camera = camera;
 		this.scene = scene;
-		this.renderer = renderer;
-		this.rendererContext = rendererContext;
-		this.stats = stats;
-		this.container = container;
 	};
 	
 	args.initScene();

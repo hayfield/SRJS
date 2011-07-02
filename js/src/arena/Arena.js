@@ -14,15 +14,24 @@ SRJS.Arena = function( args ){
 		
 		this.robots = new Array();
 		
-		this.renderer = args.renderer || function(){
-			console.error('Incomplete arguments passed to SRJS.Arena() - missing renderer');
-		};
+		this.renderer = new THREE.WebGLRenderer();
+		//renderer.setSize( window.innerWidth / 2, window.innerHeight / 2 );
+		this.renderer.setSize( 200, 200 );
+		document.body.appendChild( this.renderer.domElement );
+		
+		this.rendererContext = this.renderer.domElement.getContext('experimental-webgl');
+		
+		this.container = document.createElement('div');
+		document.body.appendChild( this.container );
+		
 		this.camera = args.camera || function(){
 			console.error('Incomplete arguments passed to SRJS.Arena() - missing camera');
 		};
-		this.stats = args.stats || function(){
-			console.error('Incomplete arguments passed to SRJS.Arena() - missing stats');
-		};
+		
+		this.stats = new Stats();
+		this.stats.domElement.style.position = 'absolute';
+		this.stats.domElement.style.top = '0px';
+		this.container.appendChild( this.stats.domElement );
 		
 		this.animate = function(){
 			var arena = SRJS.CURRENT_ARENA;
