@@ -6,8 +6,6 @@ SRJS.Arena2011 = function(){
 
 	args.initScene = function(){
 		
-		container = document.createElement('div');
-		document.body.appendChild( container );
 		camera = new THREE.QuakeCamera( {
 					fov: 50, aspect: window.innerWidth / window.innerHeight, near: 1, far: 20000,
 					constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
@@ -142,6 +140,9 @@ SRJS.Arena2011 = function(){
         document.body.appendChild( renderer.domElement );
 		
 		rendererContext = renderer.domElement.getContext('experimental-webgl');
+		
+		container = document.createElement('div');
+		document.body.appendChild( container );
 		
 		stats = new Stats();
 		stats.domElement.style.position = 'absolute';
