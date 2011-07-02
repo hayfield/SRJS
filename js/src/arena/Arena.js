@@ -32,10 +32,13 @@ SRJS.Arena = function( args ){
 		});
 		this.camera.position.y = 100;
 		
-		this.stats = new Stats();
-		this.stats.domElement.style.position = 'absolute';
-		this.stats.domElement.style.top = '0px';
-		this.container.appendChild( this.stats.domElement );
+		// don't always display the stats pane
+		if( SRJS.displayStats ){
+			this.stats = new Stats();
+			this.stats.domElement.style.position = 'absolute';
+			this.stats.domElement.style.top = '0px';
+			this.container.appendChild( this.stats.domElement );
+		}
 		
 		this.animate = function(){
 			var arena = SRJS.CURRENT_ARENA;
@@ -49,7 +52,9 @@ SRJS.Arena = function( args ){
 			requestAnimationFrame( arena.animate );
 			arena.render();
 			
-			arena.stats.update();
+			if( arena.stats ){
+				arena.stats.update();
+			}
 		};
 		
 		this.render = function(){
