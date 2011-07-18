@@ -162,9 +162,9 @@ SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {},
 	hsvH,
 	fourI,
-	colors = new Array(),
 	data = imgData.data,
-	dataLength = data.length / 4; // rgba
+	dataLength = data.length / 4, // rgba
+	colors = new Array( dataLength );
 	
 	for( var i = 0; i < dataLength; i++ ){
 		fourI = i * 4;
