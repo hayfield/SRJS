@@ -159,40 +159,46 @@ SRJS.Vision.prototype.spanMinLength = 3;
 SRJS.Vision.prototype.spanMaxOffset = 14;
 
 SRJS.Vision.prototype.processData = function( imgData ){
-	var hsv = {};
-	var dataLength = imgData.data.length / 4; // rgba
-	imgData.colors = new Array();
+	var hsv = {},
+	hsvH,
+	colors = new Array(),
+	data = imgData.data,
+	dataLength = data.length / 4; // rgba
 	
 	for( var i = 0; i < dataLength; i++ ){
 		// convert the rgb data to hsv
-		hsv = SRJS.Vision.prototype.rgbToHsv( imgData.data[i*4],
-							imgData.data[i*4 + 1],
-							imgData.data[i*4 + 2],
+		hsv = SRJS.Vision.prototype.rgbToHsv( data[i*4],
+							data[i*4 + 1],
+							data[i*4 + 2],
 							hsv );
+		hsvH = hsv.h;
 		
 		// check to see if the value is within the required range for each color
-		if( hsv.h > SRJS.Vision.prototype.blueMin
-				&& hsv.h < SRJS.Vision.prototype.blueMax ){
+		if( hsvH > SRJS.Vision.prototype.blueMin
+				&& hsvH < SRJS.Vision.prototype.blueMax ){
 			// show as white
-			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 255;
-			imgData.colors[i] = SRJS.BLUE;
-		} else if ( hsv.h > SRJS.Vision.prototype.greenMin
-				&& hsv.h < SRJS.Vision.prototype.greenMax ){
+			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 255;
+			colors[i] = SRJS.BLUE;
+		} else if ( hsvH > SRJS.Vision.prototype.greenMin
+				&& hsvH < SRJS.Vision.prototype.greenMax ){
 			// show as a lightish grey
-			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 170;
-			imgData.colors[i] = SRJS.GREEN;
+			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 170;
+			colors[i] = SRJS.GREEN;
 		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
-				&& hsv.h > SRJS.Vision.prototype.redMin
-				&& hsv.h < SRJS.Vision.prototype.redMax ){
+				&& hsvH > SRJS.Vision.prototype.redMin
+				&& hsvH < SRJS.Vision.prototype.redMax ){
 			// show as a darkish grey
-			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 100;
-			imgData.colors[i] = SRJS.RED;
+			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 100;
+			colors[i] = SRJS.RED;
 		} else {
 			// show as a dark grey
-			imgData.data[i*4] = imgData.data[i*4 + 1] = imgData.data[i*4 + 2] = 40;
-			imgData.colors[i] = SRJS.NOTHING;
+			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 40;
+			colors[i] = SRJS.NOTHING;
 		}
 	}
+	
+	imgData.colors = colors;
+	imgData.data = data;
 	
 	return imgData;
 };
