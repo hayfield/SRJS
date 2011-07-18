@@ -161,15 +161,17 @@ SRJS.Vision.prototype.spanMaxOffset = 14;
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {},
 	hsvH,
+	fourI,
 	colors = new Array(),
 	data = imgData.data,
 	dataLength = data.length / 4; // rgba
 	
 	for( var i = 0; i < dataLength; i++ ){
+		fourI = i * 4;
 		// convert the rgb data to hsv
-		hsv = SRJS.Vision.prototype.rgbToHsv( data[i*4],
-							data[i*4 + 1],
-							data[i*4 + 2],
+		hsv = SRJS.Vision.prototype.rgbToHsv( data[fourI],
+							data[fourI + 1],
+							data[fourI + 2],
 							hsv );
 		hsvH = hsv.h;
 		
@@ -177,22 +179,22 @@ SRJS.Vision.prototype.processData = function( imgData ){
 		if( hsvH > SRJS.Vision.prototype.blueMin
 				&& hsvH < SRJS.Vision.prototype.blueMax ){
 			// show as white
-			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 255;
+			data[fourI] = data[fourI + 1] = data[fourI + 2] = 255;
 			colors[i] = SRJS.BLUE;
 		} else if ( hsvH > SRJS.Vision.prototype.greenMin
 				&& hsvH < SRJS.Vision.prototype.greenMax ){
 			// show as a lightish grey
-			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 170;
+			data[fourI] = data[fourI + 1] = data[fourI + 2] = 170;
 			colors[i] = SRJS.GREEN;
 		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
 				&& hsvH > SRJS.Vision.prototype.redMin
 				&& hsvH < SRJS.Vision.prototype.redMax ){
 			// show as a darkish grey
-			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 100;
+			data[fourI] = data[fourI + 1] = data[fourI + 2] = 100;
 			colors[i] = SRJS.RED;
 		} else {
 			// show as a dark grey
-			data[i*4] = data[i*4 + 1] = data[i*4 + 2] = 40;
+			data[fourI] = data[fourI + 1] = data[fourI + 2] = 40;
 			colors[i] = SRJS.NOTHING;
 		}
 	}
@@ -229,7 +231,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
 SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
-	var min, max, delta;
+	var min, max, delta, hsvH;
 	
 	min = Math.min( r, g, b );
 	max = Math.max( r, g, b );
@@ -247,19 +249,21 @@ SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 	
 	if( r === max ){
 		// between yellow and magenta
-		hsv.h = ( g - b ) / delta;
+		hsvH = ( g - b ) / delta;
 	} else if ( g === max ){
 		// between cyan and yellow
-		hsv.h = 2 + ( b - r ) / delta;
+		hsvH = 2 + ( b - r ) / delta;
 	} else {
 		// between magenta and cyan
-		hsv.h = 4 + ( r - g ) / delta;
+		hsvH = 4 + ( r - g ) / delta;
 	}
 	
-	hsv.h *= 60;
-	if( hsv.h < 0 ){
-		hsv.h += 360;
+	hsvH *= 60;
+	if( hsvH < 0 ){
+		hsvH += 360;
 	}
+	
+	hsv.h = hsvH;
 	
 	return hsv;
 };
