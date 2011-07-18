@@ -18,8 +18,8 @@ SRJS.Vision = function(){
 			vision.context.drawImage( img, 0, 0 );
 			
 			var imageData = vision.processData( vision.getImageData( vision.context ));
-			vision.context.putImageData( imageData, 0, 0 );
 			vision.detectBlobs( imageData );
+			vision.context.putImageData( imageData, 0, 0 );
 			vision.displayBlobs();
 		};
 		img.src = renderer.domElement.toDataURL('image/png');
@@ -32,7 +32,7 @@ SRJS.Vision = function(){
 			span, spanStart, spans, spansAbove,
 			colors, pixel,
 			i, j,
-			foundSpan;
+			foundSpan,
 		colorValue = oldColorValue = SRJS.NOTHING;
 		colors = imgData.colors;
 		pixel = 1;
