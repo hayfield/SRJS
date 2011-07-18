@@ -228,7 +228,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
 SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
-	var hsv = hsv || {};
+	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
 	var min, max, delta;
 	
 	min = Math.min( r, g, b );
