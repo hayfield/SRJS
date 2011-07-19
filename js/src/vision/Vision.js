@@ -9,16 +9,17 @@ SRJS.Vision = function(){
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	
+	var vision = this;
+	
 	this.update = function( renderer ){
 		var img = new Image();
-		var vision = this;
 		
 		img.onload = function(){
 			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
 			vision.context.drawImage( img, 0, 0 );
 			
 			var imageData = vision.processData( vision.getImageData( vision.context ));
-			vision.detectBlobs( imageData );
+			vision.blobs = vision.detectBlobs( imageData );
 			vision.context.putImageData( imageData, 0, 0 );
 			vision.displayBlobs();
 		};
@@ -29,14 +30,14 @@ SRJS.Vision = function(){
 		// imgData should already have been run through this.processData()
 		
 		var colorValue, oldColorValue,
-			span, spanStart, spans, spansAbove,
-			colors, pixel,
-			i, j,
-			foundSpan,
-		colorValue = oldColorValue = SRJS.NOTHING;
-		colors = imgData.colors;
-		pixel = 1;
-		foundSpan = false;
+		span, spanStart, spans, spansAbove,
+		colors, pixel,
+		i, j,
+		foundSpan,
+		colorValue = oldColorValue = SRJS.NOTHING,
+		colors = imgData.colors,
+		pixel = 1,
+		foundSpan = false,
 		spans = new Array();
 		
 		// loop through the rows of the image
@@ -110,11 +111,11 @@ SRJS.Vision = function(){
 		}
 		
 		// create the blobs
-		this.blobs = new Array();
+		var blobs = new Array();
 		if( typeof spansAbove === 'object' && typeof spansAbove.length === 'number' ){
 			var blob = 0;
 			while( blob < spansAbove.length ){
-				this.blobs.push( new SRJS.Blob( spansAbove[blob].xMin,
+				blobs.push( new SRJS.Blob( spansAbove[blob].xMin,
 											spansAbove[blob].yMin,
 											spansAbove[blob].xMax - spansAbove[blob].xMin,
 											spansAbove[blob].yMax - spansAbove[blob].yMin,
@@ -123,6 +124,8 @@ SRJS.Vision = function(){
 				blob++;
 			}
 		}
+		
+		return blobs;
 	};
 	
 	this.displayBlobs = function(){
