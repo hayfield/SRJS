@@ -238,12 +238,12 @@ SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
 	var min, max, delta, hsvH;
 	
-	min = Math.min( r, g, b );
 	max = Math.max( r, g, b );
 	hsv.v = max;
 	
-	delta = max - min;
 	if( max !== 0 ){
+		min = Math.min( r, g, b );
+		delta = max - min;
 		hsv.s = delta / max;
 	} else {
 		// r = g = b = 0
