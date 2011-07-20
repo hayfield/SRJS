@@ -76,6 +76,8 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 )
 									) );
 		
+		SRJS.addPhysics = false;
+		
 		// the blue blobs around the arena
 		for( var i = 0; i < 27; i++ ){
 			// one long side
@@ -100,6 +102,8 @@ SRJS.Arena2011 = function(){
 										SRJS.Material.blue
 									) );
 		}
+		
+		SRJS.addPhysics = true;
 		
 		// add the quadrant triggers
 		var quadrantTrigger = function(){
