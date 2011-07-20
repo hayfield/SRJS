@@ -9,3 +9,8 @@ SRJS.Vector2 = function( x, y ){
 
 //SRJS.Vector2.prototype = new THREE.Vector2();
 //SRJS.Vector2.prototype.constructor = SRJS.Vector2;
+
+SRJS.Vector2.prototype.toPhysicsCanvasCoords = function(){
+	return new SRJS.Vector2( this.x * (SRJS.physicsDimension / SRJS.arenaDimension) + SRJS.physicsDimension / 2,
+							 this.y * (SRJS.physicsDimension / SRJS.arenaDimension) + SRJS.physicsDimension / 2 );
+};

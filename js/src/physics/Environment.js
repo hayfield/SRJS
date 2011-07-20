@@ -5,8 +5,8 @@ SRJS.Physics.Environment = function(){
 	
 	var canvas = document.createElement('canvas');
 	this.canvas = canvas;
-	this.canvas.width = 400;
-	this.canvas.height = 400;
+	this.canvas.width = SRJS.physicsDimension;
+	this.canvas.height = SRJS.physicsDimension;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	
@@ -18,7 +18,7 @@ SRJS.Physics.Environment = function(){
 		}
 		
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-		var p, e, polygon, edge;
+		var p, e, polygon, edge, start, end;
 		p = 0;
 		//ctx.clearRect( 0, 0, 800, 800 );
 		while( p < this.polygons.length ){
@@ -26,19 +26,21 @@ SRJS.Physics.Environment = function(){
 			e = 0;
 			while( e < polygon.edges.length ){
 				edge = polygon.edges[e];
+				start = edge.start.toPhysicsCanvasCoords();
+				end = edge.end.toPhysicsCanvasCoords();
 				
 				ctx.beginPath();
 				ctx.strokeStyle = colors[ e % 4 ];
 				if( count < 15 ){
 					count++;
-					console.log( polygon, edge.start.x, edge.start.y, edge.end.x, edge.end.y, e, e % 4 );
+					console.log( polygon, start.x, start.y, end.x, end.y, e, e % 4 );
 				}
-				ctx.moveTo( edge.start.x, edge.start.y );
-				ctx.lineTo( edge.end.x, edge.end.y );
+				ctx.moveTo( start.x, start.y );
+				ctx.lineTo( end.x, end.y );
 				ctx.stroke();
+				
 				e++;
 			}
-			
 			
 			p++;
 		}
