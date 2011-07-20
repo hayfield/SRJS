@@ -7,15 +7,12 @@ if( arguments.length > 0 ){	// prevent the code being run on the constructor cal
 	
 	this.position = position instanceof THREE.Vector3 ? position : this.position;
 	this.rotation = rotation instanceof THREE.Vector3 ? rotation : this.rotation;
-	//console.log(this, typeof this, typeof SRJS.Robot, typeof SRJS.Trigger);
-	//console.log('wall', width, height, depth, position, rotation, material);
-	console.log('phys',SRJS.phys, arguments.length);
+	
 	SRJS.phys.addPolygon( new SRJS.Physics.Rectangle( !(this instanceof SRJS.Robot), this instanceof SRJS.Trigger,
 														new SRJS.Vector2( width, depth ),
 														new SRJS.Vector2( this.position.x, this.position.z ),
 														this.rotation.y ));
-	
-	//console.log(this);
+
 }	
 };
 

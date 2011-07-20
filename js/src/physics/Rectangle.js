@@ -2,10 +2,7 @@ SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation
 	
 	SRJS.Physics.Polygon.call( this, fixed, trigger );
 	
-	//position.rotateAroundPoint( 
-	
 	rotation = rotation || 0;
-	//console.log( 'rect', position.x, position.y, dimension.x, dimension.y );
 	
 	var topLeft = new SRJS.Vector2( position.x - (dimension.x / 2),
 									 position.y - (dimension.y / 2) );
@@ -33,11 +30,6 @@ SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation
 	// right
 	this.addEdge( new SRJS.Physics.Edge( new SRJS.Vector2(topRight.x, topRight.y),
 										 new SRJS.Vector2(bottomRight.x, bottomRight.y) ));
-	/*this.addEdge(new SRJS.Physics.Edge(new SRJS.Vector2(150,150), new SRJS.Vector2(250,150)));
-	this.addEdge(new SRJS.Physics.Edge(new SRJS.Vector2(150,250), new SRJS.Vector2(250,250)));
-	this.addEdge(new SRJS.Physics.Edge(new SRJS.Vector2(150,150), new SRJS.Vector2(150,250)));
-	this.addEdge(new SRJS.Physics.Edge(new SRJS.Vector2(250,150), new SRJS.Vector2(250,250)));*/
-	//this.addEdge( new SRJS.Physics.Edge( 150, 150, 250, 150 ));
 	
 };
 
