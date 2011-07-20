@@ -16,33 +16,33 @@ SRJS.Vector2.prototype.toPhysicsCanvasCoords = function(){
 };
 
 SRJS.Vector2.prototype.rotateAroundPoint = function( point, theta ){
-	point = point || new SRJS.Vector2( 0, 0 );
-	
-	var x, y, xBefore;
-	x = this.x;
-	y = this.y;
-	
-	// translate so the point to rotate around is the origin
-	xBefore = x -= point.x;
-	y -= point.y;
-	
-	// perform the rotation - http://en.wikipedia.org/wiki/Rotation_matrix
-	var c = Math.cos( theta ), s = Math.sin( theta );
-	c = SRJS.isZero( c ) ? 0 : c;
-	s = SRJS.isZero( s ) ? 0 : s;
 	if( theta !== 0 ){
-		console.log('theta', theta, c, s, x, y);
+		point = point || new SRJS.Vector2( 0, 0 );
+		
+		var x, y, xBefore;
+		x = this.x;
+		y = this.y;
+		
+		// translate so the point to rotate around is the origin
+		xBefore = x -= point.x;
+		y -= point.y;
+		
+		// perform the rotation - http://en.wikipedia.org/wiki/Rotation_matrix
+		var c = Math.cos( theta ), s = Math.sin( theta );
+		c = SRJS.isZero( c ) ? 0 : c;
+		s = SRJS.isZero( s ) ? 0 : s;
+	
 		x = (x * c) + (y * s);
 		y = (xBefore * -s) + (y * c);
 		console.log(x, y);
+	
+		// translate back to the original position
+		x += point.x;
+		y += point.y;
+		
+		this.x = x;
+		this.y = y;
 	}
-	
-	// translate back to the original position
-	x += point.x;
-	y += point.y;
-	
-	this.x = x;
-	this.y = y;
 };
 
 SRJS.isZero = function( value ){
