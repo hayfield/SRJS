@@ -1,4 +1,4 @@
-SRJS.Physics.Edge = new function( start, end ){
+SRJS.Physics.Edge = function( start, end ){
 	
 	// start and end positions of edge are of type THREE.Vector2
 	this.start = start;

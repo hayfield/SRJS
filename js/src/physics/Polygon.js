@@ -1,4 +1,4 @@
-SRJS.Physics.Polygon = new function( fixed, trigger ){
+SRJS.Physics.Polygon = function( fixed, trigger ){
 
 	this.edges = new Array();
 	this.fixed = fixed;
@@ -6,6 +6,6 @@ SRJS.Physics.Polygon = new function( fixed, trigger ){
 
 };
 
-SRJS.Physics.Polygon.prototype.addEdge( edge ){
+SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
 };

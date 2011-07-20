@@ -5,8 +5,8 @@ SRJS.Physics.Environment = function(){
 	
 	var canvas = document.createElement('canvas');
 	this.canvas = canvas;
-	this.canvas.width = SRJS.CURRENT_ARENA.renderer.domElement.width;
-	this.canvas.height = SRJS.CURRENT_ARENA.renderer.domElement.height;
+	this.canvas.width = 400;
+	this.canvas.height = 400;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	

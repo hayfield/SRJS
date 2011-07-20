@@ -1,4 +1,4 @@
-SRJS.Physics.Rectangle = new function( fixed, trigger, dimension, position ){
+SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position ){
 	
 	SRJS.Physics.Polygon.call( this, fixed, trigger );
 	
