@@ -18,16 +18,33 @@ SRJS.Vector2.prototype.toPhysicsCanvasCoords = function(){
 SRJS.Vector2.prototype.rotateAroundPoint = function( point, theta ){
 	point = point || new SRJS.Vector2( 0, 0 );
 	
+	var x, y, xBefore;
+	x = this.x;
+	y = this.y;
+	
 	// translate so the point to rotate around is the origin
-	this.x -= point.x;
-	this.y -= point.y;
+	xBefore = x -= point.x;
+	y -= point.y;
 	
 	// perform the rotation - http://en.wikipedia.org/wiki/Rotation_matrix
 	var c = Math.cos( theta ), s = Math.sin( theta );
-	this.x = (this.x * c) + (this.y * s);
-	this.y = (this.x * -s) + (this.y * c);
+	c = SRJS.isZero( c ) ? 0 : c;
+	s = SRJS.isZero( s ) ? 0 : s;
+	if( theta !== 0 ){
+		console.log('theta', theta, c, s, x, y);
+		x = (x * c) + (y * s);
+		y = (xBefore * -s) + (y * c);
+		console.log(x, y);
+	}
 	
 	// translate back to the original position
-	this.x += point.x;
-	this.y += point.y;
+	x += point.x;
+	y += point.y;
+	
+	this.x = x;
+	this.y = y;
+};
+
+SRJS.isZero = function( value ){
+	return Math.abs( value ) < 0.00000001;
 };

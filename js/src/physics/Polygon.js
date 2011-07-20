@@ -8,5 +8,5 @@ SRJS.Physics.Polygon = function( fixed, trigger ){
 
 SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
-	console.log( 'ed', this.edges[this.edges.length-1], edge);
+	//console.log( 'ed', this.edges[this.edges.length-1], edge);
 };
