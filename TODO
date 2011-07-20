@@ -1,8 +1,5 @@
 SRJS.Vision.detectBlobs()
  - Can create large numbers of span objects per frame. Possibly reuse to give the garbage collector some love.
-
-SRJS.Vision.prototype.rgbToHsv()
- - ~30% of time when profiling. Could do with optimisation.
  
 SRJS.Vision.update()
  - Would make more sense to access image data directly rather than converting to PNG, drawing that, then getting imageData to process
