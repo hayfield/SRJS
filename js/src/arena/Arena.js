@@ -12,6 +12,7 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		this.physics = args.physics || new SRJS.Physics.Environment();
+		this.arenaDimension = args.arenaDimension || 1;
 		
 		this.robots = new Array();
 		
