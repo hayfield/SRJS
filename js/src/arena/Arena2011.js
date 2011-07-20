@@ -2,7 +2,7 @@ SRJS.Arena2011 = function(){
 	
 	var args = {};
 	
-	var camera, scene;
+	var camera, scene, physics;
 
 	args.initScene = function(){
 
@@ -129,7 +129,16 @@ SRJS.Arena2011 = function(){
 		this.scene = scene;
 	};
 	
+	args.initPhysics = function(){
+		
+		physics = new SRJS.Physics.Environment();
+		
+		
+		this.physics = physics;
+	};
+	
 	args.initScene();
+	args.initPhysics();
 	
 	var arena = new SRJS.Arena( args );
 	
