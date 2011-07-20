@@ -43,6 +43,7 @@ SRJS.Arena = function( args ){
 		
 		this.animate = function(){
 			var arena = SRJS.CURRENT_ARENA;
+			arena.physics.draw();
 			var robot = 0;
 			while( robot < arena.robots.length ){
 				arena.robots[robot].move();
