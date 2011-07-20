@@ -6,6 +6,6 @@ SRJS.Physics.Polygon = new function( fixed, trigger ){
 
 };
 
-SRJS.Physics.Polygon.prototype.addLine( line ){
-	this.edges.push( line );
+SRJS.Physics.Polygon.prototype.addEdge( edge ){
+	this.edges.push( edge );
 };
