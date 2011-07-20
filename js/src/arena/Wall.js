@@ -7,7 +7,7 @@ SRJS.Wall = function( width, height, depth, position, rotation, material ){
 	
 	this.position = position instanceof THREE.Vector3 ? position : this.position;
 	this.rotation = rotation instanceof THREE.Vector3 ? rotation : this.rotation;
-
+	//console.log(this, typeof this, typeof SRJS.Robot, typeof SRJS.Trigger);
 	//console.log('wall', width, height, depth, position, rotation, material);
 	SRJS.phys.addPolygon( new SRJS.Physics.Rectangle( !(this instanceof SRJS.Robot), this instanceof SRJS.Trigger,
 														new SRJS.Vector2( width, depth ),

@@ -55,7 +55,7 @@ SRJS.Arena = function( args ){
 			requestAnimationFrame( arena.animate );
 			arena.render();
 			
-			if( arena.stats ){
+			if( SRJS.displayStats && arena.stats ){
 				arena.stats.update();
 			}
 		};
