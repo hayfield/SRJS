@@ -1,5 +1,6 @@
 SRJS.Init = function(){
 
+	SRJS.phys = new SRJS.Physics.Environment();
 	var bob = new SRJS.Arena2011();
 	/*
 	SRJS.CURRENT_ARENA.addRobot();

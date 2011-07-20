@@ -143,6 +143,8 @@ SRJS.Arena2011 = function(){
 	args.initScene();
 	args.initPhysics();
 	
+	args.physics = SRJS.phys;
+	
 	args.arenaDimension = 800;
 	
 	var arena = new SRJS.Arena( args );

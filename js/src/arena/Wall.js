@@ -8,6 +8,10 @@ SRJS.Wall = function( width, height, depth, position, rotation, material ){
 	this.position = position instanceof THREE.Vector3 ? position : this.position;
 	this.rotation = rotation instanceof THREE.Vector3 ? rotation : this.rotation;
 	
+	SRJS.phys.addPolygon( new SRJS.Physics.Rectangle( true, true,
+														new THREE.Vector2( width, depth ),
+														new THREE.Vector2( this.position.x, this.position.z ) ));
+	
 	//console.log(this);
 	
 };
