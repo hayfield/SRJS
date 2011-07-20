@@ -133,6 +133,9 @@ SRJS.Arena2011 = function(){
 		
 		physics = new SRJS.Physics.Environment();
 		
+		physics.addPolygon( new SRJS.Physics.Rectangle( true, true,
+														new THREE.Vector2( 800, 800 ),
+														new THREE.Vector2( 0, 0 ) ));
 		
 		this.physics = physics;
 	};
