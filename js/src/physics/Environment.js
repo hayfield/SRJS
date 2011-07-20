@@ -13,7 +13,7 @@ SRJS.Physics.Environment = function(){
 	this.draw = function(){
 		var ctx = this.context;
 		var colors = ['yellow', 'blue', 'black', 'white'];
-		if( count < 50 ){
+		if( count < 10 ){
 			console.log('drawing', ctx, this.polygons[0].edges);
 		}
 		var p, e, polygon, edge;
@@ -27,7 +27,7 @@ SRJS.Physics.Environment = function(){
 				edge = polygon.edges[e];
 				ctx.beginPath();
 				ctx.strokeStyle = colors[ e % 4 ];
-				if( count < 50 ){
+				if( count < 10 ){
 					count++;
 					console.log( polygon, edge.start.x, edge.start.y, edge.end.x, edge.end.y, e, e % 4,
 									edge.startX, edge.startY, edge.endX, edge.endY);
