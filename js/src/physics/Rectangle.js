@@ -5,7 +5,7 @@ SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation
 	//position.rotateAroundPoint( 
 	
 	rotation = rotation || 0;
-	console.log( 'rect', position.x, position.y, dimension.x, dimension.y );
+	//console.log( 'rect', position.x, position.y, dimension.x, dimension.y );
 	
 	var topLeft = new SRJS.Vector2( position.x - (dimension.x / 2),
 									 position.y - (dimension.y / 2) );

@@ -34,7 +34,7 @@ SRJS.Vector2.prototype.rotateAroundPoint = function( point, theta ){
 	
 		x = (x * c) + (y * s);
 		y = (xBefore * -s) + (y * c);
-		console.log(x, y);
+		//console.log(x, y);
 	
 		// translate back to the original position
 		x += point.x;

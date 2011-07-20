@@ -1,5 +1,5 @@
 SRJS.Cube = function( dimension, position, material ){
-	console.log('cube');
+	//console.log('cube');
 	SRJS.Wall.call( this, dimension, dimension, dimension,
 						position || new THREE.Vector3(),
 						new THREE.Vector3(),
