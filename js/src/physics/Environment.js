@@ -12,9 +12,13 @@ SRJS.Physics.Environment = function(){
 	
 	this.drawToCanvas = function(){
 		for( polygon in this.polygons ){
+			this.context.beginPath();
+			
 			for( edge in polygon.edges ){
-				
+				this.context.moveTo( edge.start.x, edge.start.y );
+				this.context.lineTo( edge.end.x, edge.end.y );
 			}
+			this.context.stroke();
 		}
 	};
 	
