@@ -30,6 +30,14 @@ SRJS.Robot = function(){
 SRJS.Robot.prototype = new SRJS.Cube();
 SRJS.Robot.prototype.constructor = SRJS.Robot;
 
+SRJS.Robot.prototype.rotate = function( theta ){
+	this.rotation.y += theta;
+};
+
+SRJS.Robot.prototype.moveForward = function( distance ){
+	this.translateZ( distance );
+};
+
 SRJS.Robot.prototype.move = function(){
 	// work out how long since the last movement
 	var elapsed = (Date.now() - this.lastUpdate) / 1000;
