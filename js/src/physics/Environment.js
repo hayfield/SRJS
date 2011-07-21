@@ -17,7 +17,18 @@ SRJS.Physics.Environment = function(){
 		var p, e, polygon, edge, start, end;
 		p = 0;
 		while( p < this.polygons.length ){
-			polygon = this.polygons[p];			
+			polygon = this.polygons[p];	
+
+			if( polygon.fixed && !polygon.trigger ){
+				ctx.strokeStyle = '#000';
+			} else if( polygon.fixed && polygon.trigger ){
+				ctx.strokeStyle = '#00F';
+			} else if( !polygon.fixed && !polygon.trigger ){
+				ctx.strokeStyle = '#0F0';
+			} else {
+				ctx.strokeStyle = '#FFF';
+			}
+			
 			e = 0;
 			while( e < polygon.edges.length ){
 				edge = polygon.edges[e];
