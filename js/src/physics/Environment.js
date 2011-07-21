@@ -36,10 +36,6 @@ SRJS.Physics.Environment = function(){
 				end = edge.end.toPhysicsCanvasCoords();
 				
 				ctx.beginPath();
-				/*if( count < 15 ){
-					count++;
-					console.log( polygon, start.x, start.y, end.x, end.y, e, e % 4 );
-				}*/
 				ctx.moveTo( start.x, start.y );
 				ctx.lineTo( end.x, end.y );
 				ctx.stroke();
