@@ -1,7 +1,7 @@
-SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation ){
+SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation, object ){
 	
-	SRJS.Physics.Polygon.call( this, fixed, trigger );
-	
+	SRJS.Physics.Polygon.call( this, fixed, trigger, object );
+
 	rotation = rotation || 0;
 	
 	var topLeft = new SRJS.Vector2( position.x - (dimension.x / 2),

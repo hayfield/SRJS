@@ -1,8 +1,9 @@
-SRJS.Physics.Polygon = function( fixed, trigger ){
+SRJS.Physics.Polygon = function( fixed, trigger, object ){
 
 	this.edges = new Array();
 	this.fixed = fixed;
 	this.trigger = trigger;
+	this.object = object;
 
 };
 

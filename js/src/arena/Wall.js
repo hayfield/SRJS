@@ -11,7 +11,7 @@ if( arguments.length > 0 ){	// prevent the code being run on the constructor cal
 	SRJS.phys.addPolygon( new SRJS.Physics.Rectangle( !(this instanceof SRJS.Robot), this instanceof SRJS.Trigger,
 														new SRJS.Vector2( width, depth ),
 														new SRJS.Vector2( this.position.x, this.position.z ),
-														this.rotation.y ));
+														this.rotation.y, this ));
 
 }	
 };
