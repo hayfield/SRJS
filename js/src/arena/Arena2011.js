@@ -146,6 +146,13 @@ SRJS.Arena2011 = function(){
 	
 	args.arenaDimension = 800;
 	
+	args.robotStartPositions = [
+									new SRJS.Vector2( 365, 365 ),
+									new SRJS.Vector2( 365, -365 ),
+									new SRJS.Vector2( -365, -365 ),
+									new SRJS.Vector2( -365, 365 )
+							   ];
+	
 	var arena = new SRJS.Arena( args );
 	
 };

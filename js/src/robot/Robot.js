@@ -1,7 +1,10 @@
 SRJS.Robot = function(){
+if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
+	
+	var startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
 	
 	SRJS.Cube.call( this, 50,
-					new THREE.Vector3( 340, 75, -35 ),
+					new THREE.Vector3( startPosition.x, 75, startPosition.y ),
 					SRJS.Material.green );
 	
 	this.camera = new THREE.Camera();
@@ -26,7 +29,8 @@ SRJS.Robot = function(){
 	this.vision = new SRJS.Vision();
 	
 	this.gameScore = 0;
-
+	
+}
 };
 
 SRJS.Robot.prototype = new SRJS.Cube();
