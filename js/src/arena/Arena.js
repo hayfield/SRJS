@@ -10,6 +10,7 @@ SRJS.Arena = function( args ){
 	} else {
 		
 		SRJS.CURRENT_ARENA = this;
+		
 		this.physics = args.physics || new SRJS.Physics.Environment();
 		this.arenaDimension = args.arenaDimension || 1;
 		
@@ -49,6 +50,7 @@ SRJS.Arena = function( args ){
 		
 		this.animate = function(){
 			var arena = SRJS.CURRENT_ARENA;
+			
 			arena.physics.draw();
 			arena.physics.update();
 			arena.callRobotTriggerEvents();

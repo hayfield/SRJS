@@ -106,7 +106,7 @@ SRJS.Arena2011 = function(){
 		SRJS.addPhysics = true;
 		
 		// add the quadrant triggers
-		var quadrantTrigger = function(){
+		var quadrantTrigger = function( robotID ){
 			console.log('Quadrant trigger has been triggered');
 		};
 		scene.addObject( new SRJS.Trigger( 300, 100, 1,
