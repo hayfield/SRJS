@@ -102,6 +102,19 @@ SRJS.Arena.prototype.addRobot = function( robot ){
 	
 };
 
+SRJS.Arena.prototype.getRobot = function( robotID ){
+	var r = 0;
+	while( r < this.robots.length ){
+		if( this.robots[r].ID === robotID ){
+			return this.robots[r];
+		}
+		
+		r++;
+	}
+	
+	return false;
+};
+
 SRJS.Arena.prototype.callRobotTriggerEvents = function(){
 
 	var t, i, trigger;

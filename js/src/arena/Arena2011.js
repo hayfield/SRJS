@@ -107,7 +107,16 @@ SRJS.Arena2011 = function(){
 		
 		// add the quadrant triggers
 		var quadrantTrigger = function( robotID ){
-			console.log('Quadrant trigger has been triggered');
+			robot = SRJS.CURRENT_ARENA.getRobot( robotID );
+			
+			if( robot.lastEnteredTrigger !== this ){
+				robot.gameScore += 2;
+				if( robot.cansOnBoard ){
+					robot.gameScore += robot.cansOnBoard;
+				}
+				robot.lastEnteredTrigger = this;
+			}
+
 		};
 		scene.addObject( new SRJS.Trigger( 300, 100, 1,
 										new THREE.Vector3( -300, 100, 300 ),

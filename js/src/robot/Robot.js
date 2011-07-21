@@ -24,6 +24,8 @@ SRJS.Robot = function(){
 	this.motor[1].target = 50;
 	
 	this.vision = new SRJS.Vision();
+	
+	this.gameScore = 0;
 
 };
 
