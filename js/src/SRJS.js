@@ -6,3 +6,5 @@ SRJS.addPhysics = true;
 SRJS.physicsDimension = 800; // the dimension of the physics canvas
 SRJS.displayStats = false;
 SRJS.displayRobotVision = false;
+
+var count = 0;

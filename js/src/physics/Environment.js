@@ -92,8 +92,6 @@ SRJS.Physics.Environment = function(){
 	
 };
 
-var count = 0;
-
 SRJS.Physics.Environment.prototype.addPolygon = function( polygon ){
 	if( SRJS.addPhysics ){
 		this.polygons.push( polygon );
