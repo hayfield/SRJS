@@ -51,6 +51,7 @@ SRJS.Arena = function( args ){
 			var arena = SRJS.CURRENT_ARENA;
 			arena.physics.draw();
 			arena.physics.update();
+			arena.callRobotTriggerEvents();
 			
 			var robot = 0;
 			while( robot < arena.robots.length ){
@@ -97,7 +98,42 @@ SRJS.Arena = function( args ){
 };
 
 SRJS.Arena.prototype.addRobot = function( robot ){
+
 	this.robots[this.robots.length] = robot || new SRJS.Robot();
 	this.robots[this.robots.length - 1].ID = this.robots.length;
+	
 	this.scene.addObject( this.robots[this.robots.length - 1] );
+	
+};
+
+SRJS.Arena.prototype.callRobotTriggerEvents = function(){
+
+	var t, i, trigger;
+	t = 0;
+	while( t < this.triggers.length ){
+		trigger = this.triggers[t];
+		i = 0;
+		while( i < trigger.previousIntersectingRobots.length ){
+			if( trigger.intersectingRobots.indexOf( trigger.previousIntersectingRobots[i] ) !== -1 ){
+				trigger.onRobotStay( trigger.previousIntersectingRobots[i] );
+			} else if( trigger.intersectingRobots.indexOf( trigger.previousIntersectingRobots[i] ) === -1 ){
+				trigger.onRobotExit( trigger.previousIntersectingRobots[i] );
+			}
+			
+			i++;
+		}
+		i = 0;
+		while( i < trigger.intersectingRobots.length ){
+			if( trigger.previousIntersectingRobots.indexOf( trigger.intersectingRobots[i] ) === -1 ){
+				trigger.onRobotEnter( trigger.intersectingRobots[i] );
+			}
+			
+			i++;
+		}
+		trigger.previousIntersectingRobots = trigger.intersectingRobots;
+		trigger.intersectingRobots = [];
+		
+		t++;
+	}
+	
 };

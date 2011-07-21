@@ -45,7 +45,8 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
-	var e, o, trigger;
+	var e, o, trigger, intersects;
+	intersects = false;
 	e = 0
 	
 	while( e < this.edges.length ){
@@ -54,11 +55,19 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 		while( o < other.edges.length ){
 			if( this.edges[e].intersects( other.edges[o] ) ){
 				SRJS.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
+				intersects = true;
 			}
-			
 			o++;
 		}
-		
 		e++;
 	}
+	
+	if( intersects ){
+		if( this.object instanceof SRJS.Robot && other.object instanceof SRJS.Trigger ){
+			other.object.intersectingRobots.push( this.object.ID );
+			// console.log('robby in trigger');
+		}
+	}
+	
+	return intersects;
 };

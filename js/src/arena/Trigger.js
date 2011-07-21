@@ -2,8 +2,9 @@ SRJS.Trigger = function( width, height, depth, position, rotation, action ){
 	
 	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.blue );
 	
-	this.onRobotEnter = action || function( robotID ){};
-	this.onRobotStay = function( robotID ){};
+	//this.onRobotEnter = action || function( robotID ){};
+	this.onRobotEnter = function( robotID ){ console.log('enter', robotID); };
+	this.onRobotStay = function( robotID ){ console.log('stay', robotID); };
 	this.onRobotExit = function( robotID ){ console.log('exit', robotID); };
 	
 	this.intersectingRobots = new Array();
