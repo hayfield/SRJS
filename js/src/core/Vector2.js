@@ -66,7 +66,3 @@ SRJS.Vector2.prototype.subtract = function( other ){
 SRJS.Vector2.prototype.multiply = function( value ){
 	return new SRJS.Vector2( this.x * value, this.y * value );
 };
-
-SRJS.isZero = function( value ){
-	return Math.abs( value ) < 0.00000001;
-};

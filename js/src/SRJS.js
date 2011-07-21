@@ -9,3 +9,7 @@ SRJS.displayRobotVision = false;
 
 var count = 0;
 var intersections = new Array();
+
+SRJS.isZero = function( value ){
+	return Math.abs( value ) < 0.00000001;
+};
