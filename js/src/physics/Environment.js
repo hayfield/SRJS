@@ -13,7 +13,7 @@ SRJS.Physics.Environment = function(){
 	this.draw = function(){
 		var ctx = this.context;
 		
-		//ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
+		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
 		var p, e, polygon, edge, start, end, i;
 		p = 0;
 		while( p < this.polygons.length ){
@@ -46,10 +46,11 @@ SRJS.Physics.Environment = function(){
 			p++;
 		}
 		
+		ctx.fillStyle = '#FFF';
 		i = 0;
 		while( i < intersections.length ){
 			var intersect = intersections[i].toPhysicsCanvasCoords();
-			ctx.fillRect( intersect.x, intersect.y, 10, 10 );
+			ctx.fillRect( intersect.x, intersect.y, 7, 7 );
 			
 			i++;
 		}
