@@ -1,7 +1,7 @@
 SRJS.Robot = function(){
 	
 	SRJS.Cube.call( this, 50,
-					new THREE.Vector3( 340, 75, -40 ),
+					new THREE.Vector3( 340, 75, -35 ),
 					SRJS.Material.green );
 	
 	this.camera = new THREE.Camera();
