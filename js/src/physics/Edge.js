@@ -25,13 +25,17 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 		return false;
 	}
 	
-	var distAlongLine = (other.start.subtract( this.start )).cross( other.movement() ) / 
-							this.movement().cross( other.movement() );
+	var distAlongThisLine = (other.start.subtract( this.start )).cross( other.movement() ) / 
+								this.movement().cross( other.movement() );
+	
+	var distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
+								this.movement().cross( other.movement() );
 
-	if( distAlongLine < 0 || distAlongLine > 1 ){
+	if( distAlongThisLine < 0 || distAlongThisLine > 1
+		|| distAlongOtherLine < 0 || distAlongOtherLine > 1 ){
 		return false;
 	} else {
-		return this.start.add( this.movement().multiply( distAlongLine ) );
+		return this.start.add( this.movement().multiply( distAlongThisLine ) );
 	}
 	
 };
