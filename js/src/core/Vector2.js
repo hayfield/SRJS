@@ -44,6 +44,13 @@ SRJS.Vector2.prototype.rotateAroundPoint = function( point, theta ){
 	}
 };
 
+SRJS.Vector2.prototype.translate = function( distance, theta ){
+	var c = Math.cos( theta ), s = Math.sin( theta );
+	
+	this.x += distance * s;
+	this.y += distance * c;
+};
+
 SRJS.isZero = function( value ){
 	return Math.abs( value ) < 0.00000001;
 };

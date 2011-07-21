@@ -16,6 +16,15 @@ SRJS.Physics.Polygon.prototype.rotateAroundPoint = function( point, theta ){
 	}
 };
 
+SRJS.Physics.Polygon.prototype.translate = function( distance, theta ){
+	var e = 0;
+	while( e < this.edges.length ){
+		this.edges[e].translate( distance, theta );
+		
+		e++;
+	}
+};
+
 SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
 };
