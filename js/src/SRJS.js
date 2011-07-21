@@ -6,10 +6,10 @@ SRJS.addPhysics = true;
 SRJS.physicsDimension = 800; // the dimension of the physics canvas
 SRJS.displayStats = false;
 SRJS.displayRobotVision = false;
-
-var count = 0;
-var intersections = new Array();
+SRJS.intersections = new Array();
 
 SRJS.isZero = function( value ){
 	return Math.abs( value ) < 0.00000001;
 };
+
+var count = 0;

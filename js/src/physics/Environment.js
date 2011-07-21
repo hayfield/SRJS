@@ -48,9 +48,9 @@ SRJS.Physics.Environment = function(){
 		
 		ctx.fillStyle = '#FFF';
 		i = 0;
-		while( i < intersections.length ){
-			var intersect = intersections[i].toPhysicsCanvasCoords();
-			ctx.fillRect( intersect.x, intersect.y, 7, 7 );
+		while( i < SRJS.intersections.length ){
+			var intersection = SRJS.intersections[i].toPhysicsCanvasCoords();
+			ctx.fillRect( intersection.x, intersection.y, 7, 7 );
 			
 			i++;
 		}
