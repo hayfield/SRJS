@@ -6,3 +6,6 @@ SRJS.Vision.update()
 
 Physics
  - Collision detection
+ 
+Triggers
+ - Should possibly be more integrated with the physics code
