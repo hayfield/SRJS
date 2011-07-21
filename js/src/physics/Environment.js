@@ -74,15 +74,15 @@ SRJS.Physics.Environment = function(){
 					angle = -angle;
 				}
 				
-				// move to the end of the line with the wheel that moved the shortest distance
-				polygon.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ),
-											angle );
-				robot.rotate( angle );
-				
+				// move to the end of the line with the wheel that moved the shortest distance				
 				var distance = -Math.min( left, right );
 				var axis = robot.rotation.y;
 				polygon.translate( distance, axis );
 				robot.moveForward( distance );
+				
+				polygon.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ),
+											angle );
+				robot.rotate( angle );
 				
 			}
 			
