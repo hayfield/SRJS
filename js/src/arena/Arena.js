@@ -70,12 +70,6 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			/*if( SRJS.floatyCam || arena.robots.length === 0 ){
-				arena.renderer.render( arena.scene, arena.camera );
-			} else {
-				arena.renderer.render( arena.scene, arena.robots[0].camera );
-			}*/
-			
 			if( SRJS.displayRobotVision ){
 				var robot = 0;
 				while( robot < arena.robots.length ){
@@ -112,6 +106,7 @@ SRJS.Arena.prototype.callRobotTriggerEvents = function(){
 	t = 0;
 	while( t < this.triggers.length ){
 		trigger = this.triggers[t];
+		
 		i = 0;
 		while( i < trigger.previousIntersectingRobots.length ){
 			if( trigger.intersectingRobots.indexOf( trigger.previousIntersectingRobots[i] ) !== -1 ){
@@ -122,6 +117,7 @@ SRJS.Arena.prototype.callRobotTriggerEvents = function(){
 			
 			i++;
 		}
+		
 		i = 0;
 		while( i < trigger.intersectingRobots.length ){
 			if( trigger.previousIntersectingRobots.indexOf( trigger.intersectingRobots[i] ) === -1 ){

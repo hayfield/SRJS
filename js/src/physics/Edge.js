@@ -2,9 +2,7 @@ SRJS.Physics.Edge = function( start, end ){
 	
 	// start and end positions of edge are of type SRJS.Vector2
 	this.start = start;
-	//this.start = new THREE.Vector2(start.x, start.y);
 	this.end = end;
-	//this.end = new THREE.Vector2(end.x, end.y);
 	
 };
 
@@ -19,6 +17,7 @@ SRJS.Physics.Edge.prototype.translate = function( distance, theta ){
 };
 
 // http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
+// or see Edge-README.txt
 SRJS.Physics.Edge.prototype.intersects = function( other ){
 	// collinear or never intersect
 	if( this.movement().cross( other.movement() ) === 0 ){
@@ -31,10 +30,11 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 	var distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
 								this.movement().cross( other.movement() );
 
+	// not within the specified parts of the line
 	if( distAlongThisLine < 0 || distAlongThisLine > 1
 		|| distAlongOtherLine < 0 || distAlongOtherLine > 1 ){
 		return false;
-	} else {
+	} else { // intersect
 		return this.start.add( this.movement().multiply( distAlongThisLine ) );
 	}
 	
