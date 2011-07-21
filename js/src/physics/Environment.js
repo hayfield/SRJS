@@ -52,6 +52,43 @@ SRJS.Physics.Environment = function(){
 		
 	};
 	
+	this.update = function(){
+		var p, e, polygon, edge, robot;
+		p = 0;
+		while( p < this.polygons.length ){
+			polygon = this.polygons[p];
+			
+			if( !polygon.fixed && polygon.object instanceof SRJS.Robot ){
+				robot = polygon.object;
+				
+				// work out how long since the last movement
+				var elapsed = (Date.now() - robot.lastUpdate) / 1000;
+				robot.lastUpdate = Date.now();
+				
+				// move each wheel forward
+				var left = robot.speed * robot.motor[0].target * elapsed;
+				var right = robot.speed * robot.motor[1].target * elapsed;
+				
+				// work out the angle between the two wheels
+				var opposite = Math.max(left, right) - Math.min(left, right);
+				var adjacent = 50;
+				var angle = Math.atan( opposite / adjacent );
+				
+				if( robot.motor[0].target > robot.motor[1].target ){
+					angle = -angle;
+				}
+				
+				// move to the end of the line with the wheel that moved the shortest distance
+				//this.translateZ( -Math.min( left, right ) );
+				//this.rotation.y += angle;
+				polygon.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ),
+											angle );
+			}
+			
+			p++;
+		}
+	};
+	
 };
 
 var count = 0;

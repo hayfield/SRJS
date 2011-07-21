@@ -7,6 +7,15 @@ SRJS.Physics.Polygon = function( fixed, trigger, object ){
 
 };
 
+SRJS.Physics.Polygon.prototype.rotateAroundPoint = function( point, theta ){
+	var e = 0;
+	while( e < this.edges.length ){
+		this.edges[e].rotateAroundPoint( point, theta );
+		
+		e++;
+	}
+};
+
 SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
 };

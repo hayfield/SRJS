@@ -8,6 +8,11 @@ SRJS.Physics.Edge = function( start, end ){
 	
 };
 
+SRJS.Physics.Edge.prototype.rotateAroundPoint = function( point, theta ){
+	this.start.rotateAroundPoint( point, theta );
+	this.end.rotateAroundPoint( point, theta );
+};
+
 SRJS.Physics.Edge.prototype.__defineGetter__('length',
 	function(){
 		return (this.start.addSelf( this.end )).length;
