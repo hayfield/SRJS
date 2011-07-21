@@ -83,10 +83,12 @@ SRJS.Physics.Environment = function(){
 				//this.rotation.y += angle;
 				polygon.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ),
 											angle );
+				robot.rotation.y += angle;
 				
 				var distance = -Math.min( left, right );
 				var axis = robot.rotation.y;
 				polygon.translate( distance, axis );
+				robot.translateZ( distance );
 				
 			}
 			
