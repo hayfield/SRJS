@@ -69,12 +69,14 @@ SRJS.Arena = function( args ){
 				arena.renderer.render( arena.scene, arena.robots[0].camera );
 			}*/
 			
-			var robot = 0;
-			while( robot < arena.robots.length ){
-				arena.renderer.render( arena.scene, arena.robots[robot].camera );
-				arena.robots[robot].vision.update( arena.renderer );
-				
-				robot++;
+			if( SRJS.displayRobotVision ){
+				var robot = 0;
+				while( robot < arena.robots.length ){
+					arena.renderer.render( arena.scene, arena.robots[robot].camera );
+					arena.robots[robot].vision.update( arena.renderer );
+					
+					robot++;
+				}
 			}
 			
 			arena.renderer.render( arena.scene, arena.camera );
