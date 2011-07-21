@@ -5,4 +5,7 @@ SRJS.Vision.update()
  - Would make more sense to access image data directly rather than converting to PNG, drawing that, then getting imageData to process
  
 Triggers
- - Should possibly be more integrated with the physics code 
+ - Should possibly be more integrated with the physics code
+
+Robots
+ - Should be able to specify rotation that they start at
