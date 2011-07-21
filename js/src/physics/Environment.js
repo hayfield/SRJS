@@ -16,9 +16,11 @@ SRJS.Physics.Environment = function(){
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
 		var p, e, polygon, edge, start, end, i;
 		p = 0;
+		// draw the various bits of geometry on the canvas
 		while( p < this.polygons.length ){
 			polygon = this.polygons[p];	
 
+			// in different colours depending on its status
 			if( polygon.fixed && !polygon.trigger ){
 				ctx.strokeStyle = '#000';
 			} else if( polygon.fixed && polygon.trigger ){
@@ -46,12 +48,20 @@ SRJS.Physics.Environment = function(){
 			p++;
 		}
 		
+		// draw solid intersections
 		ctx.fillStyle = '#FFF';
 		i = 0;
 		while( i < SRJS.intersections.solids.length ){
 			var intersection = SRJS.intersections.solids[i].toPhysicsCanvasCoords();
 			ctx.fillRect( intersection.x, intersection.y, 7, 7 );
-			
+			i++;
+		}
+		// and trigger ones
+		ctx.fillStyle = '#F0F';
+		i = 0;
+		while( i < SRJS.intersections.triggers.length ){
+			var intersection = SRJS.intersections.triggers[i].toPhysicsCanvasCoords();
+			ctx.fillRect( intersection.x, intersection.y, 7, 7 );
 			i++;
 		}
 		
