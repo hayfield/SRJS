@@ -10,15 +10,16 @@ SRJS.Arena = function( args ){
 	} else {
 		
 		SRJS.CURRENT_ARENA = this;
+		this.physics = args.physics || new SRJS.Physics.Environment();
+		this.arenaDimension = args.arenaDimension || 1;
+		
+		this.triggers = new Array();
+		this.robots = new Array();
 		
 		args.initScene();
 		
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
-		this.physics = args.physics || new SRJS.Physics.Environment();
-		this.arenaDimension = args.arenaDimension || 1;
-		
-		this.robots = new Array();
 		
 		this.renderer = new THREE.WebGLRenderer();
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
