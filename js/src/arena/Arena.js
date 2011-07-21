@@ -9,6 +9,10 @@ SRJS.Arena = function( args ){
 		
 	} else {
 		
+		SRJS.CURRENT_ARENA = this;
+		
+		args.initScene();
+		
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		this.physics = args.physics || new SRJS.Physics.Environment();
@@ -93,5 +97,6 @@ SRJS.Arena = function( args ){
 
 SRJS.Arena.prototype.addRobot = function( robot ){
 	this.robots[this.robots.length] = robot || new SRJS.Robot();
+	this.robots[this.robots.length - 1].ID = this.robots.length;
 	this.scene.addObject( this.robots[this.robots.length - 1] );
 };
