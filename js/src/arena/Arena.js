@@ -46,9 +46,9 @@ SRJS.Arena = function( args ){
 			var arena = SRJS.CURRENT_ARENA;
 			arena.physics.draw();
 			arena.physics.update();
+			
 			var robot = 0;
 			while( robot < arena.robots.length ){
-				arena.robots[robot].move();
 				arena.robots[robot].main();
 				robot++;
 			}
