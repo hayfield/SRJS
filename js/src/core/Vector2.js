@@ -51,6 +51,22 @@ SRJS.Vector2.prototype.translate = function( distance, theta ){
 	this.y += distance * c;
 };
 
+SRJS.Vector2.prototype.cross = function( other ){
+	return (this.x * other.y) - (this.y * other.x);
+};
+
+SRJS.Vector2.prototype.add = function( other ){
+	return new SRJS.Vector2( this.x + other.x, this.y + other.y );
+};
+
+SRJS.Vector2.prototype.subtract = function( other ){
+	return new SRJS.Vector2( this.x - other.x, this.y - other.y );
+};
+
+SRJS.Vector2.prototype.multiply = function( value ){
+	return new SRJS.Vector2( this.x * value, this.y * value );
+};
+
 SRJS.isZero = function( value ){
 	return Math.abs( value ) < 0.00000001;
 };

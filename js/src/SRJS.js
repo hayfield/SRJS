@@ -8,3 +8,4 @@ SRJS.displayStats = false;
 SRJS.displayRobotVision = false;
 
 var count = 0;
+var intersections = new Array();
