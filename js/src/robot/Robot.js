@@ -51,8 +51,4 @@ SRJS.Robot.prototype.move = function(){
 	// move to the end of the line with the wheel that moved the shortest distance
 	this.translateZ( -Math.min( left, right ) );
 	this.rotation.y += angle;
-	if(count < 10){
-	console.log(this, this.position, this.position.x, this.position.y, this.position.z);
-	count++;
-	}
 };
