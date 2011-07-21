@@ -65,7 +65,6 @@ SRJS.Physics.Environment = function(){
 			
 			if( !polygon.fixed && polygon.object instanceof SRJS.Robot ){
 				this.updateRobot( polygon );
-				polygon.hasIntersections( this.polygons );
 			}
 			
 			p++;
@@ -96,6 +95,11 @@ SRJS.Physics.Environment = function(){
 		var distance = -Math.min( left, right );
 		
 		this.moveRobot( polygon, distance, angle );
+		
+		if( polygon.hasIntersections( this.polygons ) ){
+			// move it back to where it was (ish - the order isn't reversed)
+			this.moveRobot( polygon, -distance, -angle );
+		}
 	};
 	
 	this.moveRobot = function( polygon, distance, angle ){

@@ -40,6 +40,8 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 		
 		p++;
 	}
+	
+	return SRJS.intersections.length;
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
