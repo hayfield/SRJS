@@ -18,6 +18,12 @@ SRJS.Arena = function( args ){
 		this.robots = new Array();
 		this.robotStartPositions = args.robotStartPositions;
 		this.robotStartRotations = args.robotStartRotations;
+		// ensure the length of the rotation array is the same as the position one
+		var r = this.robotStartRotations.length;
+		while( r < this.robotStartPositions.length ){
+			this.robotStartRotations.push( 0 );
+			r++;
+		}
 		
 		args.initScene();
 		
