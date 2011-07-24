@@ -7,6 +7,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 					new THREE.Vector3( startPosition.x, 75, startPosition.y ),
 					SRJS.Material.green );
 	
+	this.rotate( SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] );
+	
 	this.camera = new THREE.Camera();
 	this.addChild( this.camera );
 	

@@ -153,6 +153,8 @@ SRJS.Arena2011 = function(){
 									new SRJS.Vector2( -365, 365 )
 							   ];
 	
+	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
+	
 	var arena = new SRJS.Arena( args );
 	
 };

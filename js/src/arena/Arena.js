@@ -17,6 +17,7 @@ SRJS.Arena = function( args ){
 		this.triggers = new Array();
 		this.robots = new Array();
 		this.robotStartPositions = args.robotStartPositions;
+		this.robotStartRotations = args.robotStartRotations;
 		
 		args.initScene();
 		
