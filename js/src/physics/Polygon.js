@@ -30,9 +30,10 @@ SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 };
 
 SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
-	var p = 0;
-	SRJS.intersections.clear();
+	var p, solidIntersectionsStart;
+	solidIntersectionsStart = SRJS.intersections.solids.length;
 	
+	p = 0;
 	while( p < polygons.length ){
 		if( polygons[p] !== this ){
 			this.intersectsWith( polygons[p] );
@@ -41,7 +42,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 		p++;
 	}
 
-	return SRJS.intersections.solids.length;
+	return SRJS.intersections.solids.length - solidIntersectionsStart;
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){

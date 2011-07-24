@@ -69,6 +69,8 @@ SRJS.Physics.Environment = function(){
 	
 	this.update = function(){
 		var p, e, polygon, edge, robot;
+		SRJS.intersections.clear();
+		
 		p = 0;
 		while( p < this.polygons.length ){
 			polygon = this.polygons[p];
