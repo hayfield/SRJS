@@ -7,5 +7,7 @@ SRJS.Vision.update()
 Triggers
  - Should possibly be more integrated with the physics code
 
-Robots
- - Should be able to specify rotation that they start at
+API
+ - Implement other features
+   - IO / 'bump switches'
+   - Range finder
