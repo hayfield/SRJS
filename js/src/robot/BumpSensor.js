@@ -1,4 +1,4 @@
-SRJS.Robot.IO.BumpSensor = function( parentRobot, ID ){
+SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	
 	this.robot = parentRobot;
 	
@@ -28,7 +28,8 @@ SRJS.Robot.IO.BumpSensor = function( parentRobot, ID ){
 		xPos = this.robot.position.x - this.robot.width / 2;
 		yPos = this.robot.position.z - edgeOffset( ID, this.robot.length );
 	}
-	
+	//console.log(xPos, yPos, this.robot.position.x, this.robot.position.z);
+
 	SRJS.Physics.Rectangle.call( this, false, true,
 									new SRJS.Vector2( this.robot.width / (SRJS.bumpSensorsPerRobot / 4),
 														this.robot.length / (SRJS.bumpSensorsPerRobot / 4) ),
@@ -47,16 +48,16 @@ SRJS.Robot.IO.BumpSensor = function( parentRobot, ID ){
 	
 };
 
-SRJS.Robot.IO.BumpSensor.prototype = new SRJS.Physics.Rectangle();
-SRJS.Robot.IO.BumpSensorprototype.constructor = SRJS.Robot.IO.BumpSensor;
+SRJS.Robot.BumpSensor.prototype = new SRJS.Physics.Rectangle();
+SRJS.Robot.BumpSensor.prototype.constructor = SRJS.Robot.BumpSensor;
 
-SRJS.Robot.IO.BumpSensor.prototype.__defineGetter__('d',
+SRJS.Robot.BumpSensor.prototype.__defineGetter__('d',
 	function(){
 		return this.bumped();
 	}
 );
 
-SRJS.Robot.IO.BumpSensor.prototype.__defineGetter__('a',
+SRJS.Robot.BumpSensor.prototype.__defineGetter__('a',
 	function(){
 		return 0;
 	}
