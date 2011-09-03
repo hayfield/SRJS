@@ -1,6 +1,6 @@
-SRJS.Robot.IO = function(){
+SRJS.Robot.IO = function( parentRobot ){
 	
-	Array.call( this );
+	this.robot = parentRobot;
 	
 	this.input = function( ID ){
 		if( ID < bumpSensor.length ){
@@ -13,6 +13,3 @@ SRJS.Robot.IO = function(){
 	
 	
 };
-
-SRJS.Robot.IO.prototype = new Array();
-SRJS.Robot.IO.prototype.constructor = SRJS.Robot.IO;

@@ -18,7 +18,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.speed = 1;
 	
-	this.io = new SRJS.Robot.IO();
+	this.io = new SRJS.Robot.IO( this );
 	
 	// motor[0] = left, motor[1] = right
 	this.motor = new Array();
