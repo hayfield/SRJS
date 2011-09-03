@@ -12,9 +12,7 @@ Physics
 
 Bump Sensors
  - Currently centred on the edge of the robot
- - The movement doesn't seem the same as that of the robot (it moves slowly to the side)
 
 API
  - Implement other features
-   - IO / 'bump switches'
    - Range finder
