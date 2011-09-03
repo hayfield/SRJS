@@ -13,18 +13,18 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 						((edgeLength / (SRJS.bumpSensorsPerRobot / 4)) / 2) );
 		return offset;
 	};
-	
+
 	// work out the position of the bump sensor
 	if( ID < SRJS.bumpSensorsPerRobot / 4 ){ // front
 		xPos = this.robot.position.x + edgeOffset( ID, this.robot.width );
 		yPos = this.robot.position.z - this.robot.length / 2;
-	} else if( ID < (SRJS.bumpSensorsPerRobot / 4 + SRJS.bumpSensorsPerRobot % 4) ){ // right
+	} else if( ID < (2 * SRJS.bumpSensorsPerRobot / 4) ){ // right
 		xPos = this.robot.position.x + this.robot.width / 2;
 		yPos = this.robot.position.z + edgeOffset( ID, this.robot.length );
-	} else if( ID < (SRJS.bumpSensorsPerRobot / 4 + 2 * (SRJS.bumpSensorsPerRobot % 4)) ){ // back
+	} else if( ID < (3 * SRJS.bumpSensorsPerRobot / 4) ){ // back
 		xPos = this.robot.position.x - edgeOffset( ID, this.robot.width );
 		yPos = this.robot.position.z + this.robot.length / 2;
-	} else if( ID < (SRJS.bumpSensorsPerRobot / 4 + 3 * (SRJS.bumpSensorsPerRobot % 4)) ){ // left
+	} else if( ID < (4 * SRJS.bumpSensorsPerRobot / 4) ){ // left
 		xPos = this.robot.position.x - this.robot.width / 2;
 		yPos = this.robot.position.z - edgeOffset( ID, this.robot.length );
 	}
