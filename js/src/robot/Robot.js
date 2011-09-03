@@ -9,6 +9,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 					new THREE.Vector3( startPosition.x, 75, startPosition.y ),
 					SRJS.Material.green );
 	
+	this.io = new SRJS.Robot.IO( this ); // need to initialise the IO before rotating the robot
+	
 	this.rotate( SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] );
 	
 	this.camera = new THREE.Camera();
@@ -17,8 +19,6 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.lastUpdate = Date.now();
 	
 	this.speed = 1;
-	
-	this.io = new SRJS.Robot.IO( this );
 	
 	// motor[0] = left, motor[1] = right
 	this.motor = new Array();
