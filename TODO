@@ -10,6 +10,9 @@ Triggers
 Physics
  - Using SRJS.phys seems a bit hacky
 
+Bump Sensors
+ - Currently centred on the edge of the robot
+
 API
  - Implement other features
    - IO / 'bump switches'
