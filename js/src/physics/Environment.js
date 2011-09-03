@@ -130,6 +130,18 @@ SRJS.Physics.Environment = function(){
 			// move it back to where it was (ish - the order isn't reversed)
 			this.moveRobot( polygon, -distance, -angle );
 		}
+		
+		// update the bump sensors
+		var s = 0;
+		while( s < robot.io.bumpSensor.length ){
+			var poly = robot.io.bumpSensor[s].rect;
+			if( poly.hasIntersections( this.polygons ) ){
+				robot.io.bumpSensor[s].d = true;
+			} else {
+				robot.io.bumpSensor[s].d = false;
+			}
+			s++;
+		}
 	};
 	
 	this.moveRobot = function( polygon, distance, angle ){
