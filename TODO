@@ -6,6 +6,9 @@ SRJS.Vision.update()
  
 Triggers
  - Should possibly be more integrated with the physics code
+ 
+Physics
+ - Using SRJS.phys seems a bit hacky
 
 API
  - Implement other features
