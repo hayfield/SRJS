@@ -12,12 +12,31 @@ SRJS.Physics.Environment = function(){
 	this.context = this.canvas.getContext('2d');
 	
 	this.draw = function(){
+		var drawPolygon = function( polygon, ctx ){
+			var e, edge, start, end;
+			e = 0;
+			while( e < polygon.edges.length ){
+				edge = polygon.edges[e];
+				start = edge.start.toPhysicsCanvasCoords();
+				end = edge.end.toPhysicsCanvasCoords();
+				
+				ctx.beginPath();
+				ctx.moveTo( start.x, start.y );
+				ctx.lineTo( end.x, end.y );
+				ctx.stroke();
+				
+				e++;
+			}
+		};
+		
 		var ctx = this.context;
 		
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-		var p, e, polygon, edge, start, end, i;
+		var p, e, polygon, edge, start, end, i, b;
 		p = 0;
 		// draw the various bits of geometry on the canvas
+		//while( p < this.polygons.length ){
+		//	polygon = this.polygons[p];
 		while( p < this.polygons.length + this.bumpSensors.length ){
 			if( p < this.polygons.length ){
 				polygon = this.polygons[p];
@@ -36,22 +55,18 @@ SRJS.Physics.Environment = function(){
 				ctx.strokeStyle = '#FFF';
 			}
 			
-			e = 0;
-			while( e < polygon.edges.length ){
-				edge = polygon.edges[e];
-				start = edge.start.toPhysicsCanvasCoords();
-				end = edge.end.toPhysicsCanvasCoords();
-				
-				ctx.beginPath();
-				ctx.moveTo( start.x, start.y );
-				ctx.lineTo( end.x, end.y );
-				ctx.stroke();
-				
-				e++;
-			}
+			drawPolygon( polygon, ctx );
 			
 			p++;
 		}
+		// draw the bump sensors
+		/*b = 0;
+		while( b < this.bumpSensors.lengt ){
+			polygon = this.bumpSensors[b].rect;
+			ctx.strokeStyle = '#FFF';
+			drawPolygon( polygon, ctx );
+			b++;
+		}*/
 		
 		// draw solid intersections
 		ctx.fillStyle = '#FFF';
