@@ -57,7 +57,11 @@ SRJS.Physics.Environment = function(){
 		b = 0;
 		while( b < this.bumpSensors.length ){
 			polygon = this.bumpSensors[b].rect;
-			ctx.strokeStyle = '#FFF';
+			if( this.bumpSensors[b].d ){
+				ctx.strokeStyle = '#000';
+			} else {
+				ctx.strokeStyle = '#FFF';
+			}
 			drawPolygon( polygon, ctx );
 			b++;
 		}
