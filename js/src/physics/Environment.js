@@ -1,6 +1,7 @@
 SRJS.Physics.Environment = function(){
 	
 	this.polygons = new Array();
+	this.bumpSensors = new Array();
 	this.intersections = new Array();
 	
 	var canvas = document.createElement('canvas');
@@ -17,8 +18,12 @@ SRJS.Physics.Environment = function(){
 		var p, e, polygon, edge, start, end, i;
 		p = 0;
 		// draw the various bits of geometry on the canvas
-		while( p < this.polygons.length ){
-			polygon = this.polygons[p];	
+		while( p < this.polygons.length + this.bumpSensors.length ){
+			if( p < this.polygons.length ){
+				polygon = this.polygons[p];
+			} else {
+				polygon = this.bumpSensors[p - this.polygons.length];
+			}
 
 			// in different colours depending on its status
 			if( polygon.fixed && !polygon.trigger ){
@@ -139,5 +144,11 @@ SRJS.Physics.Environment = function(){
 SRJS.Physics.Environment.prototype.addPolygon = function( polygon ){
 	if( SRJS.addPhysics ){
 		this.polygons.push( polygon );
+	}
+};
+
+SRJS.Physics.Environment.prototype.addBumpSensor = function( polygon ){
+	if( SRJS.addPhysics ){
+		this.bumpSensors.push( polygon );
 	}
 };
