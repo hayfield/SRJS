@@ -43,17 +43,20 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 									this );
 	SRJS.phys.addBumpSensor( this );
 	
+	this.d = false;
 	this.bumped = function(){
 		return false;
 	};
 	
 };
 
+/*
 SRJS.Robot.BumpSensor.prototype.__defineGetter__('d',
 	function(){
 		return this.bumped();
 	}
 );
+*/
 
 SRJS.Robot.BumpSensor.prototype.__defineGetter__('a',
 	function(){
