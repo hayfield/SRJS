@@ -22,7 +22,7 @@ SRJS.Physics.Environment = function(){
 			if( p < this.polygons.length ){
 				polygon = this.polygons[p];
 			} else {
-				polygon = this.bumpSensors[p - this.polygons.length];
+				polygon = this.bumpSensors[p - this.polygons.length].rect;
 			}
 
 			// in different colours depending on its status

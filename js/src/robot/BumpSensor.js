@@ -41,7 +41,7 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 									new SRJS.Vector2( xPos, yPos ),
 									0,
 									this );
-	SRJS.phys.addBumpSensor( this.rect );
+	SRJS.phys.addBumpSensor( this );
 	
 	this.bumped = function(){
 		return false;
