@@ -117,7 +117,16 @@ SRJS.Physics.Environment = function(){
 	this.moveRobot = function( polygon, distance, angle ){
 		var robot = polygon.object;
 		var axis = robot.rotation.y;
+		// move bump sensors
+		var s = 0;
+		while( s < robot.io.bumpSensor.length ){
+			var poly = robot.io.bumpSensor[s].rect;
+			poly.translate( distance, axis );
+			poly.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ), angle );
+			s++;
+		}
 		
+		// move robot
 		polygon.translate( distance, axis );
 		robot.moveForward( distance );
 		
