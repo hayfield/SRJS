@@ -12,7 +12,7 @@ Physics
 
 Bump Sensors
  - Currently centred on the edge of the robot
- - When rammed into a wall, the bump sensors slide, but the robot doesn't
+ - The movement doesn't seem the same as that of the robot (it moves slowly to the side)
 
 API
  - Implement other features
