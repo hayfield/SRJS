@@ -3,7 +3,9 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	var startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
 	
-	SRJS.Cube.call( this, 50,
+	this.height = this.width = this.length = 50;
+	
+	SRJS.Cube.call( this, this.height,
 					new THREE.Vector3( startPosition.x, 75, startPosition.y ),
 					SRJS.Material.green );
 	
