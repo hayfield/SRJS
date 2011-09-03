@@ -30,12 +30,13 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	}
 	//console.log(xPos, yPos, this.robot.position.x, this.robot.position.z);
 
-	SRJS.Physics.Rectangle.call( this, false, true,
+	this.rect = new SRJS.Physics.Rectangle/*SRJS.Physics.Rectangle.call*/( this, false, true,
 									new SRJS.Vector2( this.robot.width / (SRJS.bumpSensorsPerRobot / 4),
 														this.robot.length / (SRJS.bumpSensorsPerRobot / 4) ),
 									new SRJS.Vector2( xPos, yPos ),
 									0,
 									this );
+	//SRJS.phys.addPolygon( this.rect );
 	
 	/*
 		There are (SRJS.bumpSensorsPerRobot / 4) bump sensors along the edge of each robot.
@@ -48,8 +49,8 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	
 };
 
-SRJS.Robot.BumpSensor.prototype = new SRJS.Physics.Rectangle();
-SRJS.Robot.BumpSensor.prototype.constructor = SRJS.Robot.BumpSensor;
+//SRJS.Robot.BumpSensor.prototype = new SRJS.Physics.Rectangle();
+//SRJS.Robot.BumpSensor.prototype.constructor = SRJS.Robot.BumpSensor;
 
 SRJS.Robot.BumpSensor.prototype.__defineGetter__('d',
 	function(){
