@@ -30,23 +30,34 @@ SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 };
 
 SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
-	var p, solidIntersectionsStart;
+	var p, solidIntersectionsStart, intersects;
 	solidIntersectionsStart = SRJS.intersections.solids.length;
+	intersects = false;
 	
 	p = 0;
 	while( p < polygons.length ){
 		if( polygons[p] !== this ){
-			this.intersectsWith( polygons[p] );
+			if( !(this.object instanceof SRJS.Robot.BumpSensor) ||
+				((this.object instanceof SRJS.Robot.BumpSensor) && !(polygons[p].object instanceof SRJS.Robot) &&
+					!(polygons[p].object instanceof SRJS.Trigger)) ){
+				if( this.intersectsWith( polygons[p] ) ){
+					intersects = true;
+				}
+			}
 		}
 		
 		p++;
 	}
 	
-	return SRJS.intersections.solids.length - solidIntersectionsStart;
+	if( this.object instanceof SRJS.Robot.BumpSensor ){
+		return intersects;
+	} else {
+		return SRJS.intersections.solids.length - solidIntersectionsStart;
+	}
+
 };
-
+var count = 0;
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
-
 	var e, o, trigger, intersects;
 	
 	intersects = false;
@@ -56,8 +67,12 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 		o = 0;
 		while( o < other.edges.length ){
 			if( this.edges[e].intersects( other.edges[o] ) ){
-				SRJS.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
-				intersects = true;
+				if( this.object instanceof SRJS.Robot.BumpSensor ){
+					return true;
+				} else {
+					SRJS.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
+					intersects = true;
+				}
 			}
 			o++;
 		}
