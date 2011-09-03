@@ -9,7 +9,11 @@ SRJS.Robot.IO = function( parentRobot ){
 	};
 	
 	this.bumpSensor = new Array();
-	
+	var sensorID = 0;
+	while( sensorID < SRJS.bumpSensorsPerRobot ){
+		this.bumpSensor.push( new SRJS.Robot.IO.BumpSensor( this.robot, sensorID ) );
+		sensorID++;
+	}
 	
 	
 };
