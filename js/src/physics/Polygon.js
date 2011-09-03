@@ -41,7 +41,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 		
 		p++;
 	}
-
+	
 	return SRJS.intersections.solids.length - solidIntersectionsStart;
 };
 
