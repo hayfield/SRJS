@@ -6,6 +6,9 @@ SRJS.Vision.update()
  
 Triggers
  - Should possibly be more integrated with the physics code
+
+2011 Arena
+ - Blue Blobs show through the wall from certain angles
  
 Physics
  - Using SRJS.phys seems a bit hacky
