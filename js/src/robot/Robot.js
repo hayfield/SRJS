@@ -1,17 +1,19 @@
 SRJS.Robot = function(){
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
-	var startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
+	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
+	
+	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
 	
 	this.height = this.width = this.length = 50;
 	
 	SRJS.Cube.call( this, this.height,
-					new THREE.Vector3( startPosition.x, 75, startPosition.y ),
+					new THREE.Vector3( this.startPosition.x, 75, this.startPosition.y ),
 					SRJS.Material.green );
 	
 	this.io = new SRJS.Robot.IO( this ); // need to initialise the IO before rotating the robot
-	
-	this.rotate( SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] );
+
+	this.rotate( this.startRotation );
 	
 	this.camera = new THREE.Camera();
 	this.addChild( this.camera );
