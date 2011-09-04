@@ -12,6 +12,7 @@ SRJS.Robot.IO = function( parentRobot ){
 	var sensorID = 0;
 	while( sensorID < SRJS.bumpSensorsPerRobot ){
 		this.bumpSensor.push( new SRJS.Robot.BumpSensor( this.robot, sensorID ) );
+		this.bumpSensor[sensorID].rect.rotateAroundPoint( this.robot.startPosition, this.robot.startRotation );
 		sensorID++;
 	}
 	
