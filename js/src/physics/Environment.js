@@ -75,11 +75,7 @@ SRJS.Physics.Environment = function(){
 		while( f < this.rangeFinders.length ){
 			polygon = this.rangeFinders[f].ray;
 			
-			/*if( this.rangeFinders[b].d ){
-				ctx.strokeStyle = '#000';
-			} else {*/
-				ctx.strokeStyle = '#FFF';
-			//}
+			ctx.strokeStyle = '#FF0';
 			
 			drawPolygon( polygon, ctx );
 			
