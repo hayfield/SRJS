@@ -20,7 +20,7 @@ SRJS.Robot.IO = function( parentRobot ){
 	var finderID = 0;
 	while( finderID < SRJS.rangeFindersPerRobot ){
 		this.rangeFinder.push( new SRJS.Robot.RangeFinder( this.robot, finderID ) );
-		//this.rangeFinder[finderID].rect.rotateAroundPoint( this.robot.startPosition, this.robot.startRotation );
+		this.rangeFinder[finderID].ray.rotateAroundPoint( this.robot.startPosition, this.robot.startRotation );
 		finderID++;
 	}
 	
