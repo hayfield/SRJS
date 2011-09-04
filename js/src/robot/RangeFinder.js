@@ -5,6 +5,34 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 	ID = ID || 0;
 	this.ID = ID < 0 ? 0 : ID > SRJS.rangeFindersPerRobot ? SRJS.rangeFindersPerRobot : ID;
 	
+	// code to work out position is pretty much the same for the Bump Sensor
+	var xPos, yPos;
+	var edgeOffset = function( ID, edgeLength ){
+		var edgePos = ID % ( SRJS.rangeFindersPerRobot / 4 );
+		var offset = -((edgeLength / 2) -
+						(edgePos * (edgeLength / (SRJS.rangeFindersPerRobot / 4))) -
+						((edgeLength / (SRJS.rangeFindersPerRobot / 4)) / 2) );
+		return offset;
+	};
+
+	// work out the position of the bump sensor
+	if( ID < SRJS.rangeFindersPerRobot / 4 ){ // front
+		xPos = this.robot.position.x + edgeOffset( ID, this.robot.width );
+		yPos = this.robot.position.z - this.robot.length / 2;
+	} else if( ID < (2 * SRJS.rangeFindersPerRobot / 4) ){ // right
+		xPos = this.robot.position.x + this.robot.width / 2;
+		yPos = this.robot.position.z + edgeOffset( ID, this.robot.length );
+	} else if( ID < (3 * SRJS.rangeFindersPerRobot / 4) ){ // back
+		xPos = this.robot.position.x - edgeOffset( ID, this.robot.width );
+		yPos = this.robot.position.z + this.robot.length / 2;
+	} else if( ID < (4 * SRJS.rangeFindersPerRobot / 4) ){ // left
+		xPos = this.robot.position.x - this.robot.width / 2;
+		yPos = this.robot.position.z - edgeOffset( ID, this.robot.length );
+	}
+	
+	this.ray = new SRJS.Physics.Ray( new SRJS.Vector2( xPos, yPos ),
+										this.robot.startRotation, this );
+	
 	SRJS.phys.addRangeFinder( this );
 	
 };

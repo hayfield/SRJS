@@ -10,6 +10,7 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	ID = ID || 0;
 	this.ID = ID < 0 ? 0 : ID > SRJS.bumpSensorsPerRobot ? SRJS.bumpSensorsPerRobot : ID;
 	
+	// code to work out position is pretty much the same for the Range Finder
 	var xPos, yPos;
 	var edgeOffset = function( ID, edgeLength ){
 		var edgePos = ID % ( SRJS.bumpSensorsPerRobot / 4 );

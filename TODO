@@ -12,6 +12,7 @@ Physics
 
 Bump Sensors
  - Currently centred on the edge of the robot
+ - Code duplicated between Bump Sensor and Range Finder
 
 API
  - Implement other features
