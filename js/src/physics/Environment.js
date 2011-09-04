@@ -131,6 +131,12 @@ SRJS.Physics.Environment = function(){
 	
 	this.updateRobot = function( polygon ){
 		var robot = polygon.object;
+		
+		var i = 0;
+		while( i < robot.io.rangeFinder.length ){
+			robot.io.rangeFinder[i].ray.intersections.clear();
+			i++;
+		}
 				
 		// work out how long since the last movement
 		var elapsed = (Date.now() - robot.lastUpdate) / 1000;
