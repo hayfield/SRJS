@@ -11,7 +11,6 @@ SRJS.Physics.Intersections = function(){
 	};
 	
 };
-var count = 0;
 
 SRJS.Physics.Intersections.prototype = new Array();
 SRJS.Physics.Intersections.prototype.constructor = SRJS.Physics.Intersections;
