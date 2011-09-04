@@ -9,9 +9,9 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	var defaultDimension = 50;
 	
 	this.height = 50;
-	//this.height = typeof args.height === 'undefined' ? args.height : defaultDimension;
-	this.width = typeof args.width === 'undefined' ? defaultDimension : args.width;
-	this.length = typeof args.length === 'undefined' ? defaultDimension : args.length;
+	//this.height = typeof args.height === 'number' ? args.height : defaultDimension;
+	this.width = typeof args.width === 'number' ? args.width : defaultDimension;
+	this.length = typeof args.length === 'number' ? args.length : defaultDimension;
 	
 	SRJS.Cube.call( this, this.height,
 					new THREE.Vector3( this.startPosition.x, 75, this.startPosition.y ),
