@@ -33,7 +33,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
 	
-	this.main = function(){
+	this.main = typeof args.main === 'function' ? args.main : function(){
 		
 	};
 	
