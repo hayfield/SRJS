@@ -16,5 +16,13 @@ SRJS.Robot.IO = function( parentRobot ){
 		sensorID++;
 	}
 	
+	this.rangeFinder = new Array();
+	var finderID = 0;
+	while( finderID < SRJS.rangeFindersPerRobot ){
+		this.rangeFinder.push( new SRJS.Robot.RangeFinder( this.robot, finderID ) );
+		//this.rangeFinder[finderID].rect.rotateAroundPoint( this.robot.startPosition, this.robot.startRotation );
+		finderID++;
+	}
+	
 	
 };

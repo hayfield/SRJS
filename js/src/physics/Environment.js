@@ -2,6 +2,8 @@ SRJS.Physics.Environment = function(){
 	
 	this.polygons = new Array();
 	this.bumpSensors = new Array();
+	this.rangeFinders = new Array();
+	
 	this.intersections = new Array();
 	
 	var canvas = document.createElement('canvas');
@@ -178,5 +180,11 @@ SRJS.Physics.Environment.prototype.addPolygon = function( polygon ){
 SRJS.Physics.Environment.prototype.addBumpSensor = function( polygon ){
 	if( SRJS.addPhysics ){
 		this.bumpSensors.push( polygon );
+	}
+};
+
+SRJS.Physics.Environment.prototype.addRangeFinder = function( polygon ){
+	if( SRJS.addPhysics ){
+		this.rangeFinders.push( polygon );
 	}
 };
