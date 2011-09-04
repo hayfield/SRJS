@@ -9,6 +9,7 @@ Triggers
  
 Physics
  - Using SRJS.phys seems a bit hacky
+ - SRJS.intersections also seems a bit hacky
  - When calculating polygon intersections, if there's an intersection, the point is calculated a second time
 
 Bump Sensors
@@ -16,5 +17,5 @@ Bump Sensors
  - Code duplicated between Bump Sensor and Range Finder
 
 API
- - Implement other features
-   - Range finder
+ - Try and make the input API slightly more like the Python version
+ - Make it possible to specify the position and rotation of range finders (add your own)
