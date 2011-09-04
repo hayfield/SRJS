@@ -66,3 +66,11 @@ SRJS.Vector2.prototype.subtract = function( other ){
 SRJS.Vector2.prototype.multiply = function( value ){
 	return new SRJS.Vector2( this.x * value, this.y * value );
 };
+
+SRJS.Vector2.prototype.lengthSq = function(){
+	return this.x * this.x + this.y * this.y;
+};
+
+SRJS.Vector2.prototype.length = function(){
+	return Math.sqrt( this.lengthSq() );
+};
