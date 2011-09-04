@@ -34,7 +34,7 @@ SRJS.Physics.Environment = function(){
 		var ctx = this.context;
 		
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-		var p, e, polygon, edge, start, end, i, b;
+		var p, e, polygon, edge, start, end, i, b, f;
 		p = 0;
 		// draw the various bits of geometry on the canvas
 		while( p < this.polygons.length ){
@@ -69,6 +69,21 @@ SRJS.Physics.Environment = function(){
 			drawPolygon( polygon, ctx );
 			
 			b++;
+		}
+		// draw the range finders
+		f = 0;
+		while( f < this.rangeFinders.length ){
+			polygon = this.rangeFinders[f].ray;
+			
+			/*if( this.rangeFinders[b].d ){
+				ctx.strokeStyle = '#000';
+			} else {*/
+				ctx.strokeStyle = '#FFF';
+			//}
+			
+			drawPolygon( polygon, ctx );
+			
+			f++;
 		}
 		
 		// draw solid intersections
