@@ -167,6 +167,15 @@ SRJS.Physics.Environment = function(){
 			poly.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ), angle );
 			s++;
 		}
+		
+		// move range finders
+		var f = 0;
+		while( f < robot.io.rangeFinder.length ){
+			var poly = robot.io.rangeFinder[f].ray;
+			poly.translate( distance, axis );
+			poly.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ), angle );
+			f++;
+		}
 	};
 	
 };
