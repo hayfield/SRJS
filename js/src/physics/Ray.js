@@ -13,6 +13,18 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 	this.addEdge( new SRJS.Physics.Edge( new SRJS.Vector2(startPosition.x, startPosition.y),
 										 new SRJS.Vector2(endPosition.x, endPosition.y) ) );
 	
+	this.intersections = new SRJS.Physics.Intersections();
+	
+	this.nearestIntersection = this.edges[0].end;
+	/*function(){
+		var intersection = this.intersections.nearestTo( this.edges[0].start, true, false );
+		if( intersection ){
+			return intersection;
+		} else {
+			return this.edges[0].end;
+		}
+	};*/
+	
 };
 
 SRJS.Physics.Ray.prototype = new SRJS.Physics.Polygon();

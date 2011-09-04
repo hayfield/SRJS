@@ -14,6 +14,13 @@ SRJS.Physics.Environment = function(){
 	this.context = this.canvas.getContext('2d');
 	
 	this.draw = function(){
+		var drawLine = function( start, end, ctx ){
+			ctx.beginPath();
+			ctx.moveTo( start.x, start.y );
+			ctx.lineTo( end.x, end.y );
+			ctx.stroke();
+		};
+		
 		var drawPolygon = function( polygon, ctx ){
 			var e, edge, start, end;
 			e = 0;
@@ -22,10 +29,7 @@ SRJS.Physics.Environment = function(){
 				start = edge.start.toPhysicsCanvasCoords();
 				end = edge.end.toPhysicsCanvasCoords();
 				
-				ctx.beginPath();
-				ctx.moveTo( start.x, start.y );
-				ctx.lineTo( end.x, end.y );
-				ctx.stroke();
+				drawLine( start, end, ctx );
 				
 				e++;
 			}
@@ -74,10 +78,18 @@ SRJS.Physics.Environment = function(){
 		f = 0;
 		while( f < this.rangeFinders.length ){
 			polygon = this.rangeFinders[f].ray;
-			
+			ray = polygon.edges[0];
 			ctx.strokeStyle = '#FF0';
 			
-			drawPolygon( polygon, ctx );
+			drawLine( ray.start.toPhysicsCanvasCoords(), polygon.nearestIntersection.toPhysicsCanvasCoords(), ctx );
+			//drawPolygon( polygon, ctx );
+			
+			//var intersection = polygon.intersectionPoint;
+			//if( intersection ){
+			var intersection = polygon.nearestIntersection.toPhysicsCanvasCoords();
+			ctx.fillRect( intersection.x, intersection.y, 5, 5 );
+
+			//}
 			
 			f++;
 		}
@@ -157,6 +169,23 @@ SRJS.Physics.Environment = function(){
 				robot.io.bumpSensor[s].d = false;
 			}
 			s++;
+		}
+		
+		// update the range finders
+		var f = 0;
+		var rayObj, ray, intersectionPoint;
+		while( f < robot.io.rangeFinder.length ){
+			var rayObj = robot.io.rangeFinder[f].ray;
+			ray = rayObj.edges[0];
+			rayObj.hasIntersections( this.polygons );
+			rayObj.nearestIntersection = rayObj.intersections.nearestTo( rayObj.edges[0].start, true, false );
+			if( !rayObj.nearestIntersection ){
+				rayObj.nearestIntersection = rayObj.edges[0].end;
+			}
+			//intersectionPoint = ray.nearestIntersection( this.polygons );
+			//rayObj.intersectionPoint = intersectionPoint;
+			
+			f++;
 		}
 	};
 	
