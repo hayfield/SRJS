@@ -82,14 +82,10 @@ SRJS.Physics.Environment = function(){
 			ctx.strokeStyle = '#FF0';
 			
 			drawLine( ray.start.toPhysicsCanvasCoords(), polygon.nearestIntersection.toPhysicsCanvasCoords(), ctx );
-			//drawPolygon( polygon, ctx );
-			
-			//var intersection = polygon.intersectionPoint;
-			//if( intersection ){
-			var intersection = polygon.nearestIntersection.toPhysicsCanvasCoords();
-			ctx.fillRect( intersection.x, intersection.y, 5, 5 );
 
-			//}
+			var intersection = polygon.nearestIntersection.toPhysicsCanvasCoords();
+			ctx.fillStyle = '#FF0';
+			ctx.fillRect( intersection.x, intersection.y, 5, 5 );
 			
 			f++;
 		}
