@@ -67,10 +67,19 @@ SRJS.Vector2.prototype.multiply = function( value ){
 	return new SRJS.Vector2( this.x * value, this.y * value );
 };
 
-SRJS.Vector2.prototype.lengthSq = function(){
+SRJS.Vector2.prototype.lengthSquared = function(){
 	return this.x * this.x + this.y * this.y;
 };
 
 SRJS.Vector2.prototype.length = function(){
-	return Math.sqrt( this.lengthSq() );
+	return Math.sqrt( this.lengthSquared() );
+};
+
+SRJS.Vector2.prototype.distanceToSquared = function( other ){
+	var dx = this.x - other.x, dy = this.y - other.y;
+	return dx * dx + dy * dy;
+};
+
+SRJS.Vector2.prototype.distanceTo = function( other ){
+	return Math.sqrt( this.distanceToSquared( other ) );
 };

@@ -7,10 +7,22 @@ SRJS.Physics.Intersections = function(){
 	
 	// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/sort
 	this.sortFunction = function( a, b ){
-		var aDistance = a.subtract( SRJS.Physics.Intersections._sortPoint ).length();
-		var bDistance = b.subtract( SRJS.Physics.Intersections._sortPoint ).length();
+		//var aDistance = a.subtract( SRJS.Physics.Intersections._sortPoint ).length();
+		//var bDistance = b.subtract( SRJS.Physics.Intersections._sortPoint ).length();
 		
-		return aDistance - bDistance;
+		return a.distanceTo( SRJS.Physics.Intersections._sortPoint ) - b.distanceTo( SRJS.Physics.Intersections._sortPoint );
+	};
+	
+	this.sort = function( arr ){
+		if( arr.length < 2 ){
+			return arr;
+		}
+		var pos;
+		pos = 0;
+		while( pos < arr.length ){
+			
+			pos++;
+		}
 	};
 	
 };
@@ -33,6 +45,7 @@ SRJS.Physics.Intersections.prototype.clear = function(){
 };
 
 SRJS.Physics.Intersections.prototype.nearestTo = function( point, includeSolids, includeTriggers ){
+	//this.sort(this.solids);
 	SRJS.Physics.Intersections._sortPoint = point;
 	if( !includeSolids && !includeTriggers ){
 		return false;
