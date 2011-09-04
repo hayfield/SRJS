@@ -1,11 +1,17 @@
-SRJS.Robot = function(){
+SRJS.Robot = function( args ){
+args = typeof args == 'undefined' ? {} : args;
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
 	
 	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
 	
-	this.height = this.width = this.length = 50;
+	var defaultDimension = 50;
+	
+	this.height = 50;
+	//this.height = args.height !== undefined ? args.height : defaultDimension;
+	this.width = args.width !== undefined ? args.width : defaultDimension;
+	this.length = args.length !== undefined ? args.length : defaultDimension;
 	
 	SRJS.Cube.call( this, this.height,
 					new THREE.Vector3( this.startPosition.x, 75, this.startPosition.y ),

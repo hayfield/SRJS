@@ -16,6 +16,10 @@ Bump Sensors
  - Currently centred on the edge of the robot
  - Code duplicated between Bump Sensor and Range Finder
 
+Robot Args
+ - Specifying the width and length (so they're something other than 50) causes the bump sensors to be in the wrong place
+ - Setting the height as anything other than 50 causes it to float
+
 API
  - Try and make the input API slightly more like the Python version
  - Make it possible to specify the position and rotation of range finders (add your own)

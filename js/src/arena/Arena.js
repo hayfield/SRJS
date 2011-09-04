@@ -101,8 +101,18 @@ SRJS.Arena = function( args ){
 	
 };
 
+/*
+	Takes only a single (optional) parameter.
+	This can be either an instance of SRJS.Robot() or an args object to specify how a new robot should be created.
+	If there is no parameter, a robot with default settings will be created.
+*/
 SRJS.Arena.prototype.addRobot = function( robot ){
-
+	
+	if( robot && !(robot instanceof SRJS.Robot) && typeof robot === 'object' ){
+		var args = robot;
+		robot = new SRJS.Robot( args );
+	}
+	
 	this.robots[this.robots.length] = robot || new SRJS.Robot();
 	this.robots[this.robots.length - 1].ID = this.robots.length;
 	
