@@ -66,9 +66,11 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 			if( this.edges[e].intersects( other.edges[o] ) ){
 				if( this.object instanceof SRJS.Robot.BumpSensor ){
 					return true;
-				} else if( this.object instanceof SRJS.Robot.RangeFinder && other.object !== this.object.robot ){
-					this.object.ray.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
-					intersects = true;
+				} else if( this.object instanceof SRJS.Robot.RangeFinder ){
+					if( other.object !== this.object.robot ){
+						this.object.ray.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
+						intersects = true;
+					}
 				} else {
 					SRJS.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
 					intersects = true;
