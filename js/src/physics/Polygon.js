@@ -11,7 +11,6 @@ SRJS.Physics.Polygon.prototype.rotateAroundPoint = function( point, theta ){
 	var e = 0;
 	while( e < this.edges.length ){
 		this.edges[e].rotateAroundPoint( point, theta );
-		
 		e++;
 	}
 };
@@ -20,7 +19,6 @@ SRJS.Physics.Polygon.prototype.translate = function( distance, theta ){
 	var e = 0;
 	while( e < this.edges.length ){
 		this.edges[e].translate( distance, theta );
-		
 		e++;
 	}
 };
@@ -45,7 +43,6 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 				}
 			}
 		}
-		
 		p++;
 	}
 	
