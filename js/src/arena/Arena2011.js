@@ -2,7 +2,7 @@ SRJS.Arena2011 = function(){
 	
 	var args = {};
 	
-	var camera, scene, physics;
+	var scene;
 
 	args.initScene = function(){
 

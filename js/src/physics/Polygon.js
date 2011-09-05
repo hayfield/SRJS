@@ -55,7 +55,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
-	var e, o, trigger, intersects;
+	var e, o, intersects;
 	
 	intersects = false;
 	e = 0

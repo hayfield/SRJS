@@ -38,7 +38,7 @@ SRJS.Physics.Environment = function(){
 		var ctx = this.context;
 		
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-		var p, e, polygon, edge, start, end, i, b, f;
+		var p, polygon, i, b, f;
 		p = 0;
 		// draw the various bits of geometry on the canvas
 		while( p < this.polygons.length ){
@@ -110,7 +110,7 @@ SRJS.Physics.Environment = function(){
 	};
 	
 	this.update = function(){
-		var p, e, polygon, edge, robot;
+		var p, polygon;
 		SRJS.intersections.clear();
 		
 		p = 0;
@@ -175,7 +175,7 @@ SRJS.Physics.Environment = function(){
 		
 		// update the range finders
 		var f = 0;
-		var rayObj, ray, intersectionPoint;
+		var rayObj, ray;
 		while( f < robot.io.rangeFinder.length ){
 			var rayObj = robot.io.rangeFinder[f].ray;
 			ray = rayObj.edges[0];
@@ -184,8 +184,6 @@ SRJS.Physics.Environment = function(){
 			if( !rayObj.nearestIntersection ){
 				rayObj.nearestIntersection = rayObj.edges[0].end;
 			}
-			//intersectionPoint = ray.nearestIntersection( this.polygons );
-			//rayObj.intersectionPoint = intersectionPoint;
 			
 			f++;
 		}
