@@ -107,7 +107,7 @@ SRJS.Arena2011 = function(){
 		
 		// add the quadrant triggers
 		var quadrantTrigger = function( robotID ){
-			robot = SRJS.CURRENT_ARENA.getRobot( robotID );
+			var robot = SRJS.CURRENT_ARENA.getRobot( robotID );
 			
 			if( robot.lastEnteredTrigger !== this ){
 				robot.gameScore += 2;
