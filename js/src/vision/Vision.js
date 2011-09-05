@@ -160,8 +160,8 @@ SRJS.Vision.prototype.redMin = -1;
 SRJS.Vision.prototype.redMax = 10;
 SRJS.Vision.prototype.redSaturationMin = 0.9;
 
-SRJS.Vision.prototype.spanMinLength = 3;
-SRJS.Vision.prototype.spanMaxOffset = 14;
+SRJS.Vision.prototype.spanMinLength = 2;
+SRJS.Vision.prototype.spanMaxOffset = 4;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {},
