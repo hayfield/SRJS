@@ -157,6 +157,6 @@ SRJS.Arena2011 = function(){
 	
 	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
 	
-	var arena = new SRJS.Arena( args );
+	return new SRJS.Arena( args );
 	
 };
