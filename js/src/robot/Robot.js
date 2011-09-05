@@ -60,6 +60,35 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.gameScore = 0;
 	
+	this._reservedPropertyNames = new Array();
+	this._customPropertyNames = new Array();
+	/*
+		Allows values to easily persist between multiple calls to this.main()
+		Doesn't allow properties to be set that are used for the internals.
+		Returns true or false depending on whether setting the property was successful.
+	*/
+	this.createProperty = function( name, initialValue ){
+		if( typeof name !== 'string' ){
+			return false;
+		}
+		if( this._reservedPropertyNames.indexOf( name ) === -1 ){
+			// don't reset the value each time this.main() is called
+			if( this._customPropertyNames.indexOf( name ) === -1 ){
+				this[name] = initialValue;
+				this._customPropertyNames.push( name );
+			}
+			return true;
+		}
+		return false;
+	};
+	
+	// initialise the reserved proprty names array
+	for( var prop in this ){
+		if( this.hasOwnProperty(prop) ){
+			this._reservedPropertyNames.push( prop );
+		}
+	}
+
 }
 };
 
