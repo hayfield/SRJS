@@ -1,5 +1,5 @@
 SRJS.Robot = function( args ){
-args = typeof args == 'undefined' ? {} : args;
+var args = typeof args == 'undefined' ? {} : args;
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
