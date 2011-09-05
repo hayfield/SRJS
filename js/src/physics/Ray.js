@@ -29,3 +29,9 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 
 SRJS.Physics.Ray.prototype = new SRJS.Physics.Polygon();
 SRJS.Physics.Ray.prototype.constructor = SRJS.Physics.Ray;
+
+SRJS.Physics.Ray.prototype.__defineGetter__('distanceToIntersection',
+	function(){
+		return this.edges[0].start.distanceTo( this.nearestIntersection );
+	}
+);
