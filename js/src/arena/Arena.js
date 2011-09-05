@@ -65,7 +65,7 @@ SRJS.Arena = function( args ){
 			
 			var robot = 0;
 			while( robot < arena.robots.length ){
-				arena.robots[robot].main();
+				arena.robots[robot].runFrame();
 				robot++;
 			}
 			
