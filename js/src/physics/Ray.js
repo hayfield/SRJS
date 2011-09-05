@@ -16,14 +16,6 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 	this.intersections = new SRJS.Physics.Intersections();
 	
 	this.nearestIntersection = this.edges[0].end;
-	/*function(){
-		var intersection = this.intersections.nearestTo( this.edges[0].start, true, false );
-		if( intersection ){
-			return intersection;
-		} else {
-			return this.edges[0].end;
-		}
-	};*/
 	
 };
 
