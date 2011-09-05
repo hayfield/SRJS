@@ -4,16 +4,6 @@ SRJS.Init = function(){
 	var bob = new SRJS.Arena2011();
 	
 	var args = {
-		/*main: function(){
-			if( typeof count === 'undefined' ){
-				count = 0;
-			}
-			if( count < 50 ){
-				this.motor[0].target = 50;
-				console.log('bunnies', count);
-				count++;
-			}
-		}*///main: mainFunct
 		main: rangeDist
 	};
 
@@ -41,7 +31,7 @@ var rangeDist = function(){
 	if( this.io.rangeFinder[0].a < 1.3 ){
 		console.log('forward');
 		setMotors( 100, 100 );
-		this.yield( 1, function(){
+		/*this.yield( 1, function(){
 			console.log('bobblehead', robot);
 			robot.motor[0].target = 0;
 			robot.motor[1].target = 0;
@@ -51,7 +41,7 @@ var rangeDist = function(){
 				robot.motor[1].target = 100;
 				robot.yield(2);
 			});
-		});
+		});*/
 	}
 	if( this.io.bumpSensor[3].d || this.io.bumpSensor[4].d || this.io.bumpSensor[6].d ){
 		setMotors( -100, 0 );
