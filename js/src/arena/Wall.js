@@ -1,7 +1,7 @@
 SRJS.Wall = function( width, height, depth, position, rotation, material ){
 if( arguments.length > 0 ){	// prevent the code being run on the constructor call from SRJS.Cube/Trigger
-	var geometry = new THREE.CubeGeometry( width, height, depth );
-	var materials = material || SRJS.Material.white;
+	var geometry = new THREE.CubeGeometry( width, height, depth ),
+		materials = material || SRJS.Material.white;
 	
 	THREE.Mesh.call( this, geometry, materials );
 	

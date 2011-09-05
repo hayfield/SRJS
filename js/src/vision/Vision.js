@@ -2,14 +2,14 @@ SRJS.Vision = function(){
 
 	this.blobs = new Array();
 	
-	var canvas = document.createElement('canvas');
+	var canvas = document.createElement('canvas'),
+		vision = this;
+	
 	this.canvas = canvas;
 	this.canvas.width = SRJS.CURRENT_ARENA.renderer.domElement.width;
 	this.canvas.height = SRJS.CURRENT_ARENA.renderer.domElement.height;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
-	
-	var vision = this;
 	
 	this.update = function( renderer ){
 		var img = new Image();
@@ -31,26 +31,26 @@ SRJS.Vision = function(){
 	this.detectBlobs = function( imgData ){
 		// imgData should already have been run through this.processData()
 		
-		var colorValue, oldColorValue,
-		span, spanStart, spans, spansAbove,
-		colors, pixel,
-		i, j,
-		foundSpan,
-		colorValue = oldColorValue = SRJS.NOTHING,
-		colors = imgData.colors,
-		pixel = 1,
-		foundSpan = false,
-		spans = new Array();
+		var span, spanStart, spansAbove,
+			i, j,
+			colorValue = SRJS.NOTHING,
+			oldColorValue = SRJS.NOTHING,
+			colors = imgData.colors,
+			pixel = 1,
+			foundSpan = false,
+			spans = new Array(),
+			row, col,
+			blobs;
 		
 		// loop through the rows of the image
-		for( var row = 0; row < imgData.height; row++ ){
+		for( row = 0; row < imgData.height; row++ ){
 			span = spanStart = 0;
 			if( spans.length > 0 ){
 				spans = new Array();
 			}
 			
 			// and do things with each column of each row
-			for( var col = 1; col < imgData.width; col++ ){
+			for( col = 1; col < imgData.width; col++ ){
 				// if two pixels next to each other aren't the same color
 				if( colors[ pixel ] !== colors[ pixel - 1 ]
 					|| col === imgData.width - 1 ){ // or you're going off the right of the screen
@@ -113,7 +113,7 @@ SRJS.Vision = function(){
 		}
 		
 		// create the blobs
-		var blobs = new Array();
+		blobs = new Array();
 		if( typeof spansAbove === 'object' && typeof spansAbove.length === 'number' ){
 			var blob = 0;
 			while( blob < spansAbove.length ){
@@ -165,13 +165,14 @@ SRJS.Vision.prototype.spanMaxOffset = 4;
 
 SRJS.Vision.prototype.processData = function( imgData ){
 	var hsv = {},
-	hsvH,
-	fourI,
-	data = imgData.data,
-	dataLength = data.length / 4, // rgba
-	colors = new Array( dataLength );
+		hsvH,
+		fourI,
+		data = imgData.data,
+		dataLength = data.length / 4, // rgba
+		colors = new Array( dataLength ),
+		i;
 	
-	for( var i = 0; i < dataLength; i++ ){
+	for( i = 0; i < dataLength; i++ ){
 		fourI = i * 4;
 		// convert the rgb data to hsv
 		hsv = SRJS.Vision.prototype.rgbToHsv( data[fourI],
@@ -211,8 +212,9 @@ SRJS.Vision.prototype.processData = function( imgData ){
 };
 
 SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
-	var imgData,
-	x = x || 0,
+	var imgData;
+	
+	x = x || 0;
 	y = y || 0;
 	width = width || canvasContext.canvas.width;
 	height = height || canvasContext.canvas.height;
@@ -274,8 +276,8 @@ SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 };
 
 SRJS.Vision.prototype.hsvToRgb = function( h, s, v ){
-	var rgb = {};
-	var i, f, p, q, t;
+	var rgb = {},
+		i, f, p, q, t;
 	
 	if( s === 0 ){
 		// grey

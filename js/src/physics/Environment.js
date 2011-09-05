@@ -35,10 +35,10 @@ SRJS.Physics.Environment = function(){
 			}
 		};
 		
-		var ctx = this.context;
+		var ctx = this.context,
+			p, polygon, i, b, f, ray;
 		
 		ctx.clearRect( 0, 0, this.canvas.width, this.canvas.height );
-		var p, polygon, i, b, f;
 		p = 0;
 		// draw the various bits of geometry on the canvas
 		while( p < this.polygons.length ){
@@ -126,33 +126,36 @@ SRJS.Physics.Environment = function(){
 	};
 	
 	this.updateRobot = function( polygon ){
-		var robot = polygon.object;
+		var robot = polygon.object,
+			i = 0,
+			elapsed, left, right, opposite, adjacent, angle, distance,
+			s,
+			f, rayObj, ray;
 		
-		var i = 0;
 		while( i < robot.io.rangeFinder.length ){
 			robot.io.rangeFinder[i].ray.intersections.clear();
 			i++;
 		}
 				
 		// work out how long since the last movement
-		var elapsed = (Date.now() - robot.lastUpdate) / 1000;
+		elapsed = (Date.now() - robot.lastUpdate) / 1000;
 		robot.lastUpdate = Date.now();
 		
 		// move each wheel forward
-		var left = robot.speed * robot.motor[0].target * elapsed;
-		var right = robot.speed * robot.motor[1].target * elapsed;
+		left = robot.speed * robot.motor[0].target * elapsed;
+		right = robot.speed * robot.motor[1].target * elapsed;
 		
 		// work out the angle between the two wheels
-		var opposite = Math.max(left, right) - Math.min(left, right);
-		var adjacent = 50;
-		var angle = Math.atan( opposite / adjacent );
+		opposite = Math.max(left, right) - Math.min(left, right);
+		adjacent = 50;
+		angle = Math.atan( opposite / adjacent );
 		
 		if( robot.motor[0].target > robot.motor[1].target ){
 			angle = -angle;
 		}
 		
 		// move to the end of the line with the wheel that moved the shortest distance				
-		var distance = -Math.min( left, right );
+		distance = -Math.min( left, right );
 		
 		this.moveRobot( polygon, distance, angle );
 		
@@ -162,7 +165,7 @@ SRJS.Physics.Environment = function(){
 		}
 		
 		// update the bump sensors
-		var s = 0;
+		s = 0;
 		while( s < robot.io.bumpSensor.length ){
 			var poly = robot.io.bumpSensor[s].rect;
 			if( poly.hasIntersections( this.polygons ) ){
@@ -174,10 +177,9 @@ SRJS.Physics.Environment = function(){
 		}
 		
 		// update the range finders
-		var f = 0;
-		var rayObj, ray;
+		f = 0;
 		while( f < robot.io.rangeFinder.length ){
-			var rayObj = robot.io.rangeFinder[f].ray;
+			rayObj = robot.io.rangeFinder[f].ray;
 			ray = rayObj.edges[0];
 			rayObj.hasIntersections( this.polygons );
 			rayObj.nearestIntersection = rayObj.intersections.nearestTo( rayObj.edges[0].start, true, false );
@@ -190,8 +192,10 @@ SRJS.Physics.Environment = function(){
 	};
 	
 	this.moveRobot = function( polygon, distance, angle ){
-		var robot = polygon.object;
-		var axis = robot.rotation.y;
+		var robot = polygon.object,
+			axis = robot.rotation.y,
+			s, f, poly;
+
 		// move robot
 		polygon.translate( distance, axis );
 		robot.moveForward( distance );
@@ -200,18 +204,18 @@ SRJS.Physics.Environment = function(){
 		robot.rotate( angle );
 		
 		// move bump sensors
-		var s = 0;
+		s = 0;
 		while( s < robot.io.bumpSensor.length ){
-			var poly = robot.io.bumpSensor[s].rect;
+			poly = robot.io.bumpSensor[s].rect;
 			poly.translate( distance, axis );
 			poly.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ), angle );
 			s++;
 		}
 		
 		// move range finders
-		var f = 0;
+		f = 0;
 		while( f < robot.io.rangeFinder.length ){
-			var poly = robot.io.rangeFinder[f].ray;
+			poly = robot.io.rangeFinder[f].ray;
 			poly.translate( distance, axis );
 			poly.rotateAroundPoint( new SRJS.Vector2( robot.position.x, robot.position.z ), angle );
 			f++;

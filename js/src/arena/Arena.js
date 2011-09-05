@@ -57,13 +57,14 @@ SRJS.Arena = function( args ){
 		}
 		
 		this.animate = function(){
-			var arena = SRJS.CURRENT_ARENA;
+			var arena = SRJS.CURRENT_ARENA,
+				robot;
 			
 			arena.physics.draw();
 			arena.physics.update();
 			arena.callRobotTriggerEvents();
 			
-			var robot = 0;
+			robot = 0;
 			while( robot < arena.robots.length ){
 				arena.robots[robot].runFrame();
 				robot++;

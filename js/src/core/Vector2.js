@@ -19,16 +19,18 @@ SRJS.Vector2.prototype.rotateAroundPoint = function( point, theta ){
 	if( theta !== 0 ){
 		point = point || new SRJS.Vector2( 0, 0 );
 		
-		var x, y, xBefore;
-		x = this.x;
-		y = this.y;
+		//var x, y, xBefore, c, s;
+		var x = this.x,
+		y = this.y,
+		c = Math.cos( theta ),
+		s = Math.sin( theta ),
+		xBefore;
 		
 		// translate so the point to rotate around is the origin
 		xBefore = x -= point.x;
 		y -= point.y;
 		
 		// perform the rotation - http://en.wikipedia.org/wiki/Rotation_matrix
-		var c = Math.cos( theta ), s = Math.sin( theta );
 		c = SRJS.isZero( c ) ? 0 : c;
 		s = SRJS.isZero( s ) ? 0 : s;
 	

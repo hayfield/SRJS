@@ -5,12 +5,12 @@ SRJS.Physics.Rectangle = function( fixed, trigger, dimension, position, rotation
 	rotation = rotation || 0;
 	
 	var topLeft = new SRJS.Vector2( position.x - (dimension.x / 2),
-									 position.y - (dimension.y / 2) );
-	var topRight = new SRJS.Vector2( position.x + (dimension.x / 2),
-									  position.y - (dimension.y / 2) );
-	var bottomLeft = new SRJS.Vector2( position.x - (dimension.x / 2),
-										position.y + (dimension.y / 2) );
-	var bottomRight = new SRJS.Vector2( position.x + (dimension.x / 2),
+									 position.y - (dimension.y / 2) ),
+		topRight = new SRJS.Vector2( position.x + (dimension.x / 2),
+									  position.y - (dimension.y / 2) ),
+		bottomLeft = new SRJS.Vector2( position.x - (dimension.x / 2),
+										position.y + (dimension.y / 2) ),
+		bottomRight = new SRJS.Vector2( position.x + (dimension.x / 2),
 										 position.y + (dimension.y / 2) );
 	
 	topLeft.rotateAroundPoint( position, rotation );

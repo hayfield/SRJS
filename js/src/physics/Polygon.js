@@ -58,7 +58,7 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	var e, o, intersects;
 	
 	intersects = false;
-	e = 0
+	e = 0;
 	while( e < this.edges.length ){
 	
 		o = 0;

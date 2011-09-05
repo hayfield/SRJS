@@ -5,18 +5,20 @@ SRJS.Arena2011 = function(){
 	var scene;
 
 	args.initScene = function(){
-
+		
         scene = new THREE.Scene();
 		
-		var ambient = new THREE.AmbientLight( 0xffffff );
+		var i, ambient, directionalLight, pointLight;
+		
+		ambient = new THREE.AmbientLight( 0xffffff );
 		scene.addLight( ambient );
  
-		var directionalLight = new THREE.DirectionalLight( 0xff0000 );
+		directionalLight = new THREE.DirectionalLight( 0xff0000 );
 		directionalLight.position.y = 200;
 		directionalLight.position.normalize();
 		scene.addLight( directionalLight );
  
-		var pointLight = new THREE.PointLight( 0xff0000 );
+		pointLight = new THREE.PointLight( 0xff0000 );
 		pointLight.position.y = 150;
 		pointLight.position.x = -250;
 		pointLight.position.z = -250;
@@ -79,7 +81,7 @@ SRJS.Arena2011 = function(){
 		SRJS.addPhysics = false;
 		
 		// the blue blobs around the arena
-		for( var i = 0; i < 27; i++ ){
+		for( i = 0; i < 27; i++ ){
 			// one long side
 			scene.addObject( new SRJS.Cube( 4.9,
 										new THREE.Vector3( 197.4 - i * 15, 52.45, 197.57 ),

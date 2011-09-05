@@ -1,5 +1,5 @@
 SRJS.Robot = function( args ){
-var args = typeof args == 'undefined' ? {} : args;
+args = typeof args == 'undefined' ? {} : args;
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
@@ -92,7 +92,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	};
 	
 	// initialise the reserved proprty names array
-	for( var prop in this ){
+	var prop;
+	for( prop in this ){
 		if( this.hasOwnProperty(prop) ){
 			this._reservedPropertyNames.push( prop );
 		}

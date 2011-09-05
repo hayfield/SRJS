@@ -25,9 +25,8 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 	}
 	
 	var distAlongThisLine = (other.start.subtract( this.start )).cross( other.movement() ) / 
-								this.movement().cross( other.movement() );
-	
-	var distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
+								this.movement().cross( other.movement() ),
+		distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
 								this.movement().cross( other.movement() );
 
 	// not within the specified parts of the line
