@@ -26,3 +26,5 @@ Robot Args
 API
  - Try and make the input API slightly more like the Python version
  - Make it possible to specify the position and rotation of range finders (add your own)
+ - 'yield' possibly isn't the best function name since it's a reserved future keyword for strict mode code
+	- https://developer.mozilla.org/en/JavaScript/Reference/reserved_words
