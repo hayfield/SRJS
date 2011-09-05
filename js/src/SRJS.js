@@ -13,4 +13,19 @@ SRJS.isZero = function( value ){
 	return Math.abs( value ) < 0.00000001;
 };
 
+SRJS.invokeRepeating = function( callback, delay ){
+	if( typeof callback !== 'function' || typeof delay !== 'number' ){
+		console.error('SRJS.invokeRepeating(callback, delay) requires two parameters.\n',
+						'The first is the function which is to be repeated.\n',
+						'The second is the delay between calls to the function in milliseconds.\n\n',
+						'The following parameters were provided:', arguments);
+	} else {
+		var repeating = function(){
+			callback();
+			window.setTimeout( repeating, delay );
+		};
+		repeating();
+	}
+};
+
 var count = 0;
