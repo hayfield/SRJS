@@ -45,6 +45,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.runFrame = function(){
 		if( Date.now() > this._continueTime ){
+			robot = this;
 			this.main();
 		}
 	};
