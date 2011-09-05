@@ -46,7 +46,7 @@ SRJS.Robot.RangeFinder.prototype.__defineGetter__('a',
 		var raw = this.ray.distanceToIntersection;
 		var value = 0;
 		if( raw > 0 ){
-			value = 100 / raw;
+			value = 125 / raw;
 			value = value > 3.3 ? 3.3 : value;
 		} else if( raw === 0 ){
 			value = 3.3;
