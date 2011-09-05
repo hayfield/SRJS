@@ -62,6 +62,10 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		
 	};
 	
+	this.initialise = typeof args.initialise === 'function' ? args.initialise : function(){
+		
+	};
+	
 	this.motor[0].target = 40;
 	this.motor[1].target = 50;
 	
@@ -98,6 +102,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			this._reservedPropertyNames.push( prop );
 		}
 	}
+	this.initialise();
 
 }
 };
