@@ -36,9 +36,17 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this._continueTime = Date.now();	
 	this.yield = function( seconds, callback ){
 		this._continueTime = Date.now() + seconds * 1000;
+		
 		if( callback && typeof callback === 'function' ){
 			// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
-			boundCallback = callback.bind( this );
+			var boundCallback = function(){
+				var boundCallback = callback.bind( this );
+				// Since we don't know when the callback will be called, we'll need to reassign
+				// robot so that it's referring to the correct thing
+				robot = this;
+				boundCallback();
+			}.bind( this );
+			
 			window.setTimeout( boundCallback, seconds * 999 );
 		}
 	};
