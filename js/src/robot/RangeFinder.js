@@ -40,3 +40,17 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 	SRJS.phys.addRangeFinder( this );
 	
 };
+
+SRJS.Robot.RangeFinder.prototype.__defineGetter__('a',
+	function(){
+		var raw = this.ray.edges[0].start.distanceTo( this.ray.nearestIntersection );
+		var value = 0;
+		if( raw > 0 ){
+			value = 100 / raw;
+			value = value > 3.3 ? 3.3 : value;
+		} else if( raw === 0 ){
+			value = 3.3;
+		}
+		return value;
+	}
+);
