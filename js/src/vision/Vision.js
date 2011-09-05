@@ -33,8 +33,6 @@ SRJS.Vision = function(){
 		
 		var span, spanStart, spansAbove,
 			i, j,
-			colorValue = SRJS.NOTHING,
-			oldColorValue = SRJS.NOTHING,
 			colors = imgData.colors,
 			pixel = 1,
 			foundSpan = false,
