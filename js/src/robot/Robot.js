@@ -34,8 +34,13 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.motor[1] = new SRJS.Motor();
 	
 	this._continueTime = Date.now();	
-	this.yield = function( seconds ){
+	this.yield = function( seconds, callback ){
 		this._continueTime = Date.now() + seconds * 1000;
+		if( callback && typeof callback === 'function' ){
+			// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
+			boundCallback = callback.bind( this );
+			window.setTimeout( boundCallback, seconds * 999 );
+		}
 	};
 	
 	this.runFrame = function(){
