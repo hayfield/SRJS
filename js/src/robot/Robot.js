@@ -14,7 +14,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.length = typeof args.length === 'number' ? args.length : defaultDimension;
 	
 	SRJS.Cube.call( this, this.height,
-					new THREE.Vector3( this.startPosition.x, 75, this.startPosition.y ),
+					new THREE.Vector3( this.startPosition.x, 50 + this.height / 2, this.startPosition.y ),
 					SRJS.Material.green );
 	
 	this.io = new SRJS.Robot.IO( this ); // need to initialise the IO before rotating the robot
