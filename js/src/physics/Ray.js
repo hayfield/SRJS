@@ -17,10 +17,12 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 	
 	this.nearestIntersection = this.edges[0].end;
 	
+	this._distanceToIntersectionGetter = function(){
+		return this.edges[0].start.distanceTo( this.nearestIntersection );
+	};
+	
 	Object.defineProperty(this, 'distanceToIntersection', {
-		get: function(){
-			return this.edges[0].start.distanceTo( this.nearestIntersection );
-		}
+		get: this._distanceToIntersectionGetter
 	});
 	
 };

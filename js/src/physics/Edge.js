@@ -4,10 +4,12 @@ SRJS.Physics.Edge = function( start, end ){
 	this.start = start;
 	this.end = end;
 	
+	this._lengthGetter = function(){
+		return (this.start.addSelf( this.end )).length;
+	};
+	
 	Object.defineProperty(this, 'length', {
-		get: function(){
-			return (this.start.addSelf( this.end )).length;
-		}
+		get: this._lengthGetter
 	});
 	
 };
