@@ -39,18 +39,18 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 	
 	SRJS.phys.addRangeFinder( this );
 	
-};
-
-SRJS.Robot.RangeFinder.prototype.__defineGetter__('a',
-	function(){
-		var raw = this.ray.distanceToIntersection,
-			value = 0;
-		if( raw > 0 ){
-			value = 125 / raw;
-			value = value > 3.3 ? 3.3 : value;
-		} else if( raw === 0 ){
-			value = 3.3;
+	Object.defineProperty(this, 'a', {
+		get: function(){
+			var raw = this.ray.distanceToIntersection,
+				value = 0;
+			if( raw > 0 ){
+				value = 125 / raw;
+				value = value > 3.3 ? 3.3 : value;
+			} else if( raw === 0 ){
+				value = 3.3;
+			}
+			return value;
 		}
-		return value;
-	}
-);
+	});
+	
+};

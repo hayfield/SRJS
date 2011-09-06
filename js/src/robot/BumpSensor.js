@@ -43,13 +43,13 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 									0,
 									this );
 	SRJS.phys.addBumpSensor( this );
-	
+
 	this.d = false;
 	
+	Object.defineProperty(this, 'a', {
+		get: function(){
+			return 0;
+		}
+	});
+	
 };
-
-SRJS.Robot.BumpSensor.prototype.__defineGetter__('a',
-	function(){
-		return 0;
-	}
-);

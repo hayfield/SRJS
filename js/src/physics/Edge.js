@@ -4,6 +4,12 @@ SRJS.Physics.Edge = function( start, end ){
 	this.start = start;
 	this.end = end;
 	
+	Object.defineProperty(this, 'length', {
+		get: function(){
+			return (this.start.addSelf( this.end )).length;
+		}
+	});
+	
 };
 
 SRJS.Physics.Edge.prototype.rotateAroundPoint = function( point, theta ){
@@ -42,9 +48,3 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 SRJS.Physics.Edge.prototype.movement = function(){
 	return new SRJS.Vector2( this.end.x - this.start.x, this.end.y - this.start.y );
 };
-
-SRJS.Physics.Edge.prototype.__defineGetter__('length',
-	function(){
-		return (this.start.addSelf( this.end )).length;
-	}
-);

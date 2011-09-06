@@ -17,13 +17,13 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 	
 	this.nearestIntersection = this.edges[0].end;
 	
+	Object.defineProperty(this, 'distanceToIntersection', {
+		get: function(){
+			return this.edges[0].start.distanceTo( this.nearestIntersection );
+		}
+	});
+	
 };
 
 SRJS.Physics.Ray.prototype = new SRJS.Physics.Polygon();
 SRJS.Physics.Ray.prototype.constructor = SRJS.Physics.Ray;
-
-SRJS.Physics.Ray.prototype.__defineGetter__('distanceToIntersection',
-	function(){
-		return this.edges[0].start.distanceTo( this.nearestIntersection );
-	}
-);
