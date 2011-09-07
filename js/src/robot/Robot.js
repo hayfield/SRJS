@@ -52,7 +52,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			this._continueTime = Number.MAX_VALUE;
 			seconds.callback = typeof callback === 'function' ? function(){
 				this._continueTime = Date.now();
-				this.bindCallbackToRobot( callback );
+				var boundCallback = this.bindCallbackToRobot( callback );
+				boundCallback();
 			}.bind( this ) : function(){ this._continueTime = Date.now(); }.bind( this );
 		} else {
 			this._continueTime = Date.now() + seconds * 1000;
