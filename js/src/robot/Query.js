@@ -75,11 +75,6 @@ SRJS.Query = function( query ){
 		return false;
 	};
 	
-	// set value
-	// call setter
-	// unset setter
-	// return value to setter that's just disappeared, so value isn't set
-	
 	this.setUpQuery = function( obj, index ){
 		// ensure that the parameters are valid
 		if( typeof obj !== 'object' ||
