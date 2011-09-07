@@ -4,8 +4,8 @@ SRJS.DebugCanvas = function( environment ){
 	
 	var canvas = document.createElement('canvas');
 	this.canvas = canvas;
-	this.canvas.width = SRJS.physicsDimension;
-	this.canvas.height = SRJS.physicsDimension;
+	this.canvas.width = SRJS.debugCanvasDimension;
+	this.canvas.height = SRJS.debugCanvasDimension;
 	document.body.appendChild( this.canvas );
 	this.context = this.canvas.getContext('2d');
 	
