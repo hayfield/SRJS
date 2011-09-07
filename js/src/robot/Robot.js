@@ -6,6 +6,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
 	
 	this.bumpSensorCount = args.bumpSensorCount || SRJS.bumpSensorsPerRobot;
+	this.rangeFinderCount = args.rangeFinderCount || SRJS.rangeFindersPerRobot;
 	
 	var defaultDimension = 50;
 	
