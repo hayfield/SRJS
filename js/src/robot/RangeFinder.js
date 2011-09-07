@@ -51,8 +51,13 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 		return value;
 	};
 	
-	Object.defineProperty(this, 'a', {
-		get: this._aGetter
+	this.a = 0;
+	
+	this.watch( 'this.ray.nearestIntersection', function( prop, val, newval ){
+		this.parent.a = this.parent._aGetter();
+		return newval;
 	});
 	
 };
+
+SRJS.Robot.RangeFinder.prototype.watch = SRJS.watch;

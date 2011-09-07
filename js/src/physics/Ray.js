@@ -1,5 +1,7 @@
 SRJS.Physics.Ray = function( startPosition, rotation, object ){
 	
+	this.parent = object;
+
 	SRJS.Physics.Polygon.call( this, false, true, object );
 
 	rotation = rotation || 0;
