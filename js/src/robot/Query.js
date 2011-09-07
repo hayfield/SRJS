@@ -38,15 +38,3 @@ SRJS.Query = function( query ){
 	this.setUpQuery( query );
 	
 };
-
-SRJS.Query.prototype.eq = function( first, second ){
-	return first === second
-};
-
-SRJS.Query.prototype.gt = function( first, second ){
-	return first > second
-};
-
-SRJS.Query.prototype.lt = function( first, second ){
-	return first < second
-};
