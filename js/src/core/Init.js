@@ -38,14 +38,12 @@ var updates = 0;
 var limit = false;
 setTimeout( function(){ limit = true }, 10000 );
 var rangeDist = function(){
-	//console.log( robot.ID );
-	updates = 0;
+
 	var setMotors = function( left, right ){
 		robot.motor[0].target = left;
 		robot.motor[1].target = right;
-		//console.log('set motors', left, right, frame);
 	};
-	console.log('going', frame);
+
 	setMotors(100, 100);
 	//if( frame === 1 ){
 	this.yield( new SRJS.Query( { prop: 'robot.io.bumpSensor[0].d',
