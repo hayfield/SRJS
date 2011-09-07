@@ -12,6 +12,7 @@ FILES = [
 'physics/Rectangle.js',
 'physics/Ray.js',
 'physics/Environment.js',
+'physics/DebugCanvas.js',
 'arena/Arena.js',
 'arena/Arena2011.js',
 'arena/Material.js',
