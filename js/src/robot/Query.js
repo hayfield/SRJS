@@ -24,6 +24,15 @@ SRJS.Query = function( query ){
 	
 	this.setUpQueries = function( arg ){
 		arg.forEach(function( element, index, array ){
+			if( element instanceof Array && element.length === 3 &&
+					typeof element[0] === 'string' && typeof element[1] === 'string' ){
+				var obj = {
+					prop: element[0],
+					type: element[1],
+					val: element[2]
+				};
+				element = obj;
+			}
 			this.setUpQuery( element, index );
 		}, this);
 	};
