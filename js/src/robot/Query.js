@@ -23,17 +23,22 @@ SRJS.Query = function( query ){
 	
 	this.queryStatuses = new Array();
 	
-	this.updateQueryStatus = function( index, value ){
+	this.updateQueryStatus = function( index, value, newval ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
+		console.log('updating status', valid, this.queryStatuses, index, value, this.args[index].prop );
 		if( valid ){
+			console.log('val', value, this.args[index].prop, eval(this.args[index].prop), newval);
 			this.callback();
+			console.log('val2', value, this.args[index].prop, eval(this.args[index].prop));
 			this.unbindWatchers();
+			console.log('val3', value, this.args[index].prop, eval(this.args[index].prop));
 		}
 	};
 	
 	this.unbindWatchers = function(){
 		this.args.forEach( function( element ){
+			console.log('unboundness', element, element.prop, eval(element.prop));
 			SRJS.unwatch( element.prop );
 		}, this );
 	};
@@ -76,7 +81,8 @@ SRJS.Query = function( query ){
 		var watcherActivation = function( newval, index ){
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				this.updateQueryStatus( index, true );
+				this.updateQueryStatus( index, true, newval );
+				if( obj.prop === 'robot.fab' ) console.log( 'set', newval, comparison, obj.val );
 			} else {
 				this.updateQueryStatus( index, false );
 			}

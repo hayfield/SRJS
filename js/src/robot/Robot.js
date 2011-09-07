@@ -110,6 +110,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		if( this._reservedPropertyNames.indexOf( name ) === -1 ){
 			// don't reset the value each time this.main() is called
 			if( this._customPropertyNames.indexOf( name ) === -1 ){
+				console.log('setting', name, initialValue);
 				this[name] = initialValue;
 				this._customPropertyNames.push( name );
 			}

@@ -27,7 +27,7 @@ SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
 	Seems to cause a couple of problems with Three.js when modifying Object.prototype.
 	Need to manually add to the objects with properties that can be watched.
 */
-SRJS.watch = function(prop, handler){
+SRJS.watch = function( prop, handler ){
 	var thisReference = this;
 	if( prop.indexOf('.') !== -1 ){
 		var propertyArray = prop.split('.');
@@ -64,6 +64,8 @@ SRJS.unwatch = function( prop ){
 	}
 	
 	var val = thisReference[prop];
+	console.log('unsetting', prop, thisReference, thisReference[prop], val);
 	delete thisReference[prop]; // remove accessors
 	thisReference[prop] = val;
+	console.log('unsettingp2', prop, thisReference, thisReference[prop], val);
 };
