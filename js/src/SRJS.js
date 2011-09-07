@@ -70,9 +70,7 @@ SRJS.unwatch = function(prop){
 		thisReference = eval(propertyArray.join('.'));
 	}
 	var val = thisReference[prop];
-	console.log('b4', thisReference[prop]);
 	delete thisReference[prop]; // remove accessors
-	console.log('a del', thisReference[prop]);
 	thisReference[prop] = val;
 };
 
