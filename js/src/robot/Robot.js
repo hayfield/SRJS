@@ -50,6 +50,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.yield = function( seconds, callback ){
 		if( seconds instanceof SRJS.Query ){
 			this._continueTime = Number.MAX_VALUE;
+			
 			seconds.callback = typeof callback === 'function' ? function(){
 				this._continueTime = Date.now();
 				var boundCallback = this.bindCallbackToRobot( callback );
