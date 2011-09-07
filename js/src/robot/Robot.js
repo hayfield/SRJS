@@ -18,7 +18,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 					SRJS.Material.green );
 	
 	this.io = new SRJS.Robot.IO( this ); // need to initialise the IO before rotating the robot
-
+	
 	this.rotate( this.startRotation );
 	
 	this.camera = new THREE.Camera();
@@ -48,11 +48,19 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this._continueTime = Date.now();	
 	this.yield = function( seconds, callback ){
-		this._continueTime = Date.now() + seconds * 1000;
-		
-		if( callback && typeof callback === 'function' ){
-			window.setTimeout( this.bindCallbackToRobot( callback ),
-								seconds * 999 );
+		if( seconds instanceof SRJS.Query ){
+			this._continueTime = Number.MAX_VALUE;
+			seconds.callback = typeof callback === 'function' ? function(){
+				this._continueTime = Date.now();
+				this.bindCallbackToRobot( callback );
+			}.bind( this ) : function(){ this._continueTime = Date.now(); }.bind( this );
+		} else {
+			this._continueTime = Date.now() + seconds * 1000;
+			
+			if( callback && typeof callback === 'function' ){
+				window.setTimeout( this.bindCallbackToRobot( callback ),
+									seconds * 999 );
+			}
 		}
 	};
 	
@@ -64,6 +72,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	};
 	
 	this.runFrame = function(){
+		frame++;
 		if( Date.now() > this._continueTime ){
 			robot = this;
 			this.main();

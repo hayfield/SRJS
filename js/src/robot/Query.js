@@ -5,10 +5,6 @@ SRJS.Query = function( bindingObject, val ){
 	console.log(this);
 	this.setUpQuery = function( bindingObject, obj ){
 		obj = bindingObject;
-		console.log(this);
-		console.log('setting up query', bindingObject, bindingObject.prop, eval(bindingObject.prop), obj);
-		robot.io.bumpSensor[0].d = true;
-		console.log('setting up query', bindingObject, bindingObject.prop, eval(bindingObject.prop), obj);
 		// ensure that the parameters are valid
 		if( typeof obj !== 'object' ||
 			(obj && (typeof obj.prop === 'undefined' ||
@@ -21,25 +17,18 @@ SRJS.Query = function( bindingObject, val ){
 								'eq, gt, lt');
 			return;
 		}
-		var query = this;
+
 		var comparison = obj.type === 'eq' ? '===' : obj.type === 'gt' ? '>' : '<';
-		var callback = function( newval ){
+		var watcherActivation = function( newval ){
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				console.log('comparison activated', this, newval, comparison, obj.val, ':', eval(obj.prop));
-				//if( count > 2 ){
-				robot.motor[0].target = -100;
-				robot.motor[1].target = -100;
-				robot.yield(3);
 				SRJS.unwatch( obj.prop );
-				//}
-				//count++;
-				console.log('count', count);
-				
+				this.callback();
 			}
-		};
+		}.bind( this );
+		
 		var watcherHandler = function( id, oldval, newval ){
-			callback( newval );
+			watcherActivation( newval );
 			return newval;
 		};
 		SRJS.watch( obj.prop, watcherHandler );
