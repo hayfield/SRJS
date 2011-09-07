@@ -5,8 +5,16 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
 	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
 	
+	var roundToMultipleOfFour = function( val ){
+		if( val < 4 ){
+			return 4;
+		}
+		return Math.ceil( val / 4.0 ) * 4;
+	};
 	this.bumpSensorCount = args.bumpSensorCount || SRJS.bumpSensorsPerRobot;
 	this.rangeFinderCount = args.rangeFinderCount || SRJS.rangeFindersPerRobot;
+	this.bumpSensorCount = roundToMultipleOfFour( this.bumpSensorCount );
+	this.rangeFinderCount = roundToMultipleOfFour( this.rangeFinderCount );
 	
 	var defaultDimension = 50;
 	
