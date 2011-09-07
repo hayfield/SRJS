@@ -2,6 +2,7 @@ import os
 
 FILES = [
 'SRJS.js',
+'core/Utils.js',
 'core/Vector2.js',
 'core/Init.js',
 'physics/Physics.js',
@@ -17,6 +18,7 @@ FILES = [
 'arena/Wall.js',
 'arena/Cube.js',
 'arena/Trigger.js',
+'robot/Query.js',
 'robot/Robot.js',
 'robot/IO.js',
 'robot/BumpSensor.js',
