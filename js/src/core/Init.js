@@ -1,5 +1,6 @@
 SRJS.Init = function(){
-
+	
+	SRJS.intersections = new SRJS.Physics.Intersections();
 	SRJS.phys = new SRJS.Physics.Environment();
 	var bob = new SRJS.Arena2011();
 	
@@ -29,16 +30,21 @@ var initSetup = function(){
 	var bob = function(){
 		console.log('fabulous', Date.now(), this.fab, this);
 	};
-	this.createProperty('fab', 3);
-	//SRJS.invokeRepeating( jim, 2000 );
+	this.createProperty('fab', false);
+	var fabOn = function(){
+		this.fab = true;
+		console.log('fabbing', this.fab);
+	};
+	this.invokeRepeating( fabOn, 8500 );
+	console.log('bunnies!');
+	this.fab = false;
 	//this.invokeRepeating( bob, 1500 );
 };
 var frame = 0;
 var updates = 0;
-var limit = false;
-setTimeout( function(){ limit = true }, 10000 );
-var rangeDist = function(){
 
+var rangeDist = function(){
+console.log('fab', robot.fab);
 	var setMotors = function( left, right ){
 		robot.motor[0].target = left;
 		robot.motor[1].target = right;
@@ -46,16 +52,17 @@ var rangeDist = function(){
 
 	setMotors(100, 100);
 	//if( frame === 1 ){
-	this.yield( new SRJS.Query( 'and', { prop: 'robot.io.bumpSensor[0].d',
-								type: 'eq',
-								val: true }, {
-									prop: 'limit',
+	this.yield( new SRJS.Query( 'and', { prop: 'robot.io.rangeFinder[0].a',
+								type: 'gt',
+								val: 1.3 }, {
+									prop: 'robot.fab',
 									type: 'eq',
 									val: true
-								} ), function(){console.log('bumped');
+								} ), function(){console.log('bumped', robot.fab);
 								this.motor[0].target = -100;
 				this.motor[1].target = -100;
-				this.yield(3);} );
+				this.yield(3);
+				} );
 	
 	//}
 	return;
