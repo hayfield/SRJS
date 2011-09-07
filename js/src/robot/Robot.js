@@ -11,8 +11,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		}
 		return Math.ceil( val / 4.0 ) * 4;
 	};
-	this.bumpSensorCount = args.bumpSensorCount || SRJS.bumpSensorsPerRobot;
-	this.rangeFinderCount = args.rangeFinderCount || SRJS.rangeFindersPerRobot;
+	this.bumpSensorCount = args.bumpSensorCount || args.numberOfBumpSensors || SRJS.bumpSensorsPerRobot;
+	this.rangeFinderCount = args.rangeFinderCount || args.numberOfRangeFinders || SRJS.rangeFindersPerRobot;
 	this.bumpSensorCount = roundToMultipleOfFour( this.bumpSensorCount );
 	this.rangeFinderCount = roundToMultipleOfFour( this.rangeFinderCount );
 	
