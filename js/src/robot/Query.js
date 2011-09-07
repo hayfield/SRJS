@@ -2,7 +2,7 @@ SRJS.Query = function( query ){
 	if( typeof query !== 'object' ){
 		return;
 	}
-	console.log(this);
+	
 	this.setUpQuery = function( obj ){
 		// ensure that the parameters are valid
 		if( typeof obj !== 'object' ||
@@ -21,9 +21,7 @@ SRJS.Query = function( query ){
 		var watcherActivation = function( newval ){
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				console.log('activated');
 				SRJS.unwatch( obj.prop );
-				console.log(this, this.callback);
 				this.callback();
 			}
 		}.bind( this );
