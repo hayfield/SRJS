@@ -4,7 +4,8 @@ SRJS.Init = function(){
 	var bob = new SRJS.Arena2011();
 	
 	var args = {
-		main: rangeDist
+		main: rangeDist,
+		initialise: initSetup
 	};
 
 	SRJS.CURRENT_ARENA.addRobot( args );
@@ -20,16 +21,44 @@ SRJS.Init = function(){
 	
 };
 
+var initSetup = function(){
+	var jim = function(){
+		console.log('timeout', Date.now(), this.fab, this);
+		this.fab++;
+	}.bind( this );
+	var bob = function(){
+		console.log('fabulous', Date.now(), this.fab, this);
+	};
+	this.createProperty('fab', 3);
+	//SRJS.invokeRepeating( jim, 2000 );
+	//this.invokeRepeating( bob, 1500 );
+};
+var frame = 0;
+var updates = 0;
+var limit = false;
+setTimeout( function(){ limit = true }, 10000 );
 var rangeDist = function(){
-	console.log( robot.ID );
-	
+	//console.log( robot.ID );
+	updates = 0;
 	var setMotors = function( left, right ){
 		robot.motor[0].target = left;
 		robot.motor[1].target = right;
+		//console.log('set motors', left, right, frame);
 	};
+	console.log('going', frame);
+	setMotors(100, 100);
+	//if( frame === 1 ){
+	this.yield( new SRJS.Query( { prop: 'robot.io.bumpSensor[0].d',
+								type: 'eq',
+								val: true } ), function(){console.log('bumped');
+								this.motor[0].target = -100;
+				this.motor[1].target = -100;
+				this.yield(3);} );
 	
+	//}
+	return;
 	if( this.io.rangeFinder[0].a < 1.3 ){
-		console.log('forward');
+		//console.log('forward');
 		setMotors( 100, 100 );
 		/*this.yield( 1, function(){
 			console.log('bobblehead', robot);
@@ -49,7 +78,7 @@ var rangeDist = function(){
 		this.yield( 0.5 );
 	} else if( this.io.bumpSensor[1].d || this.io.bumpSensor[10].d || this.io.bumpSensor[11].d ){
 		setMotors( 0, -100 );
-	} else if( this.io.rangeFinder[0].a > 1.3 ){
+	}/* else if( this.io.rangeFinder[0].a > 1.3 ){
 		console.log('turn');
 		setMotors( 0, 100 );
 		this.yield( 0.2 );
@@ -61,7 +90,7 @@ var rangeDist = function(){
 	if( this.io.rangeFinder[3].a > 2.5 && !(this.io.bumpSensor[11].d || this.io.bumpSensor[12].d) ){
 		console.log('left sensor');
 		setMotors( 100, 50 );
-	}
+	}*/
 	if( this.io.bumpSensor[1].d || this.io.bumpSensor[2].d ){
 		setMotors( -100, -100 );
 		this.yield( 0.3 );
