@@ -32,6 +32,7 @@ SRJS.Query = function( query ){
 					val: element[2]
 				};
 				element = obj;
+				arg[index] = obj;
 			}
 			this.setUpQuery( element, index );
 		}, this);
