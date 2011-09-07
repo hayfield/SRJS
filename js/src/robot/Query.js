@@ -83,6 +83,8 @@ SRJS.Query = function( query ){
 			}
 		}.bind( this );
 		
+		watcherActivation( eval( obj.prop ), index );
+		
 		var watcherHandler = function( id, oldval, newval ){
 			watcherActivation( newval, index );
 			return newval;
