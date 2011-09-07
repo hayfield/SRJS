@@ -15,6 +15,13 @@ SRJS.Query = function( query ){
 	
 	this.args = args;
 	
+	this.watchers = new Array();
+	this.callWatchers = function(){
+		this.args.forEach( function( element, index ){
+			this.watchers[index]( eval( element.prop ), index );
+		}, this );
+	};
+	
 	this.setUpQueries = function( arg ){
 		arg.forEach(function( element, index, array ){
 			this.setUpQuery( element, index );
@@ -35,7 +42,7 @@ SRJS.Query = function( query ){
 	};
 	
 	this.unbindWatchers = function(){
-		this.args.forEach( function( element){
+		this.args.forEach( function( element ){
 			SRJS.unwatch( element.prop );
 		}, this );
 	};
@@ -91,7 +98,7 @@ SRJS.Query = function( query ){
 			return unbound;
 		}.bind( this );
 		
-		watcherActivation( eval( obj.prop ), index );
+		this.watchers.push( watcherActivation );
 		
 		var watcherHandler = function( id, oldval, newval ){
 			var unbound = watcherActivation( newval, index );
