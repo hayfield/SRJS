@@ -52,13 +52,14 @@ SRJS.watch = function(prop, handler){
 	}
 };
 
-SRJS.unwatch = function(prop){
+SRJS.unwatch = function( prop ){
 	var thisReference = this;
 	if( prop.indexOf('.') !== -1 ){
 		var propertyArray = prop.split('.');
 		prop = propertyArray.pop();
 		thisReference = eval(propertyArray.join('.'));
 	}
+	
 	var val = thisReference[prop];
 	delete thisReference[prop]; // remove accessors
 	thisReference[prop] = val;

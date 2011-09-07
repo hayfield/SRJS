@@ -26,7 +26,6 @@ SRJS.Query = function( query ){
 	this.updateQueryStatus = function( index, value ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
-		console.log('updating status', valid, this.queryStatuses, index, value, this.args[index].prop );
 		if( valid ){
 			this.callback();
 			this.unbindWatchers();
