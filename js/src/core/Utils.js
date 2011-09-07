@@ -2,18 +2,21 @@ SRJS.isZero = function( value ){
 	return Math.abs( value ) < 0.00000001;
 };
 
-SRJS.invokeRepeating = function( callback, delay ){
-	if( typeof callback !== 'function' || typeof delay !== 'number' ){
-		console.error('SRJS.invokeRepeating(callback, delay) requires two parameters.\n',
+SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
+	repeatRate = repeatRate || initialDelay;
+	if( typeof callback !== 'function' || typeof initialDelay !== 'number' ){
+		console.error('SRJS.invokeRepeating(callback, initialDelay[, repeatRate]) takes two parameters, plus an optionsal third.\n',
 						'The first is the function which is to be repeated.\n',
-						'The second is the delay between calls to the function in milliseconds.\n\n',
+						'The second is the delay before the function is called in milliseconds.\n',
+						'The third is how often the function should be called after the initial delay.',
+						'If not set, it defaults to the value given to initialDelay.\n\n',
 						'The following parameters were provided:', arguments);
 	} else {
 		var repeating = function(){
 			callback();
-			window.setTimeout( repeating, delay );
+			window.setTimeout( repeating, repeatRate );
 		};
-		repeating();
+		window.setTimeout( repeating, initialDelay );
 	}
 };
 
