@@ -28,4 +28,52 @@ SRJS.invokeRepeating = function( callback, delay ){
 	}
 };
 
+/*
+	http://stackoverflow.com/questions/1759987/detect-variable-change-in-javascript/1760159#1760159
+	https://gist.github.com/175649
+	
+	Seems to cause a couple of problems with Three.js when modifying Object.prototype.
+	Need to manually add to the objects with properties that can be watched.
+*/
+SRJS.watch = function(prop, handler){
+	var thisReference = this;
+	if( prop.indexOf('.') !== -1 ){
+		var propertyArray = prop.split('.');
+		prop = propertyArray.pop();
+		thisReference = eval(propertyArray.join('.'));
+	}
+	var val = thisReference[prop],
+	getter = function () {
+			return val;
+	},
+	setter = function (newval) {
+			return val = handler.call(thisReference, prop, val, newval);
+	};
+	if (delete thisReference[prop]) { // can't watch constants
+			if (Object.defineProperty) // ECMAScript 5
+					Object.defineProperty(thisReference, prop, {
+							get: getter,
+							set: setter,
+							configurable: true
+					});
+			else if (Object.prototype.__defineGetter__ && Object.prototype.__defineSetter__) { // legacy
+					Object.prototype.__defineGetter__.call(thisReference, prop, getter);
+					Object.prototype.__defineSetter__.call(thisReference, prop, setter);
+			}
+	}
+};
+SRJS.unwatch = function(prop){
+	var thisReference = this;
+	if( prop.indexOf('.') !== -1 ){
+		var propertyArray = prop.split('.');
+		prop = propertyArray.pop();
+		thisReference = eval(propertyArray.join('.'));
+	}
+	var val = thisReference[prop];
+	console.log('b4', thisReference[prop]);
+	delete thisReference[prop]; // remove accessors
+	console.log('a del', thisReference[prop]);
+	thisReference[prop] = val;
+};
+
 var count = 0;
