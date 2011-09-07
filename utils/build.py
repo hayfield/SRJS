@@ -29,12 +29,19 @@ FILES = [
 'vision/Colors.js'
 ]
 
-def merge(files):
+LIBRARIES = [
+'Three.js',
+'Detector.js',
+'RequestAnimationFrame.js',
+'Stats.js'
+]
+
+def merge(files, path):
 
 	buffer = []
 
 	for filename in files:
-		with open(os.path.join('..', 'js', 'src', filename), 'r') as f:
+		with open(os.path.join(path, filename), 'r') as f:
 			buffer.append(f.read())
 
 	return "".join(buffer)
@@ -45,7 +52,12 @@ def output(text, filename):
 		f.write(text)
 
 def main():
-    text = merge(FILES)
-    output(text, 'SRJS.js')
+    path = os.path.join('..', 'js', 'src')
+    srcText = merge(FILES, path)
+    output(srcText, 'SRJS.js')
+
+    path = os.path.join('..', 'js', 'libs')
+    libText = merge(LIBRARIES, path)
+    output(libText + srcText, 'SRJS-full.js')
 
 main()
