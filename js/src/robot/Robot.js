@@ -38,7 +38,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.speed = 1;
 	
-	// motor[0] = left, motor[1] = right
+	// motor[0] is the left wheel, motor[1] is the right one
 	this.motor = new Array();
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
