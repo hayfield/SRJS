@@ -34,8 +34,7 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 		xPos = this.robot.position.x - this.robot.width / 2;
 		yPos = this.robot.position.z - edgeOffset( ID, this.robot.length );
 	}
-	//console.log(xPos, yPos, this.robot.position.x, this.robot.position.z);
-
+	
 	this.rect = new SRJS.Physics.Rectangle( false, true,
 									new SRJS.Vector2( this.robot.width / (SRJS.bumpSensorsPerRobot / 4),
 														this.robot.length / (SRJS.bumpSensorsPerRobot / 4) ),
@@ -43,7 +42,7 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 									0,
 									this );
 	SRJS.phys.addBumpSensor( this );
-
+	
 	this.d = false;
 	
 	this._aGetter = function(){
