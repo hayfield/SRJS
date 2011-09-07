@@ -60,7 +60,6 @@ SRJS.Arena = function( args ){
 			var arena = SRJS.CURRENT_ARENA,
 				robot;
 			
-			arena.physics.draw();
 			arena.physics.update();
 			arena.callRobotTriggerEvents();
 			
