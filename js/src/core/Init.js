@@ -48,9 +48,13 @@ var rangeDist = function(){
 	console.log('going', frame);
 	setMotors(100, 100);
 	//if( frame === 1 ){
-	this.yield( new SRJS.Query( { prop: 'robot.io.bumpSensor[0].d',
+	this.yield( new SRJS.Query( 'and', { prop: 'robot.io.bumpSensor[0].d',
 								type: 'eq',
-								val: true } ), function(){console.log('bumped');
+								val: true }, {
+									prop: 'limit',
+									type: 'eq',
+									val: true
+								} ), function(){console.log('bumped');
 								this.motor[0].target = -100;
 				this.motor[1].target = -100;
 				this.yield(3);} );

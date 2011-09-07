@@ -1,5 +1,13 @@
 SRJS.Query = function( query ){
-	if( typeof query !== 'object' ){
+	var args = arguments;
+	if( typeof query === 'string' ){
+		if( ['and', 'or'].indexOf( query ) === -1 ){
+			console.error( 'The type of query must be one of the following:\n',
+								'and, or');
+			return;
+		}
+		args = arguments.shift();
+	} else if( typeof query !== 'object' ){
 		return;
 	}
 	console.log(this);
