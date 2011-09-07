@@ -26,19 +26,16 @@ SRJS.Query = function( query ){
 	this.updateQueryStatus = function( index, value, newval ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
-		console.log('updating status', valid, this.queryStatuses, index, value, this.args[index].prop );
 		if( valid ){
-			console.log('val', value, this.args[index].prop, eval(this.args[index].prop), newval);
 			this.callback();
-			console.log('val2', value, this.args[index].prop, eval(this.args[index].prop));
 			this.unbindWatchers();
-			console.log('val3', value, this.args[index].prop, eval(this.args[index].prop));
+			return true;
 		}
+		return false;
 	};
 	
 	this.unbindWatchers = function(){
-		this.args.forEach( function( element ){
-			console.log('unboundness', element, element.prop, eval(element.prop));
+		this.args.forEach( function( element){
 			SRJS.unwatch( element.prop );
 		}, this );
 	};
@@ -61,6 +58,11 @@ SRJS.Query = function( query ){
 		return false;
 	};
 	
+	// set value
+	// call setter
+	// unset setter
+	// return value to setter that's just disappeared, so value isn't set
+	
 	this.setUpQuery = function( obj, index ){
 		// ensure that the parameters are valid
 		if( typeof obj !== 'object' ||
@@ -79,19 +81,31 @@ SRJS.Query = function( query ){
 		
 		var comparison = obj.type === 'eq' ? '===' : obj.type === 'gt' ? '>' : '<';
 		var watcherActivation = function( newval, index ){
+			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				this.updateQueryStatus( index, true, newval );
-				if( obj.prop === 'robot.fab' ) console.log( 'set', newval, comparison, obj.val );
+				unbound = this.updateQueryStatus( index, true, newval );
 			} else {
 				this.updateQueryStatus( index, false );
 			}
+			return unbound;
 		}.bind( this );
 		
 		watcherActivation( eval( obj.prop ), index );
 		
 		var watcherHandler = function( id, oldval, newval ){
-			watcherActivation( newval, index );
+			var unbound = watcherActivation( newval, index );
+			/*
+				Without checking to see if things are unbound, the logic goes as follows when the query becomes true:
+					Reach assignment that turns the query true
+					Do the various updating calls from the handler
+					Unwatch the variable being assigned
+					The setter no longer exists, so returning newval doesn't cause the value to update
+				Manually setting the value ensures that it's set
+			*/
+			if( unbound ){
+				this[id] = newval;
+			}
 			return newval;
 		};
 		SRJS.watch( obj.prop, watcherHandler );

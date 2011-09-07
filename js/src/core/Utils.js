@@ -64,8 +64,6 @@ SRJS.unwatch = function( prop ){
 	}
 	
 	var val = thisReference[prop];
-	console.log('unsetting', prop, thisReference, thisReference[prop], val);
 	delete thisReference[prop]; // remove accessors
 	thisReference[prop] = val;
-	console.log('unsettingp2', prop, thisReference, thisReference[prop], val);
 };
