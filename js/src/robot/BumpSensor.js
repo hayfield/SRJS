@@ -1,5 +1,5 @@
 /*
-	There are (SRJS.bumpSensorsPerRobot / 4) bump sensors along the edge of each robot.
+	There are (numberOfBumpSensors / 4) bump sensors along the edge of each robot.
 	They start in the front-left corner and move round clockwise.
 	The corners are not covered.
 */
@@ -7,37 +7,39 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	
 	this.robot = parentRobot;
 	
+	var numberOfBumpSensors = this.robot.bumpSensorCount;
+	
 	ID = ID || 0;
-	this.ID = ID < 0 ? 0 : ID > SRJS.bumpSensorsPerRobot ? SRJS.bumpSensorsPerRobot : ID;
+	this.ID = ID < 0 ? 0 : ID > numberOfBumpSensors ? numberOfBumpSensors : ID;
 	
 	// code to work out position is pretty much the same for the Range Finder
 	var xPos, yPos;
 	var edgeOffset = function( ID, edgeLength ){
-		var edgePos = ID % ( SRJS.bumpSensorsPerRobot / 4 );
+		var edgePos = ID % ( numberOfBumpSensors / 4 );
 		var offset = -((edgeLength / 2) -
-						(edgePos * (edgeLength / (SRJS.bumpSensorsPerRobot / 4))) -
-						((edgeLength / (SRJS.bumpSensorsPerRobot / 4)) / 2) );
+						(edgePos * (edgeLength / (numberOfBumpSensors / 4))) -
+						((edgeLength / (numberOfBumpSensors / 4)) / 2) );
 		return offset;
 	};
 
 	// work out the position of the bump sensor
-	if( ID < SRJS.bumpSensorsPerRobot / 4 ){ // front
+	if( ID < numberOfBumpSensors / 4 ){ // front
 		xPos = this.robot.position.x + edgeOffset( ID, this.robot.width );
 		yPos = this.robot.position.z - this.robot.length / 2;
-	} else if( ID < (2 * SRJS.bumpSensorsPerRobot / 4) ){ // right
+	} else if( ID < (2 * numberOfBumpSensors / 4) ){ // right
 		xPos = this.robot.position.x + this.robot.width / 2;
 		yPos = this.robot.position.z + edgeOffset( ID, this.robot.length );
-	} else if( ID < (3 * SRJS.bumpSensorsPerRobot / 4) ){ // back
+	} else if( ID < (3 * numberOfBumpSensors / 4) ){ // back
 		xPos = this.robot.position.x - edgeOffset( ID, this.robot.width );
 		yPos = this.robot.position.z + this.robot.length / 2;
-	} else if( ID < (4 * SRJS.bumpSensorsPerRobot / 4) ){ // left
+	} else if( ID < (4 * numberOfBumpSensors / 4) ){ // left
 		xPos = this.robot.position.x - this.robot.width / 2;
 		yPos = this.robot.position.z - edgeOffset( ID, this.robot.length );
 	}
 	
 	this.rect = new SRJS.Physics.Rectangle( false, true,
-									new SRJS.Vector2( this.robot.width / (SRJS.bumpSensorsPerRobot / 4),
-														this.robot.length / (SRJS.bumpSensorsPerRobot / 4) ),
+									new SRJS.Vector2( this.robot.width / (numberOfBumpSensors / 4),
+														this.robot.length / (numberOfBumpSensors / 4) ),
 									new SRJS.Vector2( xPos, yPos ),
 									0,
 									this );

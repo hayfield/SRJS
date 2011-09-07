@@ -3,8 +3,9 @@ args = typeof args == 'undefined' ? {} : args;
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
-	
 	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
+	
+	this.bumpSensorCount = args.bumpSensorCount || SRJS.bumpSensorsPerRobot;
 	
 	var defaultDimension = 50;
 	
