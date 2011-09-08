@@ -23,7 +23,7 @@ Robot Args
  - Setting the height as anything other than 50 causes it to float
 
 Query
- - Be able to combine both query and timeout events in a single yield
+ - Be able to combine both query and timeout events in a single yield without window.setTimeout() hacks
  - Make it possible to set a variable containing the results of the query - the first parameter to the callback.
 
 API
