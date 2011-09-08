@@ -1,0 +1,51 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Basic Motor Control Example</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/programming/sr/io/
+// Port of the following code:
+// motor[0].target = 100
+// motor[1].target = 100
+// while True:
+	// pin0 = io[0].input[0].d
+	// pin2 = io[0].input[2].a
+	// if pin0:
+	//     print "The digital input returned true"
+	// print "pin2 value: " + str(pin2)
+
+SRJS.Init();
+
+var initFunct = function(){
+
+	robot.motor[0].target = 100;
+	robot.motor[1].target = 100;
+	
+};
+
+var mainFunct = function(){
+
+	var pin0 = robot.io.bumpSensor[0].d;
+	var pin2 = robot.io.rangeFinder[0].a;
+	if( pin0 ){
+		console.log( 'The digital input returned true' );
+	}
+	console.log( 'pin2 value:', pin2 );
+	
+};
+
+var args = {
+	initialise: initFunct,
+	main: mainFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
