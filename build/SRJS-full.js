@@ -1,4 +1,4 @@
-// REVISION: 1.1315494530.09
+// REVISION: 1.1315494969.31
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -789,7 +789,7 @@ SRJS.rendererDimension = 200;
 SRJS.addPhysics = true;
 SRJS.debugCanvasDimension = 800;
 SRJS.displayStats = true;
-SRJS.displayRobotVision = false;
+SRJS.robotVision = false;
 SRJS.bumpSensorsPerRobot = 16;
 SRJS.rangeFindersPerRobot = 4;
 
@@ -1591,7 +1591,7 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			if( SRJS.displayRobotVision ){
+			if( SRJS.robotVision ){
 				var robot = 0;
 				while( robot < arena.robots.length ){
 					arena.renderer.render( arena.scene, arena.robots[robot].camera );

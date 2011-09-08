@@ -80,7 +80,7 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			if( SRJS.displayRobotVision ){
+			if( SRJS.robotVision ){
 				var robot = 0;
 				while( robot < arena.robots.length ){
 					arena.renderer.render( arena.scene, arena.robots[robot].camera );

@@ -42,7 +42,7 @@ var pin2 = robot.io.rangeFinder[0].a;
 
 # Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
 
-You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.displayRobotVision = true;` Enabling vision will cause the framerate to drop significantly.
+You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;` Enabling vision will cause the framerate to drop significantly.
 
 ### Python
 ```python

@@ -1,4 +1,4 @@
-// REVISION: 1.1315494530.09
+// REVISION: 1.1315494969.31
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -8,7 +8,7 @@ SRJS.rendererDimension = 200;
 SRJS.addPhysics = true;
 SRJS.debugCanvasDimension = 800;
 SRJS.displayStats = true;
-SRJS.displayRobotVision = false;
+SRJS.robotVision = false;
 SRJS.bumpSensorsPerRobot = 16;
 SRJS.rangeFindersPerRobot = 4;
 
@@ -810,7 +810,7 @@ SRJS.Arena = function( args ){
 		this.render = function(){
 			var arena = SRJS.CURRENT_ARENA;
 			
-			if( SRJS.displayRobotVision ){
+			if( SRJS.robotVision ){
 				var robot = 0;
 				while( robot < arena.robots.length ){
 					arena.renderer.render( arena.scene, arena.robots[robot].camera );
