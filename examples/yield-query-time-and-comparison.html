@@ -1,7 +1,7 @@
 <!DOCTYPE HTML> 
 <html lang="en"> 
 <head> 
-	<title>SRJS: Yield Query Example</title> 
+	<title>SRJS: Yield Query with Time and Comparison Example</title> 
 	<meta charset="utf-8"> 
 	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
 	<script type="text/javascript" src="../build/SRJS-full.js"></script>
@@ -23,6 +23,7 @@ SRJS.Init();
 
 var initFunct = function(){
 	
+	// create a couple of variables to track the status of the timeout
 	robot.createProperty('timeoutFinished', false);
 	robot.createProperty('timeoutID', null);
 	
