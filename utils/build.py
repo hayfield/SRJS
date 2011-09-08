@@ -1,4 +1,6 @@
 import os
+import time
+import re
 
 FILES = [
 'SRJS.js',
@@ -38,6 +40,21 @@ LIBRARIES = [
 'Stats.js'
 ]
 
+def revision():
+    buffer = []
+    f = open(os.path.join('REVISION'), 'r')
+    contents = f.readline()
+    regex = '([a-zA-Z]+)?\d+'
+    try:
+        rev = re.search( regex, contents ).group( 0 )
+        buffer.append( rev )
+    except Exception:
+        print 'Invalid REVISION file contents. Should match: ' + regex
+        buffer.append('idk')
+    buffer.append('.')
+    buffer.append(str(time.time()))
+    return "".join(buffer)
+
 def merge(files, path):
 
 	buffer = []
@@ -55,12 +72,14 @@ def output(text, filename):
 		f.write(text)
 
 def main():
+    revisionText = '// REVISION: ' + revision() + '\n'
+
     path = os.path.join('..', 'js', 'src')
     srcText = merge(FILES, path)
-    output(srcText, 'SRJS.js')
+    output(revisionText + srcText, 'SRJS.js')
 
     path = os.path.join('..', 'js', 'libs')
     libText = merge(LIBRARIES, path)
-    output(libText + srcText, 'SRJS-full.js')
+    output(revisionText + libText + srcText, 'SRJS-full.js')
 
 main()
