@@ -141,8 +141,8 @@ SRJS.Vision = function(){
 			}
 			
 			// draw the blob
-			this.context.strokeRect( this.blobs[blob].x, this.blobs[blob].y,
-										this.blobs[blob].width, this.blobs[blob].height );
+			this.context.strokeRect( this.blobs[blob].xRaw, this.blobs[blob].yRaw,
+										this.blobs[blob].widthRaw, this.blobs[blob].heightRaw );
 			
 			blob++;
 		}
