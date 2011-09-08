@@ -44,7 +44,8 @@ def merge(files, path):
 
 	for filename in files:
 		with open(os.path.join(path, filename), 'r') as f:
-			buffer.append(f.read())
+			buffer.append('// FILE: %s\n' % filename)
+			buffer.append('%s\n' % f.read())
 
 	return "".join(buffer)
 
