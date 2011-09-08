@@ -23,14 +23,16 @@
 SRJS.Init();
 
 var initFunct = function(){
-
+	
+	// set both the motors to move forward
 	robot.motor[0].target = 100;
 	robot.motor[1].target = 100;
 	
 };
 
 var mainFunct = function(){
-
+	
+	// read the value of a Bump Sensor and a Range Finder and output the values
 	var pin0 = robot.io.bumpSensor[0].d;
 	var pin2 = robot.io.rangeFinder[0].a;
 	if( pin0 ){

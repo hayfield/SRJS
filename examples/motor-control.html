@@ -29,14 +29,22 @@
 SRJS.Init();
 
 var mainFunct = function(){
-
+	
+	// set the left motor to half power
 	robot.motor[0].target = 50;
+	// wait for 3 seconds
 	robot.Yield( 3, function(){
+		// stop the left motor
 		robot.motor[0].target = 0;
+		// wait for 1 second
 		robot.Yield( 1, function(){
+			// set the left motor to half power in reverse
 			robot.motor[0].target = -50;
+			// wait for 3 seconds
 			robot.Yield( 3, function(){
+				// stop the left motor
 				robot.motor[0].target = 0;
+				// wait for 1 second
 				robot.Yield( 1 );
 			});
 		});

@@ -21,9 +21,11 @@ SRJS.Init();
 
 var initFunct = function(){
 	
+	// set the robot to move forward
 	robot.motor[0].target = 100;
 	robot.motor[1].target = 100;
 	
+	// when the Range Finder detects that there is a wall close ahead, stop
 	robot.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
 		robot.motor[0].target = 0;
 		robot.motor[1].target = 0;

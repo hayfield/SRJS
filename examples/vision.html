@@ -14,19 +14,24 @@
 // ev = yield vision
 // if ev.was(vision):
     // for blob in ev.vision.blobs:
-        // if blob.colour == RED:
+        // if blob.colour == GREEN:
             // print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
+
+// enable the robot vision
 SRJS.displayRobotVision = true;
 SRJS.Init();
 
 var mainFunct = function(){
-
+	
+	// store the robot's vision in a variable
 	var vision = robot.vision;
+	// loop through each of the blobs
 	vision.blobs.forEach(function( blob ){
-		if( blob.colour === SRJS.RED ){
-			console.log( 'Found red blob at', blob.x, ',', blob.y );
+		// output something if a green blob is detected
+		if( blob.colour === SRJS.GREEN ){
+			console.log( 'Found green blob at', blob.x, ',', blob.y );
 		}
-	}, robot);
+	}, robot); // pass 'robot' as the second parameter of forEach() to reduce unexpected bugs
 	
 };
 
@@ -35,6 +40,8 @@ var args = {
 };
 
 SRJS.CURRENT_ARENA.addRobot( args );
+// add a second robot so that the first one has something to look at
+SRJS.CURRENT_ARENA.addRobot();
 </script>
 </body> 
 </html>
