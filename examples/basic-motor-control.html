@@ -1,0 +1,54 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SR Web</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/tutorials/basic_motor_control
+// Port of the following code:
+// from sr import *
+
+// def main():
+    // while True:
+        // motor[0].target = 50
+        // yield query.timeout(3)
+
+        // motor[0].target = 0
+        // yield query.timeout(1)
+
+        // motor[0].target = -50
+        // yield query.timeout(3)
+
+        // motor[0].target = 0
+        // yield query.timeout(1)
+SRJS.Init();
+
+var mainFunct = function(){
+
+	robot.motor[0].target = 50;
+	robot.Yield( 3, function(){
+		robot.motor[0].target = 0;
+		robot.Yield( 1, function(){
+			robot.motor[0].target = -50;
+			robot.Yield( 3, function(){
+				robot.motor[0].target = 0;
+				robot.Yield( 1 );
+			});
+		});
+	});
+	
+};
+
+var args = {
+	main: mainFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
