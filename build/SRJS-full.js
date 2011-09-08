@@ -1,4 +1,4 @@
-// REVISION: 1.1315484529.25
+// REVISION: 1.1315490467.24
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2111,10 +2111,9 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		} else {
 			this._continueTime = Date.now() + seconds * 1000;
 			
-			if( callback && typeof callback === 'function' ){
-				window.setTimeout( this.bindCallbackToRobot( callback ),
+			callback = typeof callback === 'function' ? callback : function(){};
+			window.setTimeout( this.bindCallbackToRobot( callback ),
 									seconds * 999 );
-			}
 		}
 	};
 	
