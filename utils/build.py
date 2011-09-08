@@ -2,6 +2,7 @@ import os
 
 FILES = [
 'SRJS.js',
+'core/Settings.js',
 'core/Utils.js',
 'core/Vector2.js',
 'core/Init.js',
