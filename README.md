@@ -155,8 +155,11 @@ Queries are created by passing `new SRJS.Query()` as the first parameter for `ro
 1. A string containing the name of the variable to watch
 2. A string to define the type of comparison to perform. Can be one of the following:
 	* `eq` - wait for the values to be equal (`===`)
-	* `gt` - wait for the variable to become greater than the given value (`<`)
-	* `lt` - wait for the variable to become less than the given value (`>`)
+	* `gt` - wait for the variable to become greater than the given value (`>`)
+	* `lt` - wait for the variable to become less than the given value (`<`)
+	* `ne` - wait for the variable to become not equal to the given value (`!==`)
+	* `gte` - wait for the variable to become greater than or equal to the given value (`>=`)
+	* `lte` - wait for the variable to become less than or equal to the given value (`<=`)
 3. A value to perform the comparison against
 
 It is possible to combine a number of events in a single query and wait for one or all of them to be true before the query as a whole returns true.
