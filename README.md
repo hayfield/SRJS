@@ -2,6 +2,24 @@ An attempt to port the Student Robotics API to JavaScript to allow easier testin
 
 # Docs
 
+# Getting Started
+
+See examples/boilerplate.html for an annotated layout which can be used as the basis of code you write.
+
+# SRJS Functions and Notes
+
+`this` and `robot`
+When writing code for the robot within the `main()` and `initialise()` functions, `this` and `robot` refers to the Robot being controlled. In some cases such as within a [forEach](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) loop it's necessary to pass one of the two as a parameter if `this` is to reference the correct thing.
+
+`robot.createProperty( name, initialValue )`
+Used to create a property with a given name which will keep its value between calls to `robot.main()`, while allowing multiple robots to use the same variable names.
+### Example
+```javascript
+robot.createProperty( 'hitAWall', false ); // create the property
+var shouldReverse = robot.hitAWall; // access the value and store it in another variable
+robot.hitAWall = true; // change the value after initialisation
+```
+
 # Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
 
 Setting the speed of the motors is similar to in Python. The only difference is the statements needs to be prefixed by `robot.`.
