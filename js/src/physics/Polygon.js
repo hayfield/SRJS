@@ -55,7 +55,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
-	var e, o, intersects;
+	var e, o, intersects, intersection;
 	
 	intersects = false;
 	e = 0;
@@ -63,12 +63,13 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	
 		o = 0;
 		while( o < other.edges.length ){
-			if( this.edges[e].intersects( other.edges[o] ) ){
+			intersection = this.edges[e].intersects( other.edges[o] );
+			if( intersection ){
 				if( this.object instanceof SRJS.Robot.BumpSensor ){
 					return true;
 				} else if( this.object instanceof SRJS.Robot.RangeFinder ){
 					if( other.object !== this.object.robot ){
-						this.object.ray.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
+						this.object.ray.intersections.push( intersection, other.trigger );
 						intersects = true;
 					}
 				} else {
