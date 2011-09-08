@@ -44,8 +44,8 @@ SRJS.Query = function( query ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
 		if( valid ){
-			this.callback();
 			this.unbindWatchers();
+			this.callback();
 			return true;
 		}
 		return false;

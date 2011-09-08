@@ -1,4 +1,4 @@
-// REVISION: 1.1315490467.24
+// REVISION: 1.1315491959.42
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1174,8 +1174,8 @@ SRJS.Query = function( query ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
 		if( valid ){
-			this.callback();
 			this.unbindWatchers();
+			this.callback();
 			return true;
 		}
 		return false;
