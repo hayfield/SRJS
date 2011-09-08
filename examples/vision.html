@@ -11,15 +11,25 @@
 <script type="text/javascript">
 // See https://www.studentrobotics.org/docs/programming/sr/vision/
 // Port of the following code:
-// ev = yield vision
-// if ev.was(vision):
-    // for blob in ev.vision.blobs:
-        // if blob.colour == GREEN:
-            // print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
+// motor[0].target = 40
+// motor[1].target = 50
+// while True:
+	// ev = yield vision
+	// if ev.was(vision):
+		// for blob in ev.vision.blobs:
+			// if blob.colour == GREEN:
+				// print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
 
 // enable the robot vision
 SRJS.robotVision = true;
 SRJS.Init();
+
+var initFunct = function(){
+	
+	robot.motor[0].target = 40;
+	robot.motor[1].target = 50;
+	
+};
 
 var mainFunct = function(){
 	
@@ -36,6 +46,7 @@ var mainFunct = function(){
 };
 
 var args = {
+	initialise: initFunct,
 	main: mainFunct
 };
 
