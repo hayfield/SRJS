@@ -83,7 +83,7 @@ SRJS.Query = function( query ){
 						typeof obj.val == 'undefined'))){
 			return;
 		}
-		if( obj.type !== 'eq' && obj.type !== 'gt' && obj.type !== 'lt' ){
+		if( ['eq', 'gt', 'lt'].indexOf( obj.type ) === -1 ){
 			console.error( 'The type of Query must be one of the following:\n',
 								'eq, gt, lt');
 			return;
