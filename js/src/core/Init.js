@@ -5,8 +5,8 @@ SRJS.Init = function(){
 	var bob = new SRJS.Arena2011();
 	
 	var args = {
-		main: rangeDist,
-		initialise: initSetup
+		//main: rangeDist,
+		//initialise: initSetup
 	};
 
 	SRJS.CURRENT_ARENA.addRobot( args );
@@ -52,16 +52,10 @@ console.log('fab', robot.fab);
 
 	setMotors(100, 100);
 	//if( frame === 1 ){
-	this.yield( new SRJS.Query( 'and', { prop: 'robot.io.rangeFinder[0].a',
-								type: 'gt',
-								val: 1.3 }, {
-									prop: 'robot.fab',
-									type: 'eq',
-									val: true
-								} ), function(){console.log('bumped', robot.fab);
+	this.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1.3] ), function(){console.log('bumped', robot.fab);
 								this.motor[0].target = -100;
 				this.motor[1].target = -100;
-				this.yield(3);
+				this.Yield(3);
 				} );
 	
 	//}
@@ -69,28 +63,28 @@ console.log('fab', robot.fab);
 	if( this.io.rangeFinder[0].a < 1.3 ){
 		//console.log('forward');
 		setMotors( 100, 100 );
-		/*this.yield( 1, function(){
+		/*this.Yield( 1, function(){
 			console.log('bobblehead', robot);
 			robot.motor[0].target = 0;
 			robot.motor[1].target = 0;
-			robot.yield(2, function(){
+			robot.Yield(2, function(){
 				console.log('yummy pie');
 				robot.motor[0].target = 50;
 				robot.motor[1].target = 100;
-				robot.yield(2);
+				robot.Yield(2);
 			});
 		});*/
 	}
 	if( this.io.bumpSensor[3].d || this.io.bumpSensor[4].d || this.io.bumpSensor[6].d ){
 		setMotors( -100, 0 );
 		console.log('going back');
-		this.yield( 0.5 );
+		this.Yield( 0.5 );
 	} else if( this.io.bumpSensor[1].d || this.io.bumpSensor[10].d || this.io.bumpSensor[11].d ){
 		setMotors( 0, -100 );
 	}/* else if( this.io.rangeFinder[0].a > 1.3 ){
 		console.log('turn');
 		setMotors( 0, 100 );
-		this.yield( 0.2 );
+		this.Yield( 0.2 );
 	}
 	if( this.io.rangeFinder[1].a > 3 && !(this.io.bumpSensor[7].d || this.io.bumpSensor[8].d) ){
 		console.log('right sensor');
@@ -102,7 +96,7 @@ console.log('fab', robot.fab);
 	}*/
 	if( this.io.bumpSensor[1].d || this.io.bumpSensor[2].d ){
 		setMotors( -100, -100 );
-		this.yield( 0.3 );
+		this.Yield( 0.3 );
 	}
 	//console.log(this.io.rangeFinder[0].a);
 };

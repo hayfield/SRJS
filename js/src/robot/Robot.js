@@ -57,7 +57,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	};
 	
 	this._continueTime = Date.now();	
-	this.yield = function( seconds, callback ){
+	this.Yield = function( seconds, callback ){
 		if( seconds instanceof SRJS.Query ){
 			this._continueTime = Number.MAX_VALUE;
 			
