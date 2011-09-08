@@ -103,7 +103,7 @@ def anotherCoroutine():
 		yield 1
 
 def main():
-	#To add another function as a coroutine:
+	# To add another function as a coroutine:
 	add_coroutine(anotherCoroutine)
 ```
 ##### Javascript
