@@ -1,8 +1,6 @@
 SRJS.Arena2011 = function(){
 	
-	var args = {};
-	
-	var scene;
+	var args = {}, scene;
 
 	args.initScene = function(){
 		

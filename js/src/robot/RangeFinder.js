@@ -2,13 +2,13 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 	
 	this.robot = parentRobot;
 	
-	var numberOfRangeFinders = this.robot.rangeFinderCount;
+	var numberOfRangeFinders = this.robot.rangeFinderCount,
+		xPos, yPos, rotation;
 	
 	ID = ID || 0;
 	this.ID = ID < 0 ? 0 : ID > numberOfRangeFinders ? numberOfRangeFinders : ID;
 	
 	// code to work out position is pretty much the same for the Bump Sensor
-	var xPos, yPos, rotation;
 	var edgeOffset = function( ID, edgeLength ){
 		var edgePos = ID % ( numberOfRangeFinders / 4 );
 		var offset = -((edgeLength / 2) -

@@ -23,7 +23,7 @@ SRJS.Query = function( query ){
 	};
 	
 	this.setUpQueries = function( arg ){
-		arg.forEach(function( element, index, array ){
+		arg.forEach(function( element, index ){
 			if( element instanceof Array && element.length === 3 &&
 					typeof element[0] === 'string' && typeof element[1] === 'string' ){
 				var obj = {
@@ -40,7 +40,7 @@ SRJS.Query = function( query ){
 	
 	this.queryStatuses = new Array();
 	
-	this.updateQueryStatus = function( index, value, newval ){
+	this.updateQueryStatus = function( index, value ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
 		if( valid ){
@@ -96,7 +96,7 @@ SRJS.Query = function( query ){
 			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				unbound = this.updateQueryStatus( index, true, newval );
+				unbound = this.updateQueryStatus( index, true );
 			} else {
 				this.updateQueryStatus( index, false );
 			}
