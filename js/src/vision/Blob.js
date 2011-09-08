@@ -13,5 +13,13 @@ SRJS.Blob = function( x, y, width, height, color ){
 	Object.defineProperty(this, 'mass', {
 		get: this._massGetter
 	});
+	
+	this._colourGetter = function(){
+		return this.color;
+	};
+	
+	Object.defineProperty(this, 'colour', {
+		get: this._colourGetter
+	});
 
 };

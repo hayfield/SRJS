@@ -132,6 +132,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			this._reservedPropertyNames.push( prop );
 		}
 	}
+	robot = this;
 	this.initialise();
 
 }

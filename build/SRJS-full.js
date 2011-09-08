@@ -1,4 +1,4 @@
-// REVISION: 1.1315480984.31
+// REVISION: 1.1315484529.25
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2173,6 +2173,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			this._reservedPropertyNames.push( prop );
 		}
 	}
+	robot = this;
 	this.initialise();
 
 }
@@ -2667,6 +2668,14 @@ SRJS.Blob = function( x, y, width, height, color ){
 	
 	Object.defineProperty(this, 'mass', {
 		get: this._massGetter
+	});
+	
+	this._colourGetter = function(){
+		return this.color;
+	};
+	
+	Object.defineProperty(this, 'colour', {
+		get: this._colourGetter
 	});
 
 };
