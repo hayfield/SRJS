@@ -4,6 +4,10 @@ An attempt to port the Student Robotics API to JavaScript to allow easier testin
 
 # Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
 
+Setting the speed of the motors is similar to in Python. The only difference is the statements needs to be prefixed by `robot.`.
+ * `robot.motor[0]` is the left wheel
+ * `robot.motor[1]` is the right wheel
+
 ### Python
 ```python
 motor[0].target = 100
@@ -56,6 +60,40 @@ vision.blobs.forEach(function( blob ){
 		console.log( 'Found red blob at', blob.x, ',', blob.y );
 	}
 }, robot);
+```
+
+# Coroutines ([Python Docs](https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines))
+
+It is possible to set functions running in the background, independent of other code.
+
+### Python
+```python
+@coroutine
+def aCoroutine():
+	while True:
+		yield 1
+		print "I'm a Robot"
+# OR:
+def anotherCoroutine():
+	while True:
+		print "I'm a Coroutine"
+		yield 1
+
+def main():
+	#To add another function as a coroutine:
+	add_coroutine(anotherCoroutine)
+```
+### Javascript
+```javascript
+// Within the initialise() function for the robot
+var aCoroutine = function(){
+	console.log("I'm a Robot");
+};
+robot.invokeRepeating( aCoroutine, 1000 );
+// OR:
+robot.invokeRepeating(function(){
+	console.log("I'm a Coroutine");
+}, 0, 1000 );
 ```
 
 # Query ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/query/))

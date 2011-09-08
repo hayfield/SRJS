@@ -1,0 +1,51 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Coroutine Example</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines
+// Port of the following code:
+// @coroutine
+// def aCoroutine():
+	// while True:
+		// yield 1
+		// print "I'm a Robot"
+// # OR:
+// def anotherCoroutine():
+	// while True:
+		// print "I'm a Coroutine"
+		// yield 1
+
+// def main():
+	// #To add another function as a coroutine:
+	// add_coroutine(anotherCoroutine)
+
+SRJS.Init();
+
+var initFunct = function(){
+	
+	var aCoroutine = function(){
+		console.log("I'm a Robot");
+	};
+	robot.invokeRepeating( aCoroutine, 1000 );
+	// OR:
+	robot.invokeRepeating(function(){
+		console.log("I'm a Coroutine");
+	}, 0, 1000 );
+	
+};
+
+var args = {
+	initialise: initFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
