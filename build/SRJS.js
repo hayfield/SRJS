@@ -1,4 +1,4 @@
-// REVISION: 1.1315495738.57
+// REVISION: 1.1315511285.77
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1213,15 +1213,18 @@ SRJS.Query = function( query ){
 						typeof obj.val == 'undefined'))){
 			return;
 		}
-		if( obj.type !== 'eq' && obj.type !== 'gt' && obj.type !== 'lt' ){
+		
+		var inputTypes = ['eq', 'gt', 'lt', 'ne', 'lte', 'gte'];
+		var outputTypes = ['===', '>', '<', '!==', '<=', '>='];
+		if( inputTypes.indexOf( obj.type ) === -1 ){
 			console.error( 'The type of Query must be one of the following:\n',
-								'eq, gt, lt');
+								'eq, gt, lt, ne, lte, gte');
 			return;
 		}
 		
 		this.queryStatuses[index] = false;
 		
-		var comparison = obj.type === 'eq' ? '===' : obj.type === 'gt' ? '>' : '<';
+		var comparison = outputTypes[ inputTypes.indexOf( obj.type ) ];
 		var watcherActivation = function( newval, index ){
 			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
