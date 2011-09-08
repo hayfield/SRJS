@@ -1,0 +1,67 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Yield Query Example</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/programming/sr/query/
+// Port of the following code:
+// while True:
+//     motor[0].target = 100
+//     motor[1].target = 100
+//     yield query.io[0].input[0].a > 1, query.timeout(3)
+//     motor[0].target = -100
+//     motor[1].target = -100
+//     yield query.timeout(1)
+
+SRJS.Init();
+
+var initFunct = function(){
+	
+	robot.createProperty('timeoutFinished', false);
+	robot.createProperty('timeoutID', null);
+	
+};
+
+/*
+	1. Move forwards until either when the Range Finder has a value greater than 1 or after 3 seconds, whichever is first.
+	2. Move backwards for a second.
+	3. Repeat.
+*/
+var mainFunct = function(){
+
+	robot.motor[0].target = 100;
+	robot.motor[1].target = 100;
+
+	// See: https://developer.mozilla.org/en/window.setTimeout for more info
+	robot.timeoutID = window.setTimeout(function(){
+		robot.timeoutFinished = true;
+	}, 3000);
+	robot.timeoutFinished = false;
+	
+	robot.Yield( new SRJS.Query( 'or',
+								['robot.io.rangeFinder[0].a', 'gt', 1],
+								['robot.timeoutFinished', 'eq', true] ), function(){
+		window.clearTimeout( robot.timeoutID ); // stop the timeout firing when we don't want it to
+		
+		robot.motor[0].target = -100;
+		robot.motor[1].target = -100;
+		robot.Yield( 1 );
+	});
+	
+};
+
+var args = {
+	initialise: initFunct,
+	main: mainFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
