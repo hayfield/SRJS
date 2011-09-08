@@ -24,6 +24,7 @@ Robot Args
 
 Query
  - Be able to combine both query and timeout events in a single yield
+ - Make it possible to set a variable containing the results of the query - the first parameter to the callback.
 
 API
  - Try and make the input API slightly more like the Python version
