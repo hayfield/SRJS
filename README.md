@@ -50,9 +50,9 @@ In SRJS, `io` is not an array, so `[IO_BOARD_NUMBER]` is not required. There are
 
 ##### Python
 ```python
-### to read JointIO board 0's digital pin 0...
+# to read JointIO board 0's digital pin 0...
 pin0 = io[0].input[0].d
-### to read JointIO board 0's analogue pin 2...
+# to read JointIO board 0's analogue pin 2...
 pin2 = io[0].input[2].a
 ```
 ##### Javascript
@@ -96,7 +96,7 @@ def aCoroutine():
 	while True:
 		yield 1
 		print "I'm a Robot"
-## OR:
+# OR:
 def anotherCoroutine():
 	while True:
 		print "I'm a Coroutine"
@@ -125,7 +125,7 @@ With the Python API, it's possible to stop the execution of the code to wait for
 ##### Python
 ```python
 yield query.timeout(3)
-## do other things here
+# do other things here
 ```
 ##### Javascript
 ```javascript
@@ -138,9 +138,9 @@ robot.Yield( 3, function(){
 The syntax to yield for non-timeout events is noticeably different to Python.
 ##### Python
 ```python
-## Wait for digital input 3 on JointIO board 0 to become digital '1'
+# Wait for digital input 3 on JointIO board 0 to become digital '1'
 yield query.io[0].input[0].d == 1
-## Wait for the reading of analogue input 3 on JointIO board 0 to exceed 1V
+# Wait for the reading of analogue input 3 on JointIO board 0 to exceed 1V
 yield query.io[0].input[1].a > 1
 print "done!"
 ```
@@ -167,11 +167,11 @@ Queries are created by passing `new SRJS.Query()` as the first parameter for `ro
 It is possible to combine a number of events in a single query and wait for one or all of them to be true before the query as a whole returns true.
 ##### Python
 ```python
-## OR:
+# OR:
 yield query.io[0].input[0].a < 2, query.io[0].input[0].a > 3
-## AND:
+# AND:
 yield (query.io[0].input[2].d == 1) & (query.io[0].input[3].d == 0)
-## alternatively:
+# alternatively:
 yield And( query.io[0].input[3].d == 1, query.io[0].input[2].d == 0 )
 print "done!"
 ```
