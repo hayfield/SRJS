@@ -2,55 +2,59 @@ An attempt to port the Student Robotics API to JavaScript to allow easier testin
 
 # Docs
 
-# Getting Started
+## Running SRJS
+
+SRJS will run in the latest versions of [Chrome](http://www.google.com/chrome/) and [Firefox](http://www.mozilla.org/firefox/). It needs to remain open in the current tab when running otherwise strange things can happen.
+
+## Getting Started
 
 See examples/boilerplate.html for an annotated layout which can be used as the basis of code you write.
 
-# SRJS Functions and Notes
+## SRJS Functions and Notes
 
 `this` and `robot`
 When writing code for the robot within the `main()` and `initialise()` functions, `this` and `robot` refers to the Robot being controlled. In some cases such as within a [forEach](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) loop it's necessary to pass one of the two as a parameter if `this` is to reference the correct thing.
 
 `robot.createProperty( name, initialValue )`
 Used to create a property with a given name which will keep its value between calls to `robot.main()`, while allowing multiple robots to use the same variable names.
-### Example
+#### Example
 ```javascript
 robot.createProperty( 'hitAWall', false ); // create the property
 var shouldReverse = robot.hitAWall; // access the value and store it in another variable
 robot.hitAWall = true; // change the value after initialisation
 ```
 
-# Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
+## Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
 
 Setting the speed of the motors is similar to in Python. The only difference is the statements needs to be prefixed by `robot.`.
  * `robot.motor[0]` is the left wheel
  * `robot.motor[1]` is the right wheel
 
-### Python
+#### Python
 ```python
 motor[0].target = 100
 motor[1].target = 100
 ```
-### Javascript
+#### Javascript
 ```javascript
 robot.motor[0].target = 100;
 robot.motor[1].target = 100;
 ```
 
-# IO ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/io/))
+## IO ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/io/))
 
 There are some notable differences between the Python API and SRJS.
 In Python, `io[IO_BOARD_NUMBER]` has two properties: `input` and `output`, which are arrays of input or output devices respectively.
 In SRJS, `io` is not an array, so `[IO_BOARD_NUMBER]` is not required. There are also no `input` or `output` arrays. These are replaced with `bumpSensor` and `rangeFinder` arrays, which contain bump sensors and range finders in various positions around the robot starting in the front-left corner and working round the robot clockwise. The default number of each are stored in `SRJS.bumpSensorsPerRobot` and `SRJS.rangeFindersPerRobot`, although can be customised on a per-robot basis. Bump Sensors have a digital output and Range Finders have an analogue output.
 
-### Python
+#### Python
 ```python
-# to read JointIO board 0's digital pin 0...
+## to read JointIO board 0's digital pin 0...
 pin0 = io[0].input[0].d
-# to read JointIO board 0's analogue pin 2...
+## to read JointIO board 0's analogue pin 2...
 pin2 = io[0].input[2].a
 ```
-### Javascript
+#### Javascript
 ```javascript
 // check to see whether the front-left bump sensor is pressed
 var pin0 = robot.io.bumpSensor[0].d;
@@ -58,11 +62,11 @@ var pin0 = robot.io.bumpSensor[0].d;
 var pin2 = robot.io.rangeFinder[0].a;
 ```
 
-# Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
+## Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
 
 You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;` Enabling vision will cause the framerate to drop significantly.
 
-### Python
+#### Python
 ```python
 ev = yield vision
 if ev.was(vision):
@@ -70,7 +74,7 @@ if ev.was(vision):
 		if blob.colour == RED:
 		print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
 ```
-### Javascript
+#### Javascript
 ```javascript
 var vision = robot.vision;
 vision.blobs.forEach(function( blob ){
@@ -80,11 +84,11 @@ vision.blobs.forEach(function( blob ){
 }, robot);
 ```
 
-# Coroutines ([Python Docs](https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines))
+## Coroutines ([Python Docs](https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines))
 
 It is possible to set functions running in the background, independent of other code.
 
-### Python
+#### Python
 ```python
 @coroutine
 def aCoroutine():
@@ -101,7 +105,7 @@ def main():
 	#To add another function as a coroutine:
 	add_coroutine(anotherCoroutine)
 ```
-### Javascript
+#### Javascript
 ```javascript
 // Within the initialise() function for the robot
 var aCoroutine = function(){
@@ -114,15 +118,15 @@ robot.invokeRepeating(function(){
 }, 0, 1000 );
 ```
 
-# Query ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/query/))
+## Query ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/query/))
 
 With the Python API, it's possible to stop the execution of the code to wait for something to occur. This cannot be done in SRJS, so queries have to be written differently.
-### Python
+#### Python
 ```python
 yield query.timeout(3)
 # do other things here
 ```
-### Javascript
+#### Javascript
 ```javascript
 robot.Yield( 3, function(){
 	// do other things here
@@ -131,7 +135,7 @@ robot.Yield( 3, function(){
 `robot.Yield()` is a function which stops the robot's `main()` loop code until the query passed as the first parameter is true. The second parameter is a function which will be called when the query becomes true.
 
 The syntax to yield for non-timeout events is noticeably different to Python.
-### Python
+#### Python
 ```python
 # Wait for digital input 3 on JointIO board 0 to become digital '1'
 yield query.io[0].input[0].d == 1
@@ -139,7 +143,7 @@ yield query.io[0].input[0].d == 1
 yield query.io[0].input[1].a > 1
 print "done!"
 ```
-### Javascript
+#### Javascript
 ```javascript
 robot.Yield( new SRJS.Query( ['robot.io.bumpSensor[0].d', 'eq', true] ), function(){
 	robot.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
@@ -156,7 +160,7 @@ Queries are created by passing `new SRJS.Query()` as the first parameter for `ro
 3. A value to perform the comparison against
 
 It is possible to combine a number of events in a single query and wait for one or all of them to be true before the query as a whole returns true.
-### Python
+#### Python
 ```python
 # OR:
 yield query.io[0].input[0].a < 2, query.io[0].input[0].a > 3
@@ -166,7 +170,7 @@ yield (query.io[0].input[2].d == 1) & (query.io[0].input[3].d == 0)
 yield And( query.io[0].input[3].d == 1, query.io[0].input[2].d == 0 )
 print "done!"
 ```
-### Javascript
+#### Javascript
 ```javascript
 // OR:
 robot.Yield( new SRJS.Query( 'or',
@@ -190,10 +194,10 @@ The first parameter is a string, either `and` or `or` to specify how the query s
 Comparison and timeout queries cannot be directly combined in a single Yield, although it is possible to set variables to make it work. See examples/yield-query-time-and-comparison.html to see how this can be done.
 When an or query returns, you will have to manually work out which comparison returned true.
 
-# Power ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/power/))
+## Power ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/power/))
 
 Not available in SRJS.
 
-# Pwm ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/pwm/))
+## Pwm ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/pwm/))
 
 Not available in SRJS.
