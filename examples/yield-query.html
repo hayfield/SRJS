@@ -1,0 +1,41 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Basic Motor Control Example</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/programming/sr/vision/
+// Port of the following code:
+// motor[0].traget = 100
+// motor[1].target = 100
+// yield query.io[0].input[0].a > 1
+// motor[0].traget = 0
+// motor[1].target = 0
+
+SRJS.Init();
+
+var initFunct = function(){
+	
+	robot.motor[0].target = 100;
+	robot.motor[1].target = 100;
+	
+	robot.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
+		robot.motor[0].target = 0;
+		robot.motor[1].target = 0;
+	});
+	
+};
+
+var args = {
+	initialise: initFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
