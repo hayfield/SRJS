@@ -1,4 +1,4 @@
-// REVISION: 1.1315492416.83
+// REVISION: 1.1315494530.09
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1336,10 +1336,10 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		}
 	};
 	
-	this.invokeRepeating = function( callback, delay ){
+	this.invokeRepeating = function( callback, initialDelay, repeatRate ){
 		if( callback && typeof callback === 'function' ){
 			SRJS.invokeRepeating( this.bindCallbackToRobot( callback ),
-									delay );
+									initialDelay, repeatRate );
 		}
 	};
 	
