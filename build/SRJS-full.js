@@ -1,4 +1,4 @@
-// REVISION: 1.1315491959.42
+// REVISION: 1.1315492416.83
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -1893,7 +1893,7 @@ SRJS.Trigger = function( width, height, depth, position, rotation, action ){
 	
 	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.yellow );
 	
-	this.onRobotEnter = action || function( robotID ){ console.log('enter', robotID); };
+	this.onRobotEnter = action || function( robotID ){ /*console.log('enter', robotID);*/ };
 	//this.onRobotEnter = function( robotID ){ console.log('enter', robotID); };
 	this.onRobotStay = function( robotID ){ /*console.log('stay', robotID);*/ };
 	this.onRobotExit = function( robotID ){ /*console.log('exit', robotID);*/ };
