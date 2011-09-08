@@ -1,4 +1,4 @@
-An attempt to port the [Student Robotics](https://www.studentrobotics.org/) API to JavaScript to allow easier testing of algorithms by providing a 3D arena which robots can move around in that doesn't involve card stuck to table legs. It also allows testing to be performed before anything has been physically constructed.
+An attempt to port the [Student Robotics](https://www.studentrobotics.org/) API to Javascript to allow easier testing of algorithms by providing a 3D arena which robots can move around in that doesn't involve card stuck to table legs. It also allows testing to be performed before anything has been physically constructed.
 
 # Docs
 
