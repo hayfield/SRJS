@@ -1,0 +1,43 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Boilerplate</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// SRJS.robotVision = true; // uncomment to enable vision
+// if there are any other settings you want to change, do that here. See ../js/src/core/Settings.js for available settings
+
+SRJS.Init(); // initialise the arena
+
+var initFunct = function(){
+	// code to run when the robot starts goes in the initialisation function
+	// eg. Creating variables, setting up coroutines, etc
+};
+
+var mainFunct = function(){
+	// code that should be run repeatedly should go here
+	// equivalent to the contents of a 'while True:' loop within main() in Python
+};
+
+// setup the settings for the robot
+var args = {
+	initialise: initFunct // the initialisation function
+	, main: mainFunct // the main function
+	// there are other settings which can also be changed when creating a robot
+	// , numberOfBumpSensors: SRJS.bumpSensorsPerRobot
+	// , numberOfRangeFinders: SRJS.rangeFindersPerRobot
+	// , speed: 1 
+};
+
+// create a new robot with the specified arguments
+SRJS.CURRENT_ARENA.addRobot( args );
+// Up to 4 robots can be added to an arena if so desired.
+// Each robot can share arguments, or can have their own by declaring more variables.
+</script>
+</body> 
+</html>
