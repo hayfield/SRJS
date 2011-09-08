@@ -100,9 +100,6 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		
 	};
 	
-	this.motor[0].target = 40;
-	this.motor[1].target = 50;
-	
 	this.vision = new SRJS.Vision();
 	
 	this.gameScore = 0;
