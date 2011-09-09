@@ -6,6 +6,8 @@ An attempt to port the [Student Robotics](https://www.studentrobotics.org/) API 
 
 SRJS will run in the latest versions of [Chrome](http://www.google.com/chrome/) and [Firefox](http://www.mozilla.org/firefox/). It needs to remain open in the current tab when running otherwise strange things can happen.
 
+Some of the examples use the console to display output, so you'll need to open it to see anything happening. [Opening the console in Chrome](http://code.google.com/chrome/devtools/docs/overview.html#access). [Opening the console in Firefox](https://developer.mozilla.org/en/Using_the_Web_Console#Opening_the_Web_Console).
+
 ## Getting Started
 
 See examples/boilerplate.html for an annotated layout which can be used as the basis of code you write.
