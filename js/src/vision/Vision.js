@@ -26,8 +26,7 @@ SRJS.Vision = function(){
 		img.src = renderer.domElement.toDataURL('image/png');
 	};
 	
-	//https://www.studentrobotics.org/cgit/robovis.git/tree/visfunc.cpp
-	// ?id=bf115f6be5025c559e1f91bb39f90ac380150a6b
+	// https://www.studentrobotics.org/cgit/robovis.git/tree/visfunc.cpp?id=bf115f6be5025c559e1f91bb39f90ac380150a6b
 	this.detectBlobs = function( imgData ){
 		// imgData should already have been run through this.processData()
 		
