@@ -1,4 +1,4 @@
-// REVISION: 1.1315565295.61
+// REVISION: 1.1315565636.11
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -712,10 +712,12 @@ Detector = {
 
 			domElement.innerHTML = window.WebGLRenderingContext ? [
 				'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br />',
-				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.',
+				'WebGL is required for the Robot vision code to work correctly.'
 			].join( '\n' ) : [
 				'Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br/>',
-				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.',
+				'WebGL is required for the Robot vision code to work correctly.'
 			].join( '\n' );
 
 		}

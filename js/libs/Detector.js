@@ -27,10 +27,12 @@ Detector = {
 
 			domElement.innerHTML = window.WebGLRenderingContext ? [
 				'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br />',
-				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.',
+				'WebGL is required for the Robot vision code to work correctly.'
 			].join( '\n' ) : [
 				'Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br/>',
-				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.',
+				'WebGL is required for the Robot vision code to work correctly.'
 			].join( '\n' );
 
 		}
