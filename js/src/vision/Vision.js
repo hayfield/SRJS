@@ -233,21 +233,23 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 };
 
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
+// https://github.com/mrdoob/three.js/blob/master/src/extras/ColorUtils.js
 SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
 	var min, max, delta, hsvH;
 	
-	max = Math.max( r, g, b );
+	max = Math.max( Math.max( r, g ), b );
+	min = Math.min( Math.min( r, g ), b );
+	
 	hsv.v = max;
 	
-	if( max !== 0 ){
-		min = Math.min( r, g, b );
+	if( max !== min ){
 		delta = max - min;
 		hsv.s = delta / max;
 	} else {
 		// r = g = b = 0
 		hsv.s = 0;
-		hsv.h = -1;
+		hsv.h = 0;
 		return hsv;
 	}
 	
