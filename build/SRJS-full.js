@@ -1,4 +1,4 @@
-// REVISION: 1.1315511285.77
+// REVISION: 1.1315565295.61
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -711,13 +711,11 @@ Detector = {
 		if ( ! this.webgl ) {
 
 			domElement.innerHTML = window.WebGLRenderingContext ? [
-				'Sorry, your graphics card doesn\'t support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>'
+				'Your graphics card does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br />',
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
 			].join( '\n' ) : [
-				'Sorry, your browser doesn\'t support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a><br/>',
-				'Please try with',
-				'<a href="http://www.google.com/chrome">Chrome</a>, ',
-				'<a href="http://www.mozilla.com/en-US/firefox/new/">Firefox 4</a> or',
-				'<a href="http://nightly.webkit.org/">Webkit Nightly (Mac)</a>'
+				'Your browser does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation">WebGL</a>.<br/>',
+				'Find out how to get it <a href="http://get.webgl.org/">here</a>.'
 			].join( '\n' );
 
 		}
@@ -956,6 +954,7 @@ SRJS.Vector2.prototype.distanceTo = function( other ){
 // FILE: core/Init.js
 SRJS.Init = function(){
 	
+	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	SRJS.intersections = new SRJS.Physics.Intersections();
 	SRJS.phys = new SRJS.Physics.Environment();
 	var bob = new SRJS.Arena2011();
@@ -1541,7 +1540,7 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
-		this.renderer = new THREE.WebGLRenderer();
+		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
 		document.body.appendChild( this.renderer.domElement );
 		

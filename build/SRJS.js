@@ -1,4 +1,4 @@
-// REVISION: 1.1315511285.77
+// REVISION: 1.1315565295.61
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -175,6 +175,7 @@ SRJS.Vector2.prototype.distanceTo = function( other ){
 // FILE: core/Init.js
 SRJS.Init = function(){
 	
+	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	SRJS.intersections = new SRJS.Physics.Intersections();
 	SRJS.phys = new SRJS.Physics.Environment();
 	var bob = new SRJS.Arena2011();
@@ -760,7 +761,7 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
-		this.renderer = new THREE.WebGLRenderer();
+		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
 		document.body.appendChild( this.renderer.domElement );
 		
