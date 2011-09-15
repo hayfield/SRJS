@@ -12,6 +12,14 @@ SRJS.Physics.Edge = function( start, end ){
 		get: this._lengthGetter
 	});
 	
+	this._normalGetter = function(){
+		return new SRJS.Vector2( -(this.end.y - this.start.y), (this.end.x - this.start.x) );
+	};
+	
+	Object.defineProperty(this, 'normal', {
+		get: this._normalGetter
+	});
+	
 };
 
 SRJS.Physics.Edge.prototype.rotateAroundPoint = function( point, theta ){
