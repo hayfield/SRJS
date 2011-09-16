@@ -61,6 +61,10 @@ SRJS.Vector2.prototype.dot = function( other ){
 	return (this.x * other.x) + (this.y * other.y);
 };
 
+SRJS.Vector2.prototype.normalise = function(){
+	return this.divideScalar( this.length() );
+};
+
 SRJS.Vector2.prototype.add = function( other ){
 	return new SRJS.Vector2( this.x + other.x, this.y + other.y );
 };
@@ -71,6 +75,10 @@ SRJS.Vector2.prototype.subtract = function( other ){
 
 SRJS.Vector2.prototype.multiply = function( value ){
 	return new SRJS.Vector2( this.x * value, this.y * value );
+};
+
+SRJS.Vector2.prototype.divideScalar = function( s ){
+	return new SRJS.Vector2( this.x /= s, this.y /= s );
 };
 
 SRJS.Vector2.prototype.lengthSquared = function(){

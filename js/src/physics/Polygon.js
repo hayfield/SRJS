@@ -56,7 +56,13 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	var e, o, intersects, intersection;
-
+	
+	if( other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
+		var SATResult = other.SAT( this );
+		var SATResult2 = this.SAT( other );
+		//console.log( SATResult );
+	}
+	
 	intersects = false;
 	e = 0;
 	while( e < this.edges.length ){
@@ -99,7 +105,8 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 		projectionAxis,
 		minThis, maxThis, minOther, maxOther,
 		dot,
-		distMin, distMinAbs, shortestDist, result;
+		distMin, distMinAbs, shortestDist, result,
+		thisPosition, otherPosition, offset, offsetShift;
 	
 	minThis = Number.MAX_VALUE;
 	minOther = minThis;
@@ -107,41 +114,47 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 	maxOther = maxThis;
 	shortestDist = Number.MAX_VALUE;
 	result = {};
+	thisPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
+	otherPosition = new SRJS.Vector2( other.object.position.x, other.object.position.z );
+	offset = new SRJS.Vector2( thisPosition.x - otherPosition.x, thisPosition.y - otherPosition.y );
 	
 	// loop through the edges on the polygons
 	for( e = 0; e < this.edges.length; e++ ){
 		// find the normal to the edge (to project points onto)
-		projectionAxis = this.edges[e].normal;
+		projectionAxis = this.edges[e].normal.normalise();
 		
 		// project both of the polygons
 		// loop through all the edges. Each edges has 2 points, so projecting twice as many as needed
 		// this polygon
 		for( p = 0; p < this.edges.length; p++ ){
-			dot = projectionAxis.dot( this.edges[p].start );
+			dot = projectionAxis.dot( this.edges[p].start.subtract( thisPosition ) );
 			if( dot < minThis ) minThis = dot;
 			if( dot > maxThis ) maxThis = dot;
 			
-			dot = projectionAxis.dot( this.edges[p].end );
+			dot = projectionAxis.dot( this.edges[p].end.subtract( thisPosition ) );
 			if( dot < minThis ) minThis = dot;
 			if( dot > maxThis ) maxThis = dot;
 		}
 		// other polygon
 		for( p = 0; p < other.edges.length; p++ ){
-			dot = projectionAxis.dot( other.edges[p].start );
+			dot = projectionAxis.dot( other.edges[p].start.subtract( otherPosition ) );
 			if( dot < minOther ) minOther = dot;
 			if( dot > maxOther ) maxOther = dot;
 			
-			dot = projectionAxis.dot( other.edges[p].end );
+			dot = projectionAxis.dot( other.edges[p].end.subtract( otherPosition ) );
 			if( dot < minOther ) minOther = dot;
 			if( dot > maxOther ) maxOther = dot;
 		}
 		
 		// shift the points of one of them by some sort of offset
-		// only when using local coordinates for points?
+		offsetShift = projectionAxis.dot( offset );
+		minThis += offsetShift;
+		maxThis += offsetShift;
 		
 		// test for intersections
 		if( (minThis - maxOther) > 0 || (minOther - maxOther) > 0 ){
 			// gap found
+			console.log("gap", minThis, maxThis, minOther, maxOther);
 			return null;
 		}
 		
