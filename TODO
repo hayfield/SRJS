@@ -33,6 +33,7 @@ API
 
 Pushing
  - Things should rotate when pushed
+ - When doing SAT detection, project each vertex only once
 
 Features
  - Make robots push each other
