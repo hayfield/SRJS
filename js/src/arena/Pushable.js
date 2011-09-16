@@ -1,6 +1,6 @@
 SRJS.Pushable = function( width, height, depth, position, rotation ){
 	
-	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.red );
+	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.black );
 
 };
 
