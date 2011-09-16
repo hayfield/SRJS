@@ -61,6 +61,7 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 		return false;
 	}
 	
+	// make robots push pushable objects
 	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
 		var result2 = this.SAT( other, false );
 		if( result2 === null ) return false;
