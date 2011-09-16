@@ -95,11 +95,66 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 // http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
 // http://en.wikipedia.org/wiki/Separating_axis_theorem
 SRJS.Physics.Polygon.prototype.SAT = function( other ){
+	var e, p,
+		projectionAxis,
+		minThis, maxThis, minOther, maxOther,
+		dot,
+		distMin, distMinAbs, shortestDist, result;
+	
+	minThis = Number.MIN_VALUE;
+	minOther = minThis;
+	maxThis = Number.MAX_VALUE;
+	maxOther = maxThis;
+	shortestDist = Number.MAX_VALUE;
+	result = {};
+	
 	// loop through the edges on the polygons
-		
+	for( e = 0; e < this.edges.length; e++ ){
 		// find the normal to the edge (to project points onto)
+		projectionAxis = this.edges[e].normal;
+		
 		// project both of the polygons
+		// loop through all the edges. Each edges has 2 points, so projecting twice as many as needed
+		// this polygon
+		for( p = 0; p < this.edges.length; p++ ){
+			dot = projectionAxis.dot( this.edges[p].start );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+			
+			dot = projectionAxis.dot( this.edges[p].end );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+		}
+		// other polygon
+		for( p = 0; p < other.edges.length; p++ ){
+			dot = projectionAxis.dot( other.edges[p].start );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+			
+			dot = projectionAxis.dot( other.edges[p].end );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+		}
+		
 		// shift the points of one of them by some sort of offset
+		// only when using local coordinates for points?
+		
 		// test for intersections
+		if( (minThis - maxOther) > 0 || (minOther - maxOther) > 0 ){
+			// gap found
+			return null;
+		}
+		
 		// find the distance that they need moving to separate
+		distMin = (maxOther - minThis) * -1;
+		distMinAbs = Math.abs( distMin );
+		if( distMinAbs < shortestDist ){
+			result.distance = distMin;
+			result.vector = projectionAxis;
+			shortestDist = distMinAbs;
+		}
+	}
+	
+	// if not yet returned, no gap was found
+	return result;
 };
