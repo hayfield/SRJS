@@ -70,6 +70,7 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 			console.log( "shooting off", result2.separation.x, result2.separation.y, result2.distance );
 		other.translate( result2.separation.y, 0 );
 		other.object.position.z += result2.separation.y;
+		return false;
 	}
 	
 	intersects = false;
