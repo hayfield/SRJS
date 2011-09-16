@@ -27,7 +27,7 @@ SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
 };
 
-SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
+SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons, pushableCheck ){
 	var p, solidIntersectionsStart, intersects;
 	solidIntersectionsStart = SRJS.intersections.solids.length;
 	intersects = false;
@@ -38,7 +38,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 			if( !(this.object instanceof SRJS.Robot.BumpSensor) ||
 				((this.object instanceof SRJS.Robot.BumpSensor) && !(polygons[p].object instanceof SRJS.Robot) &&
 					!(polygons[p].object instanceof SRJS.Trigger)) ){
-				if( this.intersectsWith( polygons[p] ) ){
+				if( this.intersectsWith( polygons[p], pushableCheck ) ){
 					intersects = true;
 				}
 			}
@@ -54,10 +54,14 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 
 };
 
-SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
+SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck ){
 	var e, o, intersects, intersection;
 	
-	if( other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
+	if( pushableCheck && other.object instanceof SRJS.Robot ){
+		return false;
+	}
+	
+	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
 		var result1 = other.SAT( this, true );
 		if( result1 === null ) return false;
 		var result2 = this.SAT( other, false );
@@ -68,9 +72,13 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 		var separation = new SRJS.Vector2( result.vector.x * result.distance, result.vector.y * result.distance );
 		if( frame < 50 )
 			console.log( "shooting off", result2.separation.x, result2.separation.y, result2.distance );
-		other.translate( result2.separation.y, 0 );
-		other.object.position.z += result2.separation.y;
-		return false;
+		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
+			other.translate( result2.separation.y, 0 );
+			other.object.position.z += result2.separation.y;
+			return false;
+		} else {
+			return true;
+		}
 	}
 	
 	intersects = false;
