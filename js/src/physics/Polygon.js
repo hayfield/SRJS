@@ -101,9 +101,9 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 		dot,
 		distMin, distMinAbs, shortestDist, result;
 	
-	minThis = Number.MIN_VALUE;
+	minThis = Number.MAX_VALUE;
 	minOther = minThis;
-	maxThis = Number.MAX_VALUE;
+	maxThis = Number.MIN_VALUE;
 	maxOther = maxThis;
 	shortestDist = Number.MAX_VALUE;
 	result = {};
