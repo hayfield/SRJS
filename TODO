@@ -31,6 +31,9 @@ API
  - Try and make the input API slightly more like the Python version
  - Make it possible to specify the position and rotation of range finders (add your own)
 
+Pushing
+ - Things should rotate when pushed
+
 Features
- - Make robots push each other / other objects in the arena
+ - Make robots push each other
  - Update the vision code to work like the new vision system when it arrives
