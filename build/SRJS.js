@@ -1,4 +1,4 @@
-// REVISION: 1.1315609175.7
+// REVISION: 2.1316189994.85
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -143,6 +143,14 @@ SRJS.Vector2.prototype.cross = function( other ){
 	return (this.x * other.y) - (this.y * other.x);
 };
 
+SRJS.Vector2.prototype.dot = function( other ){
+	return (this.x * other.x) + (this.y * other.y);
+};
+
+SRJS.Vector2.prototype.normalise = function(){
+	return this.divideScalar( this.length() );
+};
+
 SRJS.Vector2.prototype.add = function( other ){
 	return new SRJS.Vector2( this.x + other.x, this.y + other.y );
 };
@@ -153,6 +161,10 @@ SRJS.Vector2.prototype.subtract = function( other ){
 
 SRJS.Vector2.prototype.multiply = function( value ){
 	return new SRJS.Vector2( this.x * value, this.y * value );
+};
+
+SRJS.Vector2.prototype.divideScalar = function( s ){
+	return new SRJS.Vector2( this.x /= s, this.y /= s );
 };
 
 SRJS.Vector2.prototype.lengthSquared = function(){
@@ -261,6 +273,14 @@ SRJS.Physics.Edge = function( start, end ){
 		get: this._lengthGetter
 	});
 	
+	this._normalGetter = function(){
+		return new SRJS.Vector2( -(this.end.y - this.start.y), (this.end.x - this.start.x) );
+	};
+	
+	Object.defineProperty(this, 'normal', {
+		get: this._normalGetter
+	});
+	
 };
 
 SRJS.Physics.Edge.prototype.rotateAroundPoint = function( point, theta ){
@@ -330,7 +350,7 @@ SRJS.Physics.Polygon.prototype.addEdge = function( edge ){
 	this.edges.push( edge );
 };
 
-SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
+SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons, pushableCheck ){
 	var p, solidIntersectionsStart, intersects;
 	solidIntersectionsStart = SRJS.intersections.solids.length;
 	intersects = false;
@@ -341,7 +361,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 			if( !(this.object instanceof SRJS.Robot.BumpSensor) ||
 				((this.object instanceof SRJS.Robot.BumpSensor) && !(polygons[p].object instanceof SRJS.Robot) &&
 					!(polygons[p].object instanceof SRJS.Trigger)) ){
-				if( this.intersectsWith( polygons[p] ) ){
+				if( this.intersectsWith( polygons[p], pushableCheck ) ){
 					intersects = true;
 				}
 			}
@@ -357,8 +377,34 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 
 };
 
-SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
+SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck ){
 	var e, o, intersects, intersection;
+	
+	if( other.object.heightOfBase > this.object.heightOfTop ||
+			this.object.heightOfBase > other.object.heightOfTop ){
+		return false;
+	}
+	
+	if( pushableCheck && other.object instanceof SRJS.Robot ){
+		return false;
+	}
+	
+	// make robots push pushable objects
+	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
+		var result2 = this.SAT( other, false );
+		if( result2 === null ) return false;
+		result2.separation = result2.vector.multiply( result2.distance );
+		
+		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
+			other.translate( result2.separation.x, Math.PI * 0.5 );
+			other.translate( result2.separation.y, 0 );
+			other.object.position.x += result2.separation.x;
+			other.object.position.z += result2.separation.y;
+			return false;
+		} else {
+			return true;
+		}
+	}
 	
 	intersects = false;
 	e = 0;
@@ -392,6 +438,82 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	}
 	
 	return intersects;
+};
+
+// http://www.sevenson.com.au/actionscript/sat/
+// http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
+// http://en.wikipedia.org/wiki/Separating_axis_theorem
+SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
+	var e, p,
+		projectionAxis,
+		minThis, maxThis, minOther, maxOther,
+		dot,
+		distMin, distMinAbs, shortestDist, result,
+		thisPosition, otherPosition, offset, offsetShift;
+	
+	minThis = Number.MAX_VALUE;
+	minOther = minThis;
+	maxThis = Number.MIN_VALUE;
+	maxOther = maxThis;
+	shortestDist = Number.MAX_VALUE;
+	result = {};
+	thisPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
+	otherPosition = new SRJS.Vector2( other.object.position.x, other.object.position.z );
+	offset = new SRJS.Vector2( thisPosition.x - otherPosition.x, thisPosition.y - otherPosition.y );
+	
+	// loop through the edges on the polygons
+	for( e = 0; e < this.edges.length; e++ ){
+		// find the normal to the edge (to project points onto)
+		projectionAxis = this.edges[e].normal.normalise();
+		
+		// project both of the polygons
+		// loop through all the edges. Each edges has 2 points, so projecting twice as many as needed
+		// this polygon
+		for( p = 0; p < this.edges.length; p++ ){
+			dot = projectionAxis.dot( this.edges[p].start.subtract( thisPosition ) );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+			
+			dot = projectionAxis.dot( this.edges[p].end.subtract( thisPosition ) );
+			if( dot < minThis ) minThis = dot;
+			if( dot > maxThis ) maxThis = dot;
+		}
+		// other polygon
+		for( p = 0; p < other.edges.length; p++ ){
+			dot = projectionAxis.dot( other.edges[p].start.subtract( otherPosition ) );
+			if( dot < minOther ) minOther = dot;
+			if( dot > maxOther ) maxOther = dot;
+			
+			dot = projectionAxis.dot( other.edges[p].end.subtract( otherPosition ) );
+			if( dot < minOther ) minOther = dot;
+			if( dot > maxOther ) maxOther = dot;
+		}
+		
+		// shift the points of one of them by some sort of offset
+		offsetShift = projectionAxis.dot( offset );
+		minThis += offsetShift;
+		maxThis += offsetShift;
+		
+		// test for intersections
+		if( (minThis - maxOther) > 0 || (minOther - maxThis) > 0 ){
+			// gap found
+			//console.log("gap", minThis, maxThis, minOther, maxOther);
+			return null;
+		}
+		
+		// find the distance that they need moving to separate
+		distMin = (maxOther - minThis) * -1;
+		if( flip ) distMin *= -1;
+		distMinAbs = Math.abs( distMin );
+		if( distMinAbs < shortestDist ){
+			result.distance = distMin;
+			result.vector = projectionAxis;
+			shortestDist = distMinAbs;
+		}
+	}
+	
+	// if not yet returned, no gap was found
+	return result;
 };
 
 // FILE: physics/Rectangle.js
@@ -1067,7 +1189,8 @@ SRJS.Material = {
 	red: new THREE.MeshLambertMaterial( { color: 0xff0000 } ),
 	green: new THREE.MeshLambertMaterial( { color: 0x00ff00 } ),
 	blue: new THREE.MeshLambertMaterial( { color: 0x0000ff } ),
-	yellow: new THREE.MeshLambertMaterial( { color: 0xffff00 } )
+	yellow: new THREE.MeshLambertMaterial( { color: 0xffff00 } ),
+	black: new THREE.MeshLambertMaterial( { color: 0x000000 } )
 	
 };
 
@@ -1076,6 +1199,10 @@ SRJS.Wall = function( width, height, depth, position, rotation, material ){
 if( arguments.length > 0 ){	// prevent the code being run on the constructor call from SRJS.Cube/Trigger
 	var geometry = new THREE.CubeGeometry( width, height, depth ),
 		materials = material || SRJS.Material.white;
+	
+	this.wallWidth = width;
+	this.wallHeight = height;
+	this.wallDepth = depth;
 	
 	THREE.Mesh.call( this, geometry, materials );
 	
@@ -1087,6 +1214,21 @@ if( arguments.length > 0 ){	// prevent the code being run on the constructor cal
 														new SRJS.Vector2( this.position.x, this.position.z ),
 														this.rotation.y, this ));
 
+	this._heightOfBaseGetter = function(){
+		return this.position.y - this.wallHeight / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfBase', {
+		get: this._heightOfBaseGetter
+	});
+	
+	this._heightOfTopGetter = function(){
+		return this.position.y + this.wallHeight / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfTop', {
+		get: this._heightOfTopGetter
+	});
 }	
 };
 
@@ -1127,6 +1269,16 @@ SRJS.Trigger = function( width, height, depth, position, rotation, action ){
 
 SRJS.Trigger.prototype = new SRJS.Wall();
 SRJS.Trigger.prototype.constructor = SRJS.Trigger;
+
+// FILE: arena/Pushable.js
+SRJS.Pushable = function( width, height, depth, position, rotation ){
+	
+	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.black );
+
+};
+
+SRJS.Pushable.prototype = new SRJS.Wall();
+SRJS.Pushable.prototype.constructor = SRJS.Pushable;
 
 // FILE: robot/Query.js
 SRJS.Query = function( query ){
@@ -1502,6 +1654,22 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 		get: this._aGetter
 	});
 	
+	this._heightOfBaseGetter = function(){
+		return this.robot.heightOfBase;
+	};
+	
+	Object.defineProperty(this, 'heightOfBase', {
+		get: this._heightOfBaseGetter
+	});
+	
+	this._heightOfTopGetter = function(){
+		return this.robot.heightOfTop;
+	};
+	
+	Object.defineProperty(this, 'heightOfTop', {
+		get: this._heightOfTopGetter
+	});
+	
 };
 
 // FILE: robot/RangeFinder.js
@@ -1565,6 +1733,22 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 	this.watch( 'this.ray.nearestIntersection', function( prop, val, newval ){
 		this.parent.a = this.parent._aGetter();
 		return newval;
+	});
+	
+	this._heightOfBaseGetter = function(){
+		return this.robot.heightOfTop / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfBase', {
+		get: this._heightOfBaseGetter
+	});
+	
+	this._heightOfTopGetter = function(){
+		return this.robot.heightOfTop / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfTop', {
+		get: this._heightOfTopGetter
 	});
 	
 };
