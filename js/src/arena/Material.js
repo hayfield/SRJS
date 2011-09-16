@@ -5,6 +5,6 @@ SRJS.Material = {
 	green: new THREE.MeshLambertMaterial( { color: 0x00ff00 } ),
 	blue: new THREE.MeshLambertMaterial( { color: 0x0000ff } ),
 	yellow: new THREE.MeshLambertMaterial( { color: 0xffff00 } ),
-	black: new THREE.MeshLambertMaterial( { color: 0x000000 } ),
+	black: new THREE.MeshLambertMaterial( { color: 0x000000 } )
 	
 };
