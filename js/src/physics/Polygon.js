@@ -57,6 +57,11 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons, pushableCh
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck ){
 	var e, o, intersects, intersection;
 	
+	if( other.object.heightOfBase > this.object.heightOfTop ||
+			this.object.heightOfBase > other.object.heightOfTop ){
+		return false;
+	}
+	
 	if( pushableCheck && other.object instanceof SRJS.Robot ){
 		return false;
 	}
