@@ -58,9 +58,9 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	var e, o, intersects, intersection;
 	
 	if( other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
-		var result1 = other.SAT( this );
+		var result1 = other.SAT( this, true );
 		if( result1 === null ) return false;
-		var result2 = this.SAT( other );
+		var result2 = this.SAT( other, false );
 		if( result2 === null ) return false;
 		if( Math.abs(result1.distance) < Math.abs(result2.distance) ) return false;
 		result2.separation = result2.vector.multiply( result2.distance );
@@ -107,7 +107,7 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 // http://www.sevenson.com.au/actionscript/sat/
 // http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
 // http://en.wikipedia.org/wiki/Separating_axis_theorem
-SRJS.Physics.Polygon.prototype.SAT = function( other ){
+SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 	var e, p,
 		projectionAxis,
 		minThis, maxThis, minOther, maxOther,
@@ -159,7 +159,7 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 		maxThis += offsetShift;
 		
 		// test for intersections
-		if( (minThis - maxOther) > 0 || (minOther - maxOther) > 0 ){
+		if( (minThis - maxOther) > 0 || (minOther - maxThis) > 0 ){
 			// gap found
 			console.log("gap", minThis, maxThis, minOther, maxOther);
 			return null;
@@ -167,6 +167,7 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 		
 		// find the distance that they need moving to separate
 		distMin = (maxOther - minThis) * -1;
+		if( flip ) distMin *= -1;
 		distMinAbs = Math.abs( distMin );
 		if( distMinAbs < shortestDist ){
 			result.distance = distMin;
