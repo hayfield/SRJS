@@ -90,3 +90,16 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	
 	return intersects;
 };
+
+// http://www.sevenson.com.au/actionscript/sat/
+// http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
+// http://en.wikipedia.org/wiki/Separating_axis_theorem
+SRJS.Physics.Polygon.prototype.SAT = function( other ){
+	// loop through the edges on the polygons
+		
+		// find the normal to the edge (to project points onto)
+		// project both of the polygons
+		// shift the points of one of them by some sort of offset
+		// test for intersections
+		// find the distance that they need moving to separate
+};
