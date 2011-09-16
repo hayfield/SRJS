@@ -66,8 +66,10 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 		result2.separation = result2.vector.multiply( result2.distance );
 		var result = result1.distance < result2.distance ? result1 : result2;
 		var separation = new SRJS.Vector2( result.vector.x * result.distance, result.vector.y * result.distance );
-		console.log( "shooting off", result2.separation.x, result2.separation.y, result2.distance );
+		if( frame < 50 )
+			console.log( "shooting off", result2.separation.x, result2.separation.y, result2.distance );
 		other.translate( result2.separation.y, 0 );
+		other.object.position.z += result2.separation.y;
 	}
 	
 	intersects = false;
@@ -161,7 +163,7 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 		// test for intersections
 		if( (minThis - maxOther) > 0 || (minOther - maxThis) > 0 ){
 			// gap found
-			console.log("gap", minThis, maxThis, minOther, maxOther);
+			//console.log("gap", minThis, maxThis, minOther, maxOther);
 			return null;
 		}
 		
@@ -176,6 +178,11 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 		}
 	}
 	
+	if( Math.abs( result.distance ) > 2 && frame < 50 ){
+		console.log(frame, 'cazy', result.distance, result.vector.x, result.vector.y, this.edges[0].start.subtract( thisPosition ), thisPosition, this.edges[0].start);
+	}
+	frame++;
 	// if not yet returned, no gap was found
 	return result;
 };
+var frame = 0;
