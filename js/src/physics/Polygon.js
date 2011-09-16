@@ -56,7 +56,7 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons ){
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	var e, o, intersects, intersection;
-	
+
 	intersects = false;
 	e = 0;
 	while( e < this.edges.length ){
@@ -128,12 +128,12 @@ SRJS.Physics.Polygon.prototype.SAT = function( other ){
 		// other polygon
 		for( p = 0; p < other.edges.length; p++ ){
 			dot = projectionAxis.dot( other.edges[p].start );
-			if( dot < minThis ) minThis = dot;
-			if( dot > maxThis ) maxThis = dot;
+			if( dot < minOther ) minOther = dot;
+			if( dot > maxOther ) maxOther = dot;
 			
 			dot = projectionAxis.dot( other.edges[p].end );
-			if( dot < minThis ) minThis = dot;
-			if( dot > maxThis ) maxThis = dot;
+			if( dot < minOther ) minOther = dot;
+			if( dot > maxOther ) maxOther = dot;
 		}
 		
 		// shift the points of one of them by some sort of offset
