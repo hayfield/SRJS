@@ -22,6 +22,7 @@ FILES = [
 'arena/Wall.js',
 'arena/Cube.js',
 'arena/Trigger.js',
+'arena/Pushable.js',
 'robot/Query.js',
 'robot/Robot.js',
 'robot/IO.js',
