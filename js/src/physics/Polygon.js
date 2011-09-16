@@ -62,9 +62,12 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 		if( result1 === null ) return false;
 		var result2 = this.SAT( other );
 		if( result2 === null ) return false;
-		var separation = new SRJS.Vector2( result2.vector.x * result2.distance, result2.vector.y * result2.distance );
-		console.log( separation.x, separation.y );
-		other.translate( separation.y, 0 );
+		if( Math.abs(result1.distance) < Math.abs(result2.distance) ) return false;
+		result2.separation = result2.vector.multiply( result2.distance );
+		var result = result1.distance < result2.distance ? result1 : result2;
+		var separation = new SRJS.Vector2( result.vector.x * result.distance, result.vector.y * result.distance );
+		console.log( "shooting off", result2.separation.x, result2.separation.y, result2.distance );
+		other.translate( result2.separation.y, 0 );
 	}
 	
 	intersects = false;
