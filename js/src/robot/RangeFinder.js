@@ -60,6 +60,22 @@ SRJS.Robot.RangeFinder = function( parentRobot, ID ){
 		return newval;
 	});
 	
+	this._heightOfBaseGetter = function(){
+		return this.robot.heightOfTop / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfBase', {
+		get: this._heightOfBaseGetter
+	});
+	
+	this._heightOfTopGetter = function(){
+		return this.robot.heightOfTop / 2;
+	};
+	
+	Object.defineProperty(this, 'heightOfTop', {
+		get: this._heightOfTopGetter
+	});
+	
 };
 
 SRJS.Robot.RangeFinder.prototype.watch = SRJS.watch;
