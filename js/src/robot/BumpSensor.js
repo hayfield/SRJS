@@ -55,4 +55,20 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 		get: this._aGetter
 	});
 	
+	this._heightOfBaseGetter = function(){
+		return this.robot.heightOfBase;
+	};
+	
+	Object.defineProperty(this, 'heightOfBase', {
+		get: this._heightOfBaseGetter
+	});
+	
+	this._heightOfTopGetter = function(){
+		return this.robot.heightOfTop;
+	};
+	
+	Object.defineProperty(this, 'heightOfTop', {
+		get: this._heightOfTopGetter
+	});
+	
 };
