@@ -62,11 +62,8 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 	}
 	
 	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
-		var result1 = other.SAT( this, true );
-		if( result1 === null ) return false;
 		var result2 = this.SAT( other, false );
 		if( result2 === null ) return false;
-		if( Math.abs(result1.distance) < Math.abs(result2.distance) ) return false;
 		result2.separation = result2.vector.multiply( result2.distance );
 		
 		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
