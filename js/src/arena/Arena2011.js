@@ -140,8 +140,8 @@ SRJS.Arena2011 = function(){
 									) );
 		
 		scene.addObject( new SRJS.Pushable( 50, 50, 50,
-										new THREE.Vector3( 365, 75, 0 ),
-										new THREE.Vector3( 0, 0, 0 )
+										new THREE.Vector3( 330, 75, 200 ),
+										new THREE.Vector3( 0, Math.PI / 4, 0 )
 									) );
 
 		this.scene = scene;

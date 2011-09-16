@@ -70,7 +70,9 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 		result2.separation = result2.vector.multiply( result2.distance );
 		
 		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
+			other.translate( result2.separation.x, Math.PI * 0.5 );
 			other.translate( result2.separation.y, 0 );
+			other.object.position.x += result2.separation.x;
 			other.object.position.z += result2.separation.y;
 			return false;
 		} else {
