@@ -58,9 +58,13 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other ){
 	var e, o, intersects, intersection;
 	
 	if( other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
-		var SATResult = other.SAT( this );
-		var SATResult2 = this.SAT( other );
-		//console.log( SATResult );
+		var result1 = other.SAT( this );
+		if( result1 === null ) return false;
+		var result2 = this.SAT( other );
+		if( result2 === null ) return false;
+		var separation = new SRJS.Vector2( result2.vector.x * result2.distance, result2.vector.y * result2.distance );
+		console.log( separation.x, separation.y );
+		other.translate( separation.y, 0 );
 	}
 	
 	intersects = false;

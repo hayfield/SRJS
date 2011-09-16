@@ -138,6 +138,11 @@ SRJS.Arena2011 = function(){
 										new THREE.Vector3( 0, Math.PI / 4, 0 ),
 										quadrantTrigger
 									) );
+		
+		scene.addObject( new SRJS.Pushable( 50, 50, 50,
+										new THREE.Vector3( 365, 75, 0 ),
+										new THREE.Vector3( 0, 0, 0 )
+									) );
 
 		this.scene = scene;
 	};

@@ -31,6 +31,7 @@
 	<script type="text/javascript" src="js/src/arena/Wall.js"></script>
 	<script type="text/javascript" src="js/src/arena/Cube.js"></script>
 	<script type="text/javascript" src="js/src/arena/Trigger.js"></script>
+	<script type="text/javascript" src="js/src/arena/Pushable.js"></script>
 	
 	<script type="text/javascript" src="js/src/robot/Query.js"></script>
 	<script type="text/javascript" src="js/src/robot/Robot.js"></script>
@@ -45,8 +46,21 @@
 	
 </head> 
 <body>
-	<script type="text/javascript">
-		SRJS.Init();
-	</script>
+<script type="text/javascript">
+
+SRJS.Init();
+
+var mainFunct = function(){
+	robot.motor[0].target = 100;
+	robot.motor[1].target = 100;
+};
+
+var args = {
+	main: mainFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+
+</script>
 </body> 
 </html>
