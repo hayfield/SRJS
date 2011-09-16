@@ -57,6 +57,10 @@ SRJS.Vector2.prototype.cross = function( other ){
 	return (this.x * other.y) - (this.y * other.x);
 };
 
+SRJS.Vector2.prototype.dot = function( other ){
+	return (this.x * other.x) + (this.y * other.y);
+};
+
 SRJS.Vector2.prototype.add = function( other ){
 	return new SRJS.Vector2( this.x + other.x, this.y + other.y );
 };
