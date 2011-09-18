@@ -9,6 +9,7 @@ SRJS.Marker = function( parentObject ){
 		this.rotation = this.object.rotation;
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
+		this.centre.image = this._updateImagePosition( source );
 	};
 	
 	this._updateBearing = function( source ){
@@ -35,6 +36,27 @@ SRJS.Marker = function( parentObject ){
 		}
 		
 		return new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z ).length();
+	};
+	
+	this._updateImagePosition = function( source ){
+		if( !( source instanceof SRJS.Robot ) ){
+			return false;
+		}
+		
+		return this.toRendererXY( this.object.position, source.camera );
+	};
+	
+	// https://github.com/mrdoob/three.js/issues/78
+	this.toRendererXY = function( position, cameraToUse ){
+
+		var pos = position.clone();
+		projScreenMat = new THREE.Matrix4();
+		projScreenMat.multiply( cameraToUse.projectionMatrix, cameraToUse.matrixWorldInverse );
+		projScreenMat.multiplyVector3( pos );
+
+		return new SRJS.Vector2( ( pos.x + 1 ) * SRJS.rendererDimension / 2,
+			 ( - pos.y + 1 ) * SRJS.rendererDimension / 2 );
+
 	};
 	
 	this._update();
