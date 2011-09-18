@@ -41,9 +41,9 @@
 	<script type="text/javascript" src="js/src/robot/RangeFinder.js"></script>
 	<script type="text/javascript" src="js/src/robot/Motor.js"></script>
 	
+	<script type="text/javascript" src="js/src/vision/Vision.js"></script>
 	<script type="text/javascript" src="js/src/vision/VisionV1.js"></script>
 	<script type="text/javascript" src="js/src/vision/VisionV2.js"></script>
-	<script type="text/javascript" src="js/src/vision/Vision.js"></script>
 	<script type="text/javascript" src="js/src/vision/Blob.js"></script>
 	<script type="text/javascript" src="js/src/vision/Colors.js"></script>
 	
@@ -51,18 +51,36 @@
 <body>
 <script type="text/javascript">
 
+SRJS.robotVision = true;
 SRJS.Init();
 
+var initFunct = function(){
+
+	robot.motor[0].target = 40;
+	robot.motor[1].target = 50;
+	
+};
+
 var mainFunct = function(){
-	robot.motor[0].target = 90;
-	robot.motor[1].target = 100;
+	// store the robot's vision in a variable
+	var vision = robot.vision;
+	// loop through each of the blobs
+	vision.blobs.forEach(function( blob ){
+		// output something if a green blob is detected
+		if( blob.colour === SRJS.GREEN ){
+			console.log( 'Found green blob at', blob.x, ',', blob.y );
+		}
+	}, robot); // pass 'robot' as the second parameter of forEach() to reduce unexpected bugs
 };
 
 var args = {
+	initialise: initFunct,
 	main: mainFunct
 };
 
 SRJS.CURRENT_ARENA.addRobot( args );
+// add a second robot so that the first one has something to look at
+SRJS.CURRENT_ARENA.addRobot();
 
 r = SRJS.CURRENT_ARENA.robots[0];
 m = new SRJS.Marker(r);

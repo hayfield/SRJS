@@ -30,6 +30,8 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
+		this.visionVersion = args.visionVersion || 2;
+		
 		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
 		document.body.appendChild( this.renderer.domElement );
