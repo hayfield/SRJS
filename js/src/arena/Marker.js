@@ -34,7 +34,7 @@ SRJS.Marker = function( parentObject ){
 			return 0;
 		}
 		
-		return source.position.subtract( this.object.position ).length();
+		return new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z ).length();
 	};
 	
 	this._update();
