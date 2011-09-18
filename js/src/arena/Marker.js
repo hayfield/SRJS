@@ -50,8 +50,8 @@ SRJS.Marker = function( parentObject ){
 	// https://github.com/mrdoob/three.js/issues/78
 	this.toRendererXY = function( position, cameraToUse ){
 
-		var pos = position.clone();
-		projScreenMat = new THREE.Matrix4();
+		var pos = position.clone(),
+			projScreenMat = new THREE.Matrix4();
 		projScreenMat.multiply( cameraToUse.projectionMatrix, cameraToUse.matrixWorldInverse );
 		projScreenMat.multiplyVector3( pos );
 
