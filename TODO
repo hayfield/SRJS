@@ -35,6 +35,10 @@ Pushing
  - Things should rotate when pushed
  - When doing SAT detection, project each vertex only once
 
+Markers
+ - Angles should be in degrees
+ - Distances should be in metres
+
 Features
  - Make robots push each other
  - Update the vision code to work like the new vision system when it arrives
