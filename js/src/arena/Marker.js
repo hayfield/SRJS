@@ -24,7 +24,7 @@ SRJS.Marker = function( parentObject ){
 			angle = up.angleTo( direction );
 		
 		if( direction.x < 0 ){
-			angle = Math.PI * 2 - angle; // change it to ba bearing
+			angle = Math.PI * 2 - angle; // change it to be a bearing
 		}
 		return new SRJS.Vector2( angle, 0 );
 	};
