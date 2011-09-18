@@ -10,6 +10,7 @@ SRJS.Marker = function( parentObject ){
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image = this._updateImagePosition( source );
+		this.code = 'Something important';
 	};
 	
 	this._updateBearing = function( source ){
