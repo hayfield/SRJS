@@ -32,6 +32,7 @@
 	<script type="text/javascript" src="js/src/arena/Cube.js"></script>
 	<script type="text/javascript" src="js/src/arena/Trigger.js"></script>
 	<script type="text/javascript" src="js/src/arena/Pushable.js"></script>
+	<script type="text/javascript" src="js/src/arena/Marker.js"></script>
 	
 	<script type="text/javascript" src="js/src/robot/Query.js"></script>
 	<script type="text/javascript" src="js/src/robot/Robot.js"></script>
@@ -60,6 +61,9 @@ var args = {
 };
 
 SRJS.CURRENT_ARENA.addRobot( args );
+
+r = SRJS.CURRENT_ARENA.robots[0];
+m = new SRJS.Marker(r);
 
 </script>
 </body> 
