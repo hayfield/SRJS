@@ -60,6 +60,15 @@ SRJS.Marker = function( parentObject ){
 
 	};
 	
+	this.print = function(){
+		console.log( 'code:', this.code );
+		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
+		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
+		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') rad' );
+		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') rad' );
+		console.log( 'distance (world):', this.distance, 'm' );
+	};
+	
 	this._update();
 
 };
