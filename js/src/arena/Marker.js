@@ -7,7 +7,8 @@ SRJS.Marker = function( parentObject ){
 	this._update = function( source ){
 		this.centre.world = this.object.position,
 		this.rotation = this.object.rotation,
-		this.bearing = this._updateBearing( source )
+		this.bearing = this._updateBearing( source ),
+		this.distance = this._updateDistance( source )
 	};
 	
 	this._updateBearing = function( source ){
@@ -26,6 +27,14 @@ SRJS.Marker = function( parentObject ){
 			angle = Math.PI * 2 - angle; // change it to ba bearing
 		}
 		return new SRJS.Vector2( angle, 0 );
+	};
+	
+	this._updateDistance = function( source ){
+		if( typeof source === 'undefined' ){
+			return 0;
+		}
+		
+		return source.position.subtract( this.object.position ).length();
 	};
 	
 	this._update();
