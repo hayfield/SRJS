@@ -5,10 +5,10 @@ SRJS.Marker = function( parentObject ){
 	this.centre = {};
 	
 	this._update = function( source ){
-		this.centre.world = this.object.position,
-		this.rotation = this.object.rotation,
-		this.bearing = this._updateBearing( source ),
-		this.distance = this._updateDistance( source )
+		this.centre.world = this.object.position;
+		this.rotation = this.object.rotation;
+		this.bearing = this._updateBearing( source );
+		this.distance = this._updateDistance( source );
 	};
 	
 	this._updateBearing = function( source ){
