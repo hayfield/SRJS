@@ -9,4 +9,7 @@ SRJS.VisionV2 = function(){
 			marker.print();
 		}
 	};
+	
+	this.printMarker = this.print_marker;
+	
 };
