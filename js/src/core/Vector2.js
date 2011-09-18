@@ -97,3 +97,7 @@ SRJS.Vector2.prototype.distanceToSquared = function( other ){
 SRJS.Vector2.prototype.distanceTo = function( other ){
 	return Math.sqrt( this.distanceToSquared( other ) );
 };
+
+SRJS.Vector2.prototype.angleTo = function( other ){
+	return Math.acos( this.dot( other ) / (this.length() * other.length()) );
+};
