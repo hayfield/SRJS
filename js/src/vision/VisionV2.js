@@ -29,4 +29,21 @@ SRJS.VisionV2 = function( object ){
 	
 	this.printMarker = this.print_marker;
 	
+	this.grab_frame_get_markers = function(){
+		var markers = new Array(),
+			i = 0,
+			marker;
+		while( i < SRJS.markers.length ){
+			marker = SRJS.markers[i].update( this.object );
+			if( marker.centre.image.x > 0 && marker.centre.image.x < SRJS.rendererDimension && marker.centre.image.y > 0 && marker.centre.image.y < SRJS.rendererDimension ){
+				markers.push( marker );
+			}
+			i++;
+		}
+		
+		return markers;
+	};
+	
+	this.grabFrameGetMarkers = this.grab_frame_get_markers;
+	
 };
