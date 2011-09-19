@@ -1,4 +1,4 @@
-## MORE IMPORTANT THINGS
+## More Important Things
 
 #### Pushing
 
@@ -15,7 +15,7 @@
 * Make robots push each other
 * Update the vision code to work like the new vision system when it arrives
 
-## LESS IMPORTANT THINGS
+## Less Important Things
  
 #### Triggers
 
@@ -55,7 +55,7 @@
 
 * Check whether the update system works with multiple robots, or whether markers need cloning when returning from update()
 
-## PROBABLY NOT VERY IMPORTANT THINGS
+## Probably Not Very Important Things
 
 #### SRJS.Vision.detectBlobs()
 
