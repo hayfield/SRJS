@@ -24,7 +24,7 @@ SRJS.Marker = function( parentObject ){
 		if( direction.x === 0 && direction.y === 0 ){
 			return new SRJS.Vector2( 0, 0 );
 		}
-		var up = new SRJS.Vector2( Math.sin(this.object.rotation), Math.cos(this.object.rotation) ),
+		var up = new SRJS.Vector2( Math.sin(this.object.rotation.y), Math.cos(this.object.rotation.y) ),
 			angle = up.angleTo( direction );
 		
 		if( direction.x < 0 ){
