@@ -1,5 +1,7 @@
-SRJS.VisionV2 = function(){
-
+SRJS.VisionV2 = function( object ){
+	
+	this.object = object;
+	
 	this.update = function(){
 	
 	};

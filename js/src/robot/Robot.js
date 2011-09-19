@@ -98,7 +98,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		
 	};
 	
-	this.vision = new SRJS.Vision();
+	this.vision = new SRJS.Vision( this );
 	
 	this.gameScore = 0;
 	
