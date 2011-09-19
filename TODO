@@ -34,6 +34,7 @@ API
 Pushing
  - Things should rotate when pushed
  - When doing SAT detection, project each vertex only once
+ - Get rid of the horrible hacky mess to try and make things get pushed in all directions (the assignment of distMin)
 
 Markers
  - Check whether the update system works with multiple robots, or whether markers need cloning when returning from update()

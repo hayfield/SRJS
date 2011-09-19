@@ -121,17 +121,18 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 // http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
 // http://en.wikipedia.org/wiki/Separating_axis_theorem
 SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
-	var e, p,
+	var e, p, edges,
 		projectionAxis,
 		minThis, maxThis, minOther, maxOther,
 		dot,
 		distMin, distMinAbs, shortestDist, result,
 		thisPosition, otherPosition, offset, offsetShift;
 	
+	edges = this.edges.concat( other.edges );
 	minThis = Number.MAX_VALUE;
-	minOther = minThis;
+	minOther = Number.MAX_VALUE;
 	maxThis = Number.MIN_VALUE;
-	maxOther = maxThis;
+	maxOther = Number.MIN_VALUE;
 	shortestDist = Number.MAX_VALUE;
 	result = {};
 	thisPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
@@ -139,9 +140,9 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 	offset = new SRJS.Vector2( thisPosition.x - otherPosition.x, thisPosition.y - otherPosition.y );
 	
 	// loop through the edges on the polygons
-	for( e = 0; e < this.edges.length; e++ ){
+	for( e = 0; e < edges.length; e++ ){
 		// find the normal to the edge (to project points onto)
-		projectionAxis = this.edges[e].normal.normalise();
+		projectionAxis = edges[e].normal.normalise();
 		
 		// project both of the polygons
 		// loop through all the edges. Each edges has 2 points, so projecting twice as many as needed
@@ -167,19 +168,20 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 		}
 		
 		// shift the points of one of them by some sort of offset
-		offsetShift = projectionAxis.dot( offset );
+		offsetShift = offset.dot( projectionAxis );
 		minThis += offsetShift;
 		maxThis += offsetShift;
 		
 		// test for intersections
 		if( (minThis - maxOther) > 0 || (minOther - maxThis) > 0 ){
 			// gap found
-			//console.log("gap", minThis, maxThis, minOther, maxOther);
 			return null;
 		}
 		
 		// find the distance that they need moving to separate
-		distMin = (maxOther - minThis) * -1;
+		//distMin = (maxOther - minThis) * -1; // this should work
+		//distMin = Math.abs(maxOther - minThis) > 5 ? (minOther - maxThis) * -1 : (maxOther - minThis) * -1;
+		distMin = e >= this.edges.length ? (maxOther - minThis) * -1 : (minOther - maxThis) * -1;
 		if( flip ) distMin *= -1;
 		distMinAbs = Math.abs( distMin );
 		if( distMinAbs < shortestDist ){
