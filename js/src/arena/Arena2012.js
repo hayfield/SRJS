@@ -55,10 +55,9 @@ SRJS.Arena2012 = function(){
 									) );
 		
 		// add the boxes in the middle of the arena
-		var i, box, boxAction;
+		var i, box, boxAction, bucket;
 		boxAction = function( robotID ){
 			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
-			console.log( robot, robotID, this, scene );
 			SRJS.phys.removePolygon( this );
 			scene.removeObject( this );
 		};
@@ -71,7 +70,23 @@ SRJS.Arena2012 = function(){
 			SRJS.CreateMarker( box, 'box' + i );
 			scene.addObject( box );
 		}
-		console.log(scene);
+		
+		// add the buckets
+		var bucketPositions = [
+			new THREE.Vector3( 0, 125, 350 ),
+			new THREE.Vector3( 350, 125, 0 ),
+			new THREE.Vector3( 0, 125, -350 ),
+			new THREE.Vector3( -350, 125, 0 )
+		];
+		for( i = 0; i < 4; i++ ){
+			bucket = new SRJS.Pushable( 50, 150, 50,
+										bucketPositions[i],
+										new THREE.Vector3( 0, 0, 0 )
+									);
+			SRJS.CreateMarker( bucket, 'bucket' + i );
+			scene.addObject( bucket );
+		}
+		
 		this.scene = scene;
 	};
 	
