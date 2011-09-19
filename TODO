@@ -38,6 +38,7 @@ Pushing
 Markers
  - Angles should be in degrees
  - Distances should be in metres
+ - Check whether the update system works with multiple robots, or whether markers need cloning when returning from update()
 
 Features
  - Make robots push each other
