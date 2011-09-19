@@ -54,6 +54,7 @@ SRJS.Arena2012 = function(){
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
 		
+		// add the boxes in the middle of the arena
 		for( var i = 0; i < 20; i++ ){
 			scene.addObject( new SRJS.Cube( 10,
 										new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
