@@ -27,7 +27,16 @@ SRJS.Marker = function( parentObject ){
 		var up = new SRJS.Vector2( Math.sin(this.object.rotation.y), Math.cos(this.object.rotation.y) ),
 			angle = up.angleTo( direction );
 		
-		if( direction.x < 0 ){
+		// http://stackoverflow.com/questions/3461453/determine-which-side-of-a-line-a-point-lies
+		// Where a = line point 1; b = line point 2; c = point to check against.
+		var isLeft = function( a, b, c ){
+			return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+		};
+		
+		var sourcePosition = new SRJS.Vector2( source.position.x, source.position.z ),
+			objectPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
+		
+		if( isLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
 			angle = Math.PI * 2 - angle; // change it to be a bearing
 		}
 		return new SRJS.Vector2( angle, 0 );
