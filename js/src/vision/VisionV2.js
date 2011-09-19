@@ -3,7 +3,7 @@ SRJS.VisionV2 = function( object ){
 	this.object = object;
 	
 	this.update = function(){
-	
+		
 	};
 	
 	this.print_marker = function( marker ){

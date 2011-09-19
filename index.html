@@ -63,15 +63,7 @@ var initFunct = function(){
 };
 
 var mainFunct = function(){
-	// store the robot's vision in a variable
-	var vision = robot.vision;
-	// loop through each of the blobs
-	vision.blobs.forEach(function( blob ){
-		// output something if a green blob is detected
-		if( blob.colour === SRJS.GREEN ){
-			console.log( 'Found green blob at', blob.x, ',', blob.y );
-		}
-	}, robot); // pass 'robot' as the second parameter of forEach() to reduce unexpected bugs
+	
 };
 
 var args = {

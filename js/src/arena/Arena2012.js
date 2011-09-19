@@ -70,7 +70,7 @@ SRJS.Arena2012 = function(){
 	
 	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
 	
-	args.visionVersion = 1;
+	args.visionVersion = 2;
 	
 	return new SRJS.Arena( args );
 	
