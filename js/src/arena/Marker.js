@@ -24,16 +24,15 @@ SRJS.Marker = function( parentObject ){
 		if( direction.x === 0 && direction.y === 0 ){
 			return new SRJS.Vector2( 0, 0 );
 		}
-		var up = new SRJS.Vector2( Math.sin(this.object.rotation.y), Math.cos(this.object.rotation.y) ),
-			angle = up.angleTo( direction );
+		var up = new SRJS.Vector2( Math.sin(source.rotation.y), Math.cos(source.rotation.y) ),
+			angle = up.angleTo( direction ),
 		
-		// http://stackoverflow.com/questions/3461453/determine-which-side-of-a-line-a-point-lies
-		// Where a = line point 1; b = line point 2; c = point to check against.
-		var isLeft = function( a, b, c ){
-			return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
-		};
-		
-		var sourcePosition = new SRJS.Vector2( source.position.x, source.position.z ),
+			// http://stackoverflow.com/questions/3461453/determine-which-side-of-a-line-a-point-lies
+			// Where a = line point 1; b = line point 2; c = point to check against.
+			isLeft = function( a, b, c ){
+				return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+			},
+			sourcePosition = new SRJS.Vector2( source.position.x, source.position.z ),
 			objectPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
 		
 		if( isLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
