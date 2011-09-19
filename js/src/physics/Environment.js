@@ -148,6 +148,7 @@ SRJS.Physics.Environment.prototype.removePolygon = function( object ){
 	while( p < this.polygons.length ){
 		if( this.polygons[p].object === object ){
 			this.polygons.splice( p, 1 );
+			return;
 		}
 		p++;
 	}
