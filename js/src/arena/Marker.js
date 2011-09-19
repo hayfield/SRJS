@@ -1,6 +1,7 @@
-SRJS.Marker = function( parentObject ){
+SRJS.Marker = function( parentObject, code ){
 	
 	this.object = parentObject;
+	this.code = code || 'Something important';
 	
 	this.centre = {};
 	
@@ -10,7 +11,6 @@ SRJS.Marker = function( parentObject ){
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image = this._updateImagePosition( source );
-		this.code = 'Something important';
 		
 		return this;
 	};
