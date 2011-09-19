@@ -53,7 +53,14 @@ SRJS.Arena2012 = function(){
 										new THREE.Vector3( -247.5, 120, 0 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
-
+		
+		for( var i = 0; i < 20; i++ ){
+			scene.addObject( new SRJS.Cube( 10,
+										new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
+										SRJS.Material.red
+									) );
+		}
+		
 		this.scene = scene;
 	};
 	
