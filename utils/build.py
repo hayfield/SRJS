@@ -18,11 +18,13 @@ FILES = [
 'physics/DebugCanvas.js',
 'arena/Arena.js',
 'arena/Arena2011.js',
+'arena/Arena2012.js',
 'arena/Material.js',
 'arena/Wall.js',
 'arena/Cube.js',
 'arena/Trigger.js',
 'arena/Pushable.js',
+'arena/Marker.js',
 'robot/Query.js',
 'robot/Robot.js',
 'robot/IO.js',
@@ -30,6 +32,8 @@ FILES = [
 'robot/RangeFinder.js',
 'robot/Motor.js',
 'vision/Vision.js',
+'vision/VisionV1.js',
+'vision/VisionV2.js',
 'vision/Blob.js',
 'vision/Colors.js'
 ]
