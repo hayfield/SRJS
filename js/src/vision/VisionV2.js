@@ -35,7 +35,7 @@ SRJS.VisionV2 = function( object ){
 			marker;
 		while( i < SRJS.markers.length ){
 			marker = SRJS.markers[i].update( this.object );
-			if( (marker.bearing.x < this.object.camera.fov / 360 * Math.PI || marker.bearing.x > Math.PI * 2 - this.object.camera.fov / 360 * Math.PI)){
+			if( marker.bearing.x < this.object.camera.fov / 2 || marker.bearing.x > 360 - this.object.camera.fov / 2){
 				markers.push( marker );
 			}
 			i++;

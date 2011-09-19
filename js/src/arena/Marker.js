@@ -6,13 +6,17 @@ SRJS.Marker = function( parentObject ){
 	
 	this.update = function( source ){
 		this.centre.world = this.object.position;
-		this.rotation = this.object.rotation;
+		this.rotation = this._updateRotation();
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image = this._updateImagePosition( source );
 		this.code = 'Something important';
 		
 		return this;
+	};
+	
+	this._updateRotation = function(){
+		return new THREE.Vector3( SRJS.radToDeg(this.object.rotation.x), SRJS.radToDeg(this.object.rotation.y), SRJS.radToDeg(this.object.rotation.z) );
 	};
 	
 	this._updateBearing = function( source ){
@@ -38,7 +42,7 @@ SRJS.Marker = function( parentObject ){
 		if( isLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
 			angle = Math.PI * 2 - angle; // change it to be a bearing
 		}
-		return new SRJS.Vector2( angle, 0 );
+		return new SRJS.Vector2( SRJS.radToDeg(angle), 0 );
 	};
 	
 	this._updateDistance = function( source ){
@@ -74,8 +78,8 @@ SRJS.Marker = function( parentObject ){
 		console.log( 'code:', this.code );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
-		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') rad' );
-		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') rad' );
+		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
+		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') deg' );
 		console.log( 'distance (world):', this.distance, 'cm' );
 	};
 	
