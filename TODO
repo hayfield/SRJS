@@ -1,3 +1,15 @@
+MORE IMPORTANT THINGS
+
+Pushing
+ - Things should rotate when pushed
+ - Things should slide along walls when pushed against walls
+ - Get rid of the horrible hacky mess to try and make things get pushed in all directions (the assignment of distMin)
+
+Robots
+ - Add a specific section of the robot that picks things up rather than picking items up whether you drive straight forward into it or just clip it with the back corner
+
+LESS IMPORTANT THINGS
+ 
 SRJS.Vision.detectBlobs()
  - Can create large numbers of span objects per frame. Possibly reuse to give the garbage collector some love.
  
@@ -32,15 +44,10 @@ API
  - Make it possible to specify the position and rotation of range finders (add your own)
 
 Pushing
- - Things should rotate when pushed
  - When doing SAT detection, project each vertex only once
- - Get rid of the horrible hacky mess to try and make things get pushed in all directions (the assignment of distMin)
 
 Markers
  - Check whether the update system works with multiple robots, or whether markers need cloning when returning from update()
-
-Robots
- - Add a specific section of the robot that picks things up rather than picking items up whether you drive straight forward into it or just clip it with the back corner
 
 Features
  - Make robots push each other
