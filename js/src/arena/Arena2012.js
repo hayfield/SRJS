@@ -55,11 +55,13 @@ SRJS.Arena2012 = function(){
 									) );
 		
 		// add the boxes in the middle of the arena
-		for( var i = 0; i < 20; i++ ){
-			scene.addObject( new SRJS.Cube( 10,
-										new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
-										SRJS.Material.red
-									) );
+		var i, box;
+		for( i = 0; i < 20; i++ ){
+			box = new SRJS.Cube( 10,
+								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
+								SRJS.Material.red
+								)
+			scene.addObject( box );
 		}
 		
 		this.scene = scene;
