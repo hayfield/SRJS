@@ -73,13 +73,13 @@ SRJS.Arena2012 = function(){
 		
 		// add the buckets
 		var bucketPositions = [
-			new THREE.Vector3( 0, 125, 350 ),
-			new THREE.Vector3( 350, 125, 0 ),
-			new THREE.Vector3( 0, 125, -350 ),
-			new THREE.Vector3( -350, 125, 0 )
+			new THREE.Vector3( 0, 100, 350 ),
+			new THREE.Vector3( 350, 100, 0 ),
+			new THREE.Vector3( 0, 100, -350 ),
+			new THREE.Vector3( -350, 100, 0 )
 		];
 		for( i = 0; i < 4; i++ ){
-			bucket = new SRJS.Pushable( 50, 150, 50,
+			bucket = new SRJS.Pushable( 50, 100, 50,
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
@@ -101,7 +101,7 @@ SRJS.Arena2012 = function(){
 									new SRJS.Vector2( -365, 100 )
 							   ];
 	
-	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
+	args.robotStartRotations = [ Math.PI / 2, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
 	
 	args.visionVersion = 2;
 	
