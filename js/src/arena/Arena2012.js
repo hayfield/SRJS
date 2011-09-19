@@ -101,7 +101,7 @@ SRJS.Arena2012 = function(){
 									new SRJS.Vector2( -365, 100 )
 							   ];
 	
-	args.robotStartRotations = [ Math.PI / 2, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
+	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
 	
 	args.visionVersion = 2;
 	
