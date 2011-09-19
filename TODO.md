@@ -10,23 +10,16 @@
 
 * Add a specific section of the robot that picks things up rather than picking items up whether you drive straight forward into it or just clip it with the back corner
 
+#### Features
+
+* Make robots push each other
+* Update the vision code to work like the new vision system when it arrives
+
 ## LESS IMPORTANT THINGS
- 
-#### SRJS.Vision.detectBlobs()
-
-* Can create large numbers of span objects per frame. Possibly reuse to give the garbage collector some love.
- 
-#### SRJS.Vision.update()
-
-* Would make more sense to access image data directly rather than converting to PNG, drawing that, then getting imageData to process
  
 #### Triggers
 
 * Should possibly be more integrated with the physics code
-
-#### 2011 Arena
-
-* Blue Blobs show through the wall from certain angles
  
 #### Physics
 
@@ -46,7 +39,7 @@
 #### Query
 
 * Be able to combine both query and timeout events in a single yield without window.setTimeout() hacks
-* Make it possible to set a variable containing the results of the query* the first parameter to the callback.
+* Make it possible to set a variable containing the results of the query - the first parameter to the callback.
 * See if the use of eval() can be reduced
 
 #### API
@@ -62,7 +55,16 @@
 
 * Check whether the update system works with multiple robots, or whether markers need cloning when returning from update()
 
-#### Features
+## PROBABLY NOT VERY IMPORTANT THINGS
 
-* Make robots push each other
-* Update the vision code to work like the new vision system when it arrives
+#### SRJS.Vision.detectBlobs()
+
+* Can create large numbers of span objects per frame. Possibly reuse to give the garbage collector some love.
+ 
+#### SRJS.Vision.update()
+
+* Would make more sense to access image data directly rather than converting to PNG, drawing that, then getting imageData to process
+
+#### 2011 Arena
+
+* Blue Blobs show through the wall from certain angles
