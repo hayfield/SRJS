@@ -55,16 +55,23 @@ SRJS.Arena2012 = function(){
 									) );
 		
 		// add the boxes in the middle of the arena
-		var i, box;
+		var i, box, boxAction;
+		boxAction = function( robotID ){
+			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
+			console.log( robot, robotID, this, scene );
+			SRJS.phys.removePolygon( this );
+			scene.removeObject( this );
+		};
 		for( i = 0; i < 20; i++ ){
-			box = new SRJS.Cube( 10,
+			box = new SRJS.Trigger( 10, 10, 10,
 								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
-								SRJS.Material.red
+								new THREE.Vector3( 0, 0, 0 ),
+								boxAction
 								);
 			SRJS.CreateMarker( box, 'box' + i );
 			scene.addObject( box );
 		}
-		
+		console.log(scene);
 		this.scene = scene;
 	};
 	
