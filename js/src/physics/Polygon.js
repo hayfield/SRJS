@@ -68,15 +68,15 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 	
 	// make robots push pushable objects
 	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
-		var result2 = this.SAT( other, false );
-		if( result2 === null ) return false;
-		result2.separation = result2.vector.multiply( result2.distance );
+		var result = this.SAT( other, false );
+		if( result === null ) return false;
+		result.separation = result.vector.multiply( result.distance );
 		
 		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
-			other.translate( result2.separation.x, Math.PI * 0.5 );
-			other.translate( result2.separation.y, 0 );
-			other.object.position.x += result2.separation.x;
-			other.object.position.z += result2.separation.y;
+			other.translate( result.separation.x, Math.PI * 0.5 );
+			other.translate( result.separation.y, 0 );
+			other.object.position.x += result.separation.x;
+			other.object.position.z += result.separation.y;
 			return false;
 		} else {
 			return true;
