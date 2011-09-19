@@ -39,18 +39,18 @@ SRJS.Arena2012 = function(){
 									) );
 		
 		// 4 inner walls (that robots can get under, but buckets can't)
-		scene.addObject( new SRJS.Wall( 400, 20, 5,
-										new THREE.Vector3( 0, 120, 197.5 )
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 0, 120, 247.5 )
 									) );
-		scene.addObject( new SRJS.Wall( 400, 20, 5,
-										new THREE.Vector3( 197.5, 120, 0 ),
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 247.5, 120, 0 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
-		scene.addObject( new SRJS.Wall( 400, 20, 5,
-										new THREE.Vector3( 0, 120, -197.5 )
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 0, 120, -247.5 )
 									) );
-		scene.addObject( new SRJS.Wall( 400, 20, 5,
-										new THREE.Vector3( -197.5, 120, 0 ),
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( -247.5, 120, 0 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
 
