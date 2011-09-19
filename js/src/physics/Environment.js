@@ -142,3 +142,13 @@ SRJS.Physics.Environment.prototype.addRangeFinder = function( polygon ){
 		this.rangeFinders.push( polygon );
 	}
 };
+
+SRJS.Physics.Environment.prototype.removePolygon = function( object ){
+	var p = 0;
+	while( p < this.polygons.length ){
+		if( this.polygons[p].object === object ){
+			this.polygons.splice( p, 1 );
+		}
+		p++;
+	}
+};
