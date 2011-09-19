@@ -1,4 +1,4 @@
-SRJS.Vision = function(){
+SRJS.VisionV1 = function(){
 
 	this.blobs = new Array();
 	
@@ -149,18 +149,18 @@ SRJS.Vision = function(){
 
 };
 
-SRJS.Vision.prototype.blueMin = 235;
-SRJS.Vision.prototype.blueMax = 255;
-SRJS.Vision.prototype.greenMin = 115;
-SRJS.Vision.prototype.greenMax = 125;
-SRJS.Vision.prototype.redMin = -1;
-SRJS.Vision.prototype.redMax = 10;
-SRJS.Vision.prototype.redSaturationMin = 0.9;
+SRJS.VisionV1.prototype.blueMin = 235;
+SRJS.VisionV1.prototype.blueMax = 255;
+SRJS.VisionV1.prototype.greenMin = 115;
+SRJS.VisionV1.prototype.greenMax = 125;
+SRJS.VisionV1.prototype.redMin = -1;
+SRJS.VisionV1.prototype.redMax = 10;
+SRJS.VisionV1.prototype.redSaturationMin = 0.9;
 
-SRJS.Vision.prototype.spanMinLength = 2;
-SRJS.Vision.prototype.spanMaxOffset = 4;
+SRJS.VisionV1.prototype.spanMinLength = 2;
+SRJS.VisionV1.prototype.spanMaxOffset = 4;
 
-SRJS.Vision.prototype.processData = function( imgData ){
+SRJS.VisionV1.prototype.processData = function( imgData ){
 	var hsv = {},
 		hsvH,
 		fourI,
@@ -172,26 +172,26 @@ SRJS.Vision.prototype.processData = function( imgData ){
 	for( i = 0; i < dataLength; i++ ){
 		fourI = i * 4;
 		// convert the rgb data to hsv
-		hsv = SRJS.Vision.prototype.rgbToHsv( data[fourI],
+		hsv = SRJS.VisionV1.prototype.rgbToHsv( data[fourI],
 							data[fourI + 1],
 							data[fourI + 2],
 							hsv );
 		hsvH = hsv.h;
 		
 		// check to see if the value is within the required range for each color
-		if( hsvH > SRJS.Vision.prototype.blueMin
-				&& hsvH < SRJS.Vision.prototype.blueMax ){
+		if( hsvH > SRJS.VisionV1.prototype.blueMin
+				&& hsvH < SRJS.VisionV1.prototype.blueMax ){
 			// show as white
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 255;
 			colors[i] = SRJS.BLUE;
-		} else if ( hsvH > SRJS.Vision.prototype.greenMin
-				&& hsvH < SRJS.Vision.prototype.greenMax ){
+		} else if ( hsvH > SRJS.VisionV1.prototype.greenMin
+				&& hsvH < SRJS.VisionV1.prototype.greenMax ){
 			// show as a lightish grey
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 170;
 			colors[i] = SRJS.GREEN;
-		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
-				&& hsvH > SRJS.Vision.prototype.redMin
-				&& hsvH < SRJS.Vision.prototype.redMax ){
+		} else if ( hsv.s > SRJS.VisionV1.prototype.redSaturationMin
+				&& hsvH > SRJS.VisionV1.prototype.redMin
+				&& hsvH < SRJS.VisionV1.prototype.redMax ){
 			// show as a darkish grey
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 100;
 			colors[i] = SRJS.RED;
@@ -208,7 +208,7 @@ SRJS.Vision.prototype.processData = function( imgData ){
 	return imgData;
 };
 
-SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
+SRJS.VisionV1.prototype.getImageData = function( canvasContext, x, y, width, height ){
 	var imgData;
 	
 	x = x || 0;
@@ -234,7 +234,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
 // https://github.com/mrdoob/three.js/blob/master/src/extras/ColorUtils.js
-SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
+SRJS.VisionV1.prototype.rgbToHsv = function( r, g, b, hsv ){
 	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
 	var min, max, delta, hsvH;
 	
