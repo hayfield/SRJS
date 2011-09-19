@@ -62,10 +62,10 @@ SRJS.Arena2012 = function(){
 	args.arenaDimension = 800;
 	
 	args.robotStartPositions = [
-									new SRJS.Vector2( 365, 365 ),
-									new SRJS.Vector2( 365, -365 ),
-									new SRJS.Vector2( -365, -365 ),
-									new SRJS.Vector2( -365, 365 )
+									new SRJS.Vector2( 0, 365 ),
+									new SRJS.Vector2( 365, 0 ),
+									new SRJS.Vector2( 0, -365 ),
+									new SRJS.Vector2( -365, 0 )
 							   ];
 	
 	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
