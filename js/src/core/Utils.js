@@ -20,6 +20,12 @@ SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
 	}
 };
 
+SRJS.CreateMarker = function( object ){
+	var marker = new SRJS.Marker( object );
+	object.marker = marker;
+	SRJS.markers.push( marker );
+};
+
 /*
 	http://stackoverflow.com/questions/1759987/detect-variable-change-in-javascript/1760159#1760159
 	https://gist.github.com/175649

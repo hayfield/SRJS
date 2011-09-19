@@ -61,6 +61,7 @@ SRJS.Arena2012 = function(){
 								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
 								SRJS.Material.red
 								);
+			SRJS.CreateMarker( box );
 			scene.addObject( box );
 		}
 		
