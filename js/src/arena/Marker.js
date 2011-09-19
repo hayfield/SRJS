@@ -4,13 +4,15 @@ SRJS.Marker = function( parentObject ){
 	
 	this.centre = {};
 	
-	this._update = function( source ){
+	this.update = function( source ){
 		this.centre.world = this.object.position;
 		this.rotation = this.object.rotation;
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image = this._updateImagePosition( source );
 		this.code = 'Something important';
+		
+		return this;
 	};
 	
 	this._updateBearing = function( source ){
@@ -69,6 +71,6 @@ SRJS.Marker = function( parentObject ){
 		console.log( 'distance (world):', this.distance, 'cm' );
 	};
 	
-	this._update();
+	this.update();
 
 };
