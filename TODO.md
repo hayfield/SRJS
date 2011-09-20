@@ -1,5 +1,9 @@
 ## More Important Things
 
+#### Movement and Collisions
+
+* Currently uses multiple different techniques to do different things (collisions and pushing, see src/physics/Polygon.js). Unifying it into a single system that includes capabilities such as pushing things along walls or rotation when pushing would make sense.
+
 #### Pushing
 
 * Things should rotate when pushed
