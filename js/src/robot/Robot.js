@@ -101,6 +101,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.vision = SRJS.Vision( this );
 	
 	this.gameScore = 0;
+	this.gameSettings = {};
 	
 	this._reservedPropertyNames = new Array();
 	this._customPropertyNames = new Array();
