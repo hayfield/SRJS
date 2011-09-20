@@ -63,9 +63,17 @@ var initFunct = function(){
 };
 
 var mainFunct = function(){
-	
+	var markers = robot.vision.grabFrameGetMarkers();
+	if(frame < 3 ){
+		console.log('frame', frame);
+		markers.forEach(function(marker){
+			marker.print();
+		});
+	}
+	//console.log(markers.length);
+	frame++;
 };
-
+frame = 0;
 var args = {
 	initialise: initFunct,
 	main: mainFunct
