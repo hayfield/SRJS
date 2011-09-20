@@ -70,6 +70,8 @@ var pin2 = robot.io.rangeFinder[0].a;
 
 ### Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
 
+**This section describes the blob-based vision system (VisionV1). The marker-based vision system (VisionV2) works differently and will be described here once it is 'complete'. Until then, see js/src/vision/VisionV2.js and js/src/arena/Marker.js**
+
 You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;` Enabling vision will cause the framerate to drop significantly.
 
 ##### Python
