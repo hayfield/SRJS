@@ -58,6 +58,7 @@ SRJS.Arena2012 = function(){
 		var i, box, boxAction, bucket;
 		boxAction = function( robotID ){
 			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
+			robot.gameSettings.carriedBoxes = typeof robot.gameSettings.carriedBoxes === 'undefined' ? 1 : robot.gameSettings.carriedBoxes + 1;
 			SRJS.phys.removePolygon( this );
 			scene.removeObject( this );
 		};
