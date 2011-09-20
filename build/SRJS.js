@@ -1,4 +1,4 @@
-// REVISION: 2.1316189994.85
+// REVISION: 3.1316535069.72
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -33,6 +33,16 @@ SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
 		};
 		window.setTimeout( repeating, initialDelay );
 	}
+};
+
+SRJS.CreateMarker = function( object, code ){
+	var marker = new SRJS.Marker( object, code );
+	object.marker = marker;
+	SRJS.markers.push( marker );
+};
+
+SRJS.radToDeg = function( radians ){
+	return radians / Math.PI * 180;
 };
 
 /*
@@ -184,13 +194,23 @@ SRJS.Vector2.prototype.distanceTo = function( other ){
 	return Math.sqrt( this.distanceToSquared( other ) );
 };
 
+SRJS.Vector2.prototype.angleTo = function( other ){
+	return Math.acos( this.dot( other ) / (this.length() * other.length()) );
+};
+
 // FILE: core/Init.js
-SRJS.Init = function(){
+SRJS.Init = function( year ){
 	
 	if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 	SRJS.intersections = new SRJS.Physics.Intersections();
 	SRJS.phys = new SRJS.Physics.Environment();
-	var bob = new SRJS.Arena2011();
+	SRJS.markers = new Array();
+	
+	if( year === 2011 ){
+		var bob = new SRJS.Arena2011();
+	} else {
+		var bob = new SRJS.Arena2012();
+	}
 	
 };
 
@@ -391,15 +411,15 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 	
 	// make robots push pushable objects
 	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
-		var result2 = this.SAT( other, false );
-		if( result2 === null ) return false;
-		result2.separation = result2.vector.multiply( result2.distance );
+		var result = this.SAT( other, false );
+		if( result === null ) return false;
+		result.separation = result.vector.multiply( result.distance );
 		
 		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
-			other.translate( result2.separation.x, Math.PI * 0.5 );
-			other.translate( result2.separation.y, 0 );
-			other.object.position.x += result2.separation.x;
-			other.object.position.z += result2.separation.y;
+			other.translate( result.separation.x, Math.PI * 0.5 );
+			other.translate( result.separation.y, 0 );
+			other.object.position.x += result.separation.x;
+			other.object.position.z += result.separation.y;
 			return false;
 		} else {
 			return true;
@@ -444,17 +464,18 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 // http://content.gpwiki.org/index.php/VB:Tutorials:Building_A_Physics_Engine:Basic_Intersection_Detection
 // http://en.wikipedia.org/wiki/Separating_axis_theorem
 SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
-	var e, p,
+	var e, p, edges,
 		projectionAxis,
 		minThis, maxThis, minOther, maxOther,
 		dot,
 		distMin, distMinAbs, shortestDist, result,
 		thisPosition, otherPosition, offset, offsetShift;
 	
+	edges = this.edges.concat( other.edges );
 	minThis = Number.MAX_VALUE;
-	minOther = minThis;
+	minOther = Number.MAX_VALUE;
 	maxThis = Number.MIN_VALUE;
-	maxOther = maxThis;
+	maxOther = Number.MIN_VALUE;
 	shortestDist = Number.MAX_VALUE;
 	result = {};
 	thisPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
@@ -462,9 +483,9 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 	offset = new SRJS.Vector2( thisPosition.x - otherPosition.x, thisPosition.y - otherPosition.y );
 	
 	// loop through the edges on the polygons
-	for( e = 0; e < this.edges.length; e++ ){
+	for( e = 0; e < edges.length; e++ ){
 		// find the normal to the edge (to project points onto)
-		projectionAxis = this.edges[e].normal.normalise();
+		projectionAxis = edges[e].normal.normalise();
 		
 		// project both of the polygons
 		// loop through all the edges. Each edges has 2 points, so projecting twice as many as needed
@@ -490,19 +511,20 @@ SRJS.Physics.Polygon.prototype.SAT = function( other, flip ){
 		}
 		
 		// shift the points of one of them by some sort of offset
-		offsetShift = projectionAxis.dot( offset );
+		offsetShift = offset.dot( projectionAxis );
 		minThis += offsetShift;
 		maxThis += offsetShift;
 		
 		// test for intersections
 		if( (minThis - maxOther) > 0 || (minOther - maxThis) > 0 ){
 			// gap found
-			//console.log("gap", minThis, maxThis, minOther, maxOther);
 			return null;
 		}
 		
 		// find the distance that they need moving to separate
-		distMin = (maxOther - minThis) * -1;
+		//distMin = (maxOther - minThis) * -1; // this should work
+		//distMin = Math.abs(maxOther - minThis) > 5 ? (minOther - maxThis) * -1 : (maxOther - minThis) * -1;
+		distMin = e >= this.edges.length ? (maxOther - minThis) * -1 : (minOther - maxThis) * -1;
 		if( flip ) distMin *= -1;
 		distMinAbs = Math.abs( distMin );
 		if( distMinAbs < shortestDist ){
@@ -736,6 +758,17 @@ SRJS.Physics.Environment.prototype.addRangeFinder = function( polygon ){
 	}
 };
 
+SRJS.Physics.Environment.prototype.removePolygon = function( object ){
+	var p = 0;
+	while( p < this.polygons.length ){
+		if( this.polygons[p].object === object ){
+			this.polygons.splice( p, 1 );
+			return;
+		}
+		p++;
+	}
+};
+
 // FILE: physics/DebugCanvas.js
 SRJS.DebugCanvas = function( environment ){
 	
@@ -882,6 +915,8 @@ SRJS.Arena = function( args ){
 		
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
+		
+		this.visionVersion = args.visionVersion || 2;
 		
 		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
@@ -1178,6 +1213,121 @@ SRJS.Arena2011 = function(){
 	
 	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
 	
+	args.visionVersion = 1;
+	
+	return new SRJS.Arena( args );
+	
+};
+
+// FILE: arena/Arena2012.js
+SRJS.Arena2012 = function(){
+	
+	var args = {}, scene;
+
+	args.initScene = function(){
+		
+        scene = new THREE.Scene();
+		
+		var i, ambient, directionalLight, pointLight;
+		
+		ambient = new THREE.AmbientLight( 0xffffff );
+		scene.addLight( ambient );
+ 
+		directionalLight = new THREE.DirectionalLight( 0xff0000 );
+		directionalLight.position.y = 200;
+		directionalLight.position.normalize();
+		scene.addLight( directionalLight );
+ 
+		pointLight = new THREE.PointLight( 0xff0000 );
+		pointLight.position.y = 150;
+		pointLight.position.x = -250;
+		pointLight.position.z = -250;
+		pointLight.intensity = 0.5;
+		scene.addLight( pointLight );
+
+		// floor
+		scene.addObject( new SRJS.Wall( 800, 100, 800 ) );
+
+		// 4 outer walls
+		scene.addObject( new SRJS.Wall( 100, 60, 1000, new THREE.Vector3( 450, 80, 0 ) ) );
+		scene.addObject( new SRJS.Wall( 100, 60, 1000, new THREE.Vector3( -450, 80, 0 ) ) );
+		scene.addObject( new SRJS.Wall( 100, 60, 1000,
+										new THREE.Vector3( 0, 80, -450 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		scene.addObject( new SRJS.Wall( 100, 60, 1000,
+										new THREE.Vector3( 0, 80, 450 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		
+		// 4 inner walls (that robots can get under, but buckets can't)
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 0, 120, 247.5 )
+									) );
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 247.5, 120, 0 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( 0, 120, -247.5 )
+									) );
+		scene.addObject( new SRJS.Wall( 500, 20, 5,
+										new THREE.Vector3( -247.5, 120, 0 ),
+										new THREE.Vector3( 0, Math.PI / 2, 0 )
+									) );
+		
+		// add the boxes in the middle of the arena
+		var i, box, boxAction, bucket;
+		boxAction = function( robotID ){
+			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
+			robot.gameSettings.carriedBoxes = typeof robot.gameSettings.carriedBoxes === 'undefined' ? 1 : robot.gameSettings.carriedBoxes + 1;
+			SRJS.phys.removePolygon( this );
+			scene.removeObject( this );
+		};
+		for( i = 0; i < 20; i++ ){
+			box = new SRJS.Trigger( 10, 10, 10,
+								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
+								new THREE.Vector3( 0, 0, 0 ),
+								boxAction
+								);
+			SRJS.CreateMarker( box, 'box' + i );
+			scene.addObject( box );
+		}
+		
+		// add the buckets
+		var bucketPositions = [
+			new THREE.Vector3( 0, 100, 350 ),
+			new THREE.Vector3( 350, 100, 0 ),
+			new THREE.Vector3( 0, 100, -350 ),
+			new THREE.Vector3( -350, 100, 0 )
+		];
+		for( i = 0; i < 4; i++ ){
+			bucket = new SRJS.Pushable( 50, 100, 50,
+										bucketPositions[i],
+										new THREE.Vector3( 0, 0, 0 )
+									);
+			SRJS.CreateMarker( bucket, 'bucket' + i );
+			scene.addObject( bucket );
+		}
+		
+		this.scene = scene;
+	};
+	
+	args.physics = SRJS.phys;
+	
+	args.arenaDimension = 800;
+	
+	args.robotStartPositions = [
+									new SRJS.Vector2( 100, 365 ),
+									new SRJS.Vector2( 365, -100 ),
+									new SRJS.Vector2( -100, -365 ),
+									new SRJS.Vector2( -365, 100 )
+							   ];
+	
+	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
+	
+	args.visionVersion = 2;
+	
 	return new SRJS.Arena( args );
 	
 };
@@ -1185,12 +1335,12 @@ SRJS.Arena2011 = function(){
 // FILE: arena/Material.js
 SRJS.Material = {
 	
-	white: new THREE.MeshLambertMaterial( { color: 0xffffff } ),
-	red: new THREE.MeshLambertMaterial( { color: 0xff0000 } ),
-	green: new THREE.MeshLambertMaterial( { color: 0x00ff00 } ),
-	blue: new THREE.MeshLambertMaterial( { color: 0x0000ff } ),
-	yellow: new THREE.MeshLambertMaterial( { color: 0xffff00 } ),
-	black: new THREE.MeshLambertMaterial( { color: 0x000000 } )
+	white: new THREE.MeshPhongMaterial( { color: 0xffffff } ),
+	red: new THREE.MeshPhongMaterial( { color: 0xff0000 } ),
+	green: new THREE.MeshPhongMaterial( { color: 0x00ff00 } ),
+	blue: new THREE.MeshPhongMaterial( { color: 0x0000ff } ),
+	yellow: new THREE.MeshPhongMaterial( { color: 0xffff00 } ),
+	black: new THREE.MeshPhongMaterial( { color: 0x000000 } )
 	
 };
 
@@ -1273,12 +1423,102 @@ SRJS.Trigger.prototype.constructor = SRJS.Trigger;
 // FILE: arena/Pushable.js
 SRJS.Pushable = function( width, height, depth, position, rotation ){
 	
-	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.black );
+	SRJS.Wall.call( this, width, height, depth, position, rotation, SRJS.Material.blue );
 
 };
 
 SRJS.Pushable.prototype = new SRJS.Wall();
 SRJS.Pushable.prototype.constructor = SRJS.Pushable;
+
+// FILE: arena/Marker.js
+SRJS.Marker = function( parentObject, code ){
+	
+	this.object = parentObject;
+	this.code = code || 'Something important';
+	
+	this.centre = {};
+	
+	this.update = function( source ){
+		this.centre.world = this.object.position;
+		this.rotation = this._updateRotation();
+		this.bearing = this._updateBearing( source );
+		this.distance = this._updateDistance( source );
+		this.centre.image = this._updateImagePosition( source );
+		
+		return this;
+	};
+	
+	this._updateRotation = function(){
+		return new THREE.Vector3( SRJS.radToDeg(this.object.rotation.x), SRJS.radToDeg(this.object.rotation.y), SRJS.radToDeg(this.object.rotation.z) );
+	};
+	
+	this._updateBearing = function( source ){
+		if( typeof source === 'undefined' ){
+			return new SRJS.Vector2( 0, 0 );
+		}
+		
+		var direction = new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z );
+		if( direction.x === 0 && direction.y === 0 ){
+			return new SRJS.Vector2( 0, 0 );
+		}
+		var up = new SRJS.Vector2( Math.sin(source.rotation.y), Math.cos(source.rotation.y) ),
+			angle = up.angleTo( direction ),
+		
+			// http://stackoverflow.com/questions/3461453/determine-which-side-of-a-line-a-point-lies
+			// Where a = line point 1; b = line point 2; c = point to check against.
+			markerIsOnLeft = function( a, b, c ){
+				return ((b.x - a.x)*(c.y - a.y) - (b.y - a.y)*(c.x - a.x)) > 0;
+			},
+			sourcePosition = new SRJS.Vector2( source.position.x, source.position.z ),
+			objectPosition = new SRJS.Vector2( this.object.position.x, this.object.position.z );
+		
+		if( markerIsOnLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
+			angle = Math.PI * 2 - angle; // change it to be a bearing
+		}
+		return new SRJS.Vector2( SRJS.radToDeg(angle), 0 );
+	};
+	
+	this._updateDistance = function( source ){
+		if( typeof source === 'undefined' ){
+			return 0;
+		}
+		
+		return new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z ).length();
+	};
+	
+	this._updateImagePosition = function( source ){
+		if( !( source instanceof SRJS.Robot ) ){
+			return false;
+		}
+		
+		return this.toRendererXY( this.object.position, source.camera );
+	};
+	
+	// https://github.com/mrdoob/three.js/issues/78
+	this.toRendererXY = function( position, cameraToUse ){
+
+		var pos = position.clone(),
+			projScreenMat = new THREE.Matrix4();
+		projScreenMat.multiply( cameraToUse.projectionMatrix, cameraToUse.matrixWorldInverse );
+		projScreenMat.multiplyVector3( pos );
+
+		return new SRJS.Vector2( ( pos.x + 1 ) * SRJS.rendererDimension / 2,
+			 ( - pos.y + 1 ) * SRJS.rendererDimension / 2 );
+
+	};
+	
+	this.print = function(){
+		console.log( 'code:', this.code );
+		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
+		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
+		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
+		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') deg' );
+		console.log( 'distance (world):', this.distance, 'cm' );
+	};
+	
+	this.update();
+
+};
 
 // FILE: robot/Query.js
 SRJS.Query = function( query ){
@@ -1514,9 +1754,10 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		
 	};
 	
-	this.vision = new SRJS.Vision();
+	this.vision = SRJS.Vision( this );
 	
 	this.gameScore = 0;
+	this.gameSettings = {};
 	
 	this._reservedPropertyNames = new Array();
 	this._customPropertyNames = new Array();
@@ -1784,7 +2025,16 @@ SRJS.Motor.prototype.__defineSetter__('target',
 
 
 // FILE: vision/Vision.js
-SRJS.Vision = function(){
+SRJS.Vision = function( object ){
+	if( SRJS.CURRENT_ARENA.visionVersion === 1 ){
+		return new SRJS.VisionV1();
+	} else {
+		return new SRJS.VisionV2( object );
+	}
+};
+
+// FILE: vision/VisionV1.js
+SRJS.VisionV1 = function(){
 
 	this.blobs = new Array();
 	
@@ -1935,18 +2185,18 @@ SRJS.Vision = function(){
 
 };
 
-SRJS.Vision.prototype.blueMin = 235;
-SRJS.Vision.prototype.blueMax = 255;
-SRJS.Vision.prototype.greenMin = 115;
-SRJS.Vision.prototype.greenMax = 125;
-SRJS.Vision.prototype.redMin = -1;
-SRJS.Vision.prototype.redMax = 10;
-SRJS.Vision.prototype.redSaturationMin = 0.9;
+SRJS.VisionV1.prototype.blueMin = 235;
+SRJS.VisionV1.prototype.blueMax = 255;
+SRJS.VisionV1.prototype.greenMin = 115;
+SRJS.VisionV1.prototype.greenMax = 125;
+SRJS.VisionV1.prototype.redMin = -1;
+SRJS.VisionV1.prototype.redMax = 10;
+SRJS.VisionV1.prototype.redSaturationMin = 0.9;
 
-SRJS.Vision.prototype.spanMinLength = 2;
-SRJS.Vision.prototype.spanMaxOffset = 4;
+SRJS.VisionV1.prototype.spanMinLength = 2;
+SRJS.VisionV1.prototype.spanMaxOffset = 4;
 
-SRJS.Vision.prototype.processData = function( imgData ){
+SRJS.VisionV1.prototype.processData = function( imgData ){
 	var hsv = {},
 		hsvH,
 		fourI,
@@ -1958,26 +2208,26 @@ SRJS.Vision.prototype.processData = function( imgData ){
 	for( i = 0; i < dataLength; i++ ){
 		fourI = i * 4;
 		// convert the rgb data to hsv
-		hsv = SRJS.Vision.prototype.rgbToHsv( data[fourI],
+		hsv = SRJS.VisionV1.prototype.rgbToHsv( data[fourI],
 							data[fourI + 1],
 							data[fourI + 2],
 							hsv );
 		hsvH = hsv.h;
 		
 		// check to see if the value is within the required range for each color
-		if( hsvH > SRJS.Vision.prototype.blueMin
-				&& hsvH < SRJS.Vision.prototype.blueMax ){
+		if( hsvH > SRJS.VisionV1.prototype.blueMin
+				&& hsvH < SRJS.VisionV1.prototype.blueMax ){
 			// show as white
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 255;
 			colors[i] = SRJS.BLUE;
-		} else if ( hsvH > SRJS.Vision.prototype.greenMin
-				&& hsvH < SRJS.Vision.prototype.greenMax ){
+		} else if ( hsvH > SRJS.VisionV1.prototype.greenMin
+				&& hsvH < SRJS.VisionV1.prototype.greenMax ){
 			// show as a lightish grey
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 170;
 			colors[i] = SRJS.GREEN;
-		} else if ( hsv.s > SRJS.Vision.prototype.redSaturationMin
-				&& hsvH > SRJS.Vision.prototype.redMin
-				&& hsvH < SRJS.Vision.prototype.redMax ){
+		} else if ( hsv.s > SRJS.VisionV1.prototype.redSaturationMin
+				&& hsvH > SRJS.VisionV1.prototype.redMin
+				&& hsvH < SRJS.VisionV1.prototype.redMax ){
 			// show as a darkish grey
 			data[fourI] = data[fourI + 1] = data[fourI + 2] = 100;
 			colors[i] = SRJS.RED;
@@ -1994,7 +2244,7 @@ SRJS.Vision.prototype.processData = function( imgData ){
 	return imgData;
 };
 
-SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, height ){
+SRJS.VisionV1.prototype.getImageData = function( canvasContext, x, y, width, height ){
 	var imgData;
 	
 	x = x || 0;
@@ -2020,7 +2270,7 @@ SRJS.Vision.prototype.getImageData = function( canvasContext, x, y, width, heigh
 
 // http://cs.haifa.ac.il/hagit/courses/ist/Lectures/Demos/ColorApplet2/t_convert.html
 // https://github.com/mrdoob/three.js/blob/master/src/extras/ColorUtils.js
-SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
+SRJS.VisionV1.prototype.rgbToHsv = function( r, g, b, hsv ){
 	// var hsv = hsv || {}; // removing this seems to give a ~10% speed increase
 	var min, max, delta, hsvH;
 	
@@ -2058,6 +2308,57 @@ SRJS.Vision.prototype.rgbToHsv = function( r, g, b, hsv ){
 	hsv.h = hsvH;
 	
 	return hsv;
+};
+
+// FILE: vision/VisionV2.js
+SRJS.VisionV2 = function( object ){
+	
+	this.object = object;
+	
+	var canvas = document.createElement('canvas'),
+		vision = this;
+	
+	this.canvas = canvas;
+	this.canvas.width = SRJS.CURRENT_ARENA.renderer.domElement.width;
+	this.canvas.height = SRJS.CURRENT_ARENA.renderer.domElement.height;
+	document.body.appendChild( this.canvas );
+	this.context = this.canvas.getContext('2d');
+	
+	this.update = function( renderer ){
+		var img = new Image();
+		
+		img.onload = function(){
+			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
+			vision.context.drawImage( img, 0, 0 );
+		};
+		img.src = renderer.domElement.toDataURL('image/png');
+	};
+	
+	this.print_marker = function( marker ){
+		if( marker instanceof SRJS.Marker ){
+			marker.print();
+		}
+	};
+	
+	this.printMarker = this.print_marker;
+	
+	this.grab_frame_get_markers = function(){
+		var markers = new Array(),
+			i = 0,
+			marker;
+		while( i < SRJS.markers.length ){
+			marker = SRJS.markers[i].update( this.object );
+			if( marker.bearing.x < this.object.camera.fov / 2 || marker.bearing.x > 360 - this.object.camera.fov / 2){
+				markers.push( marker );
+			}
+			i++;
+		}
+		
+		return markers;
+	};
+	
+	this.grabFrameGetMarkers = this.grab_frame_get_markers;
+	
 };
 
 // FILE: vision/Blob.js
