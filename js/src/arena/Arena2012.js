@@ -89,26 +89,26 @@ SRJS.Arena2012 = function(){
         var i, marker;
         for( i = 0; i < 7; i++ ){
             // right
-            marker = new SRJS.Trigger( 25, 25, 25,
-                                    new THREE.Vector3( 404, 67.5, -346 + i * (808/7) )
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
                                   );
             SRJS.CreateMarker( marker, i );
             scene.addObject( marker );
             // bottom
-            marker = new SRJS.Trigger( 25, 25, 25,
-                                    new THREE.Vector3( 346 - i * (808/7), 67.5, 404 )
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
                                   );
             SRJS.CreateMarker( marker, i + 7 );
             scene.addObject( marker );
             // left
-            marker = new SRJS.Trigger( 25, 25, 25,
-                                    new THREE.Vector3( -404, 67.5, 346 - i * (808/7) )
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
                                   );
             SRJS.CreateMarker( marker, i + 14 );
             scene.addObject( marker );
             // top
-            marker = new SRJS.Trigger( 25, 25, 25,
-                                    new THREE.Vector3( -346 + i * (808/7), 67.5, -404 )
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
                                   );
             SRJS.CreateMarker( marker, i + 21 );
             scene.addObject( marker );
