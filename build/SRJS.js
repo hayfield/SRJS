@@ -1,4 +1,4 @@
-// REVISION: 3.1316535069.72
+// REVISION: 3.1317409611.39
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1261,23 +1261,83 @@ SRJS.Arena2012 = function(){
 									) );
 		
 		// 4 inner walls (that robots can get under, but buckets can't)
-		scene.addObject( new SRJS.Wall( 500, 20, 5,
-										new THREE.Vector3( 0, 120, 247.5 )
+		scene.addObject( new SRJS.Wall( 600, 20, 5,
+										new THREE.Vector3( 0, 135, 297.5 )
 									) );
-		scene.addObject( new SRJS.Wall( 500, 20, 5,
-										new THREE.Vector3( 247.5, 120, 0 ),
+		scene.addObject( new SRJS.Wall( 600, 20, 5,
+										new THREE.Vector3( 297.5, 135, 0 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
-		scene.addObject( new SRJS.Wall( 500, 20, 5,
-										new THREE.Vector3( 0, 120, -247.5 )
+		scene.addObject( new SRJS.Wall( 600, 20, 5,
+										new THREE.Vector3( 0, 135, -297.5 )
 									) );
-		scene.addObject( new SRJS.Wall( 500, 20, 5,
-										new THREE.Vector3( -247.5, 120, 0 ),
+		scene.addObject( new SRJS.Wall( 600, 20, 5,
+										new THREE.Vector3( -297.5, 135, 0 ),
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
 		
+        // the feet along the inner walls (2 per side) that the robots will drive into
+        // bottom
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( 150, 87.5, 297.5 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( -150, 87.5, 297.5 )
+									) );
+        // top
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( 150, 87.5, -297.5 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( -150, 87.5, -297.5 )
+									) );
+        // left
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( -297.5, 87.5, 150 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( -297.5, 87.5, -150 )
+									) );
+        // right
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( 297.5, 87.5, 150 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 75, 5,
+										new THREE.Vector3( 297.5, 87.5, -150 )
+									) );
+        
+        // add the markers around the edges of the arena
+        // start in the top-right corner on thr right wall and work round clockwise
+        var i, marker;
+        for( i = 0; i < 7; i++ ){
+            // right
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i );
+            scene.addObject( marker );
+            // bottom
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
+                                  );
+            SRJS.CreateMarker( marker, i + 7 );
+            scene.addObject( marker );
+            // left
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i + 14 );
+            scene.addObject( marker );
+            // top
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
+                                  );
+            SRJS.CreateMarker( marker, i + 21 );
+            scene.addObject( marker );
+        }
+        
 		// add the boxes in the middle of the arena
-		var i, box, boxAction, bucket;
+		var box, boxAction, bucket;
 		boxAction = function( robotID ){
 			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
 			robot.gameSettings.carriedBoxes = typeof robot.gameSettings.carriedBoxes === 'undefined' ? 1 : robot.gameSettings.carriedBoxes + 1;
@@ -1286,11 +1346,11 @@ SRJS.Arena2012 = function(){
 		};
 		for( i = 0; i < 20; i++ ){
 			box = new SRJS.Trigger( 10, 10, 10,
-								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
+								new THREE.Vector3( Math.random() * 520 - 240, 60, Math.random() * 520 - 240 ),
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
-			SRJS.CreateMarker( box, 'box' + i );
+			SRJS.CreateMarker( box, 32 + i );
 			scene.addObject( box );
 		}
 		
@@ -1306,7 +1366,7 @@ SRJS.Arena2012 = function(){
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
-			SRJS.CreateMarker( bucket, 'bucket' + i );
+			SRJS.CreateMarker( bucket, 72 + i );
 			scene.addObject( bucket );
 		}
 		
