@@ -54,6 +54,36 @@ SRJS.Arena2012 = function(){
 										new THREE.Vector3( 0, Math.PI / 2, 0 )
 									) );
 		
+        // the feet along the inner walls (2 per side) that the robots will drive into
+        // bottom
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( 150, 80, 297.5 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( -150, 80, 297.5 )
+									) );
+        // top
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( 150, 80, -297.5 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( -150, 80, -297.5 )
+									) );
+        // left
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( -297.5, 80, 150 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( -297.5, 80, -150 )
+									) );
+        // right
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( 297.5, 80, 150 )
+									) );
+        scene.addObject( new SRJS.Wall( 5, 60, 5,
+										new THREE.Vector3( 297.5, 80, -150 )
+									) );
+        
 		// add the boxes in the middle of the arena
 		var i, box, boxAction, bucket;
 		boxAction = function( robotID ){
