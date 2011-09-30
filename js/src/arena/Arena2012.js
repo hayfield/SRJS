@@ -84,8 +84,38 @@ SRJS.Arena2012 = function(){
 										new THREE.Vector3( 297.5, 80, -150 )
 									) );
         
+        // add the markers around the edges of the arena
+        // start in the top-right corner on thr right wall and work round clockwise
+        var i, marker;
+        for( i = 0; i < 7; i++ ){
+            // right
+            marker = new SRJS.Trigger( 10, 10, 10,
+                                    new THREE.Vector3( 404, 55, -346 + i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i );
+            scene.addObject( marker );
+            // bottom
+            marker = new SRJS.Trigger( 10, 10, 10,
+                                    new THREE.Vector3( 346 - i * (808/7), 55, 404 )
+                                  );
+            SRJS.CreateMarker( marker, i + 7 );
+            scene.addObject( marker );
+            // left
+            marker = new SRJS.Trigger( 10, 10, 10,
+                                    new THREE.Vector3( -404, 55, 346 - i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i + 14 );
+            scene.addObject( marker );
+            // top
+            marker = new SRJS.Trigger( 10, 10, 10,
+                                    new THREE.Vector3( -346 + i * (808/7), 55, -404 )
+                                  );
+            SRJS.CreateMarker( marker, i + 21 );
+            scene.addObject( marker );
+        }
+        
 		// add the boxes in the middle of the arena
-		var i, box, boxAction, bucket;
+		var box, boxAction, bucket;
 		boxAction = function( robotID ){
 			var robot = SRJS.CURRENT_ARENA.robots[robotID - 1];
 			robot.gameSettings.carriedBoxes = typeof robot.gameSettings.carriedBoxes === 'undefined' ? 1 : robot.gameSettings.carriedBoxes + 1;
