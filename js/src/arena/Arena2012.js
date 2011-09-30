@@ -64,7 +64,7 @@ SRJS.Arena2012 = function(){
 		};
 		for( i = 0; i < 20; i++ ){
 			box = new SRJS.Trigger( 10, 10, 10,
-								new THREE.Vector3( Math.random() * 480 - 240, 60, Math.random() * 480 - 240 ),
+								new THREE.Vector3( Math.random() * 520 - 240, 60, Math.random() * 520 - 240 ),
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
