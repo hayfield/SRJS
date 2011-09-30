@@ -128,7 +128,7 @@ SRJS.Arena2012 = function(){
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
-			SRJS.CreateMarker( box, 'box' + i );
+			SRJS.CreateMarker( box, 32 + i );
 			scene.addObject( box );
 		}
 		
