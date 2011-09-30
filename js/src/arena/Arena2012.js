@@ -144,7 +144,7 @@ SRJS.Arena2012 = function(){
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
-			SRJS.CreateMarker( bucket, 'bucket' + i );
+			SRJS.CreateMarker( bucket, 72 + i );
 			scene.addObject( bucket );
 		}
 		
