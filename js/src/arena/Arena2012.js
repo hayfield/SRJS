@@ -123,8 +123,8 @@ SRJS.Arena2012 = function(){
 			scene.removeObject( this );
 		};
 		for( i = 0; i < 20; i++ ){
-			box = new SRJS.Trigger( 10, 10, 10,
-								new THREE.Vector3( Math.random() * 520 - 240, 60, Math.random() * 520 - 240 ),
+			box = new SRJS.Trigger( 11, 11, 11,
+								new THREE.Vector3( Math.random() * 520 - 240, 55.5, Math.random() * 520 - 240 ),
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
