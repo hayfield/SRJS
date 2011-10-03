@@ -119,6 +119,7 @@ SRJS.Arena.prototype.addRobot = function( robot ){
 	this.robots[this.robots.length - 1].ID = this.robots.length;
 	
 	this.scene.addObject( this.robots[this.robots.length - 1] );
+    SRJS.CreateMarker( this.robots[this.robots.length - 1], 28 + (this.robots.length - 1) );
 	
 };
 
