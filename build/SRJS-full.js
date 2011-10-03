@@ -1,4 +1,4 @@
-// REVISION: 3.1317409611.39
+// REVISION: 3.1317625121.19
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -1786,6 +1786,7 @@ SRJS.Arena.prototype.addRobot = function( robot ){
 	this.robots[this.robots.length - 1].ID = this.robots.length;
 	
 	this.scene.addObject( this.robots[this.robots.length - 1] );
+    SRJS.CreateMarker( this.robots[this.robots.length - 1], 28 + (this.robots.length - 1) );
 	
 };
 
@@ -2126,8 +2127,8 @@ SRJS.Arena2012 = function(){
 			scene.removeObject( this );
 		};
 		for( i = 0; i < 20; i++ ){
-			box = new SRJS.Trigger( 10, 10, 10,
-								new THREE.Vector3( Math.random() * 520 - 240, 60, Math.random() * 520 - 240 ),
+			box = new SRJS.Trigger( 11, 11, 11,
+								new THREE.Vector3( Math.random() * 520 - 240, 55.5, Math.random() * 520 - 240 ),
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);

@@ -1,4 +1,4 @@
-// REVISION: 3.1317409611.39
+// REVISION: 3.1317625121.19
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1005,6 +1005,7 @@ SRJS.Arena.prototype.addRobot = function( robot ){
 	this.robots[this.robots.length - 1].ID = this.robots.length;
 	
 	this.scene.addObject( this.robots[this.robots.length - 1] );
+    SRJS.CreateMarker( this.robots[this.robots.length - 1], 28 + (this.robots.length - 1) );
 	
 };
 
@@ -1345,8 +1346,8 @@ SRJS.Arena2012 = function(){
 			scene.removeObject( this );
 		};
 		for( i = 0; i < 20; i++ ){
-			box = new SRJS.Trigger( 10, 10, 10,
-								new THREE.Vector3( Math.random() * 520 - 240, 60, Math.random() * 520 - 240 ),
+			box = new SRJS.Trigger( 11, 11, 11,
+								new THREE.Vector3( Math.random() * 520 - 240, 55.5, Math.random() * 520 - 240 ),
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
