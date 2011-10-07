@@ -1,4 +1,4 @@
-// REVISION: 3.1317625121.19
+// REVISION: 3.1317975262.31
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -822,6 +822,18 @@ SRJS.CreateMarker = function( object, code ){
 	SRJS.markers.push( marker );
 };
 
+SRJS.RemoveMarker = function( code ){
+    var m = 0,
+        removed = false;
+    while( m < SRJS.markers.length && !removed ){
+        if( SRJS.markers[m].code === code ){
+            SRJS.markers.splice(m, 1);
+            removed = true;
+        }
+        m++;
+    }
+};
+
 SRJS.radToDeg = function( radians ){
 	return radians / Math.PI * 180;
 };
@@ -1543,6 +1555,9 @@ SRJS.Physics.Environment.prototype.removePolygon = function( object ){
 	var p = 0;
 	while( p < this.polygons.length ){
 		if( this.polygons[p].object === object ){
+            if( this.polygons[p].object.marker instanceof SRJS.Marker ){
+                SRJS.RemoveMarker( this.polygons[p].object.marker.code );
+            }
 			this.polygons.splice( p, 1 );
 			return;
 		}
@@ -2863,8 +2878,6 @@ SRJS.Motor.prototype.__defineSetter__('target',
 		}
 	}
 );
-
-
 
 // FILE: vision/Vision.js
 SRJS.Vision = function( object ){
