@@ -22,5 +22,3 @@ SRJS.Motor.prototype.__defineSetter__('target',
 		}
 	}
 );
-
-
