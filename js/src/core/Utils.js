@@ -26,6 +26,18 @@ SRJS.CreateMarker = function( object, code ){
 	SRJS.markers.push( marker );
 };
 
+SRJS.RemoveMarker = function( code ){
+    var m = 0,
+        removed = false;
+    while( m < SRJS.markers.length && !removed ){
+        if( SRJS.markers[m].code === code ){
+            SRJS.markers.splice(m, 1);
+            removed = true;
+        }
+        m++;
+    }
+};
+
 SRJS.radToDeg = function( radians ){
 	return radians / Math.PI * 180;
 };

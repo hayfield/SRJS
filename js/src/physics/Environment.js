@@ -147,6 +147,9 @@ SRJS.Physics.Environment.prototype.removePolygon = function( object ){
 	var p = 0;
 	while( p < this.polygons.length ){
 		if( this.polygons[p].object === object ){
+            if( this.polygons[p].object.marker instanceof SRJS.Marker ){
+                SRJS.RemoveMarker( this.polygons[p].object.marker.code );
+            }
 			this.polygons.splice( p, 1 );
 			return;
 		}
