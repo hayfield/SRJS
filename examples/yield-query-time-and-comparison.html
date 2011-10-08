@@ -21,14 +21,6 @@
 
 SRJS.Init();
 
-var initFunct = function(){
-	
-	// create a couple of variables to track the status of the timeout
-	robot.createProperty('timeoutFinished', false);
-	robot.createProperty('timeoutID', null);
-	
-};
-
 /*
 	1. Move forwards until either when the Range Finder has a value greater than 1 or after 3 seconds, whichever is first.
 	2. Move backwards for a second.
@@ -38,17 +30,10 @@ var mainFunct = function(){
 
 	robot.motor[0].target = 100;
 	robot.motor[1].target = 100;
-
-	// See: https://developer.mozilla.org/en/window.setTimeout for more info
-	robot.timeoutID = window.setTimeout(function(){
-		robot.timeoutFinished = true;
-	}, 3000);
-	robot.timeoutFinished = false;
 	
 	robot.Yield( new SRJS.Query( 'or',
 								['robot.io.rangeFinder[0].a', 'gt', 1],
-								['robot.timeoutFinished', 'eq', true] ), function(){
-		window.clearTimeout( robot.timeoutID ); // stop the timeout firing when we don't want it to
+								3 ), function(){
 		
 		robot.motor[0].target = -100;
 		robot.motor[1].target = -100;
@@ -58,7 +43,6 @@ var mainFunct = function(){
 };
 
 var args = {
-	initialise: initFunct,
 	main: mainFunct
 };
 
