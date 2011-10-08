@@ -203,7 +203,20 @@ robot.Yield( new SRJS.Query( 'or',
 ```
 The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `and`.
 
-Comparison and timeout queries cannot be directly combined in a single Yield, although it is possible to set variables to make it work. See examples/yield-query-time-and-comparison.html to see how this can be done.
+To use both a timeout and a comparison within a single query, pass the number of seconds to wait as a parameter.
+##### Python
+```python
+yield query.io[0].input[0].a > 1, query.timeout(3)
+# do things here
+```
+##### Javascript
+```javascript
+robot.Yield( new SRJS.Query( 'or',
+                            ['robot.io.rangeFinder[0].a', 'gt', 1],
+                            3 ), function(){
+    // do things here
+});
+```
 When an or query returns, you will have to manually work out which comparison returned true.
 
 ### Power ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/power/))
