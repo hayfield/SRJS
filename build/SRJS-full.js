@@ -1,4 +1,4 @@
-// REVISION: 3.1317975262.31
+// REVISION: 3.1318066177.94
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2398,7 +2398,9 @@ SRJS.Query = function( query ){
 	this.watchers = new Array();
 	this.callWatchers = function(){
 		this.args.forEach( function( element, index ){
-			this.watchers[index]( eval( element.prop ), index );
+            if( typeof element === 'object' ){
+                this.watchers[index]( eval( element.prop ), index );
+            }
 		}, this );
 	};
 	
@@ -2413,12 +2415,15 @@ SRJS.Query = function( query ){
 				};
 				element = obj;
 				arg[index] = obj;
-			}
-			this.setUpQuery( element, index );
+                this.setUpQuery( element, index );
+			} else if( typeof element === 'number' ){
+                this.setUpTimeout( element, index );
+            }
 		}, this);
 	};
 	
 	this.queryStatuses = new Array();
+	this.timeoutIDs = new Array();
 	
 	this.updateQueryStatus = function( index, value ){
 		this.queryStatuses[index] = value;
@@ -2433,8 +2438,14 @@ SRJS.Query = function( query ){
 	
 	this.unbindWatchers = function(){
 		this.args.forEach( function( element ){
-			SRJS.unwatch( element.prop );
+            if( typeof element === 'object' ){
+                SRJS.unwatch( element.prop );
+            }
 		}, this );
+        
+        this.timeoutIDs.forEach( function( ID ){
+            window.clearTimeout( ID );
+        }, this );
 	};
 	
 	this.andCheck = function(){
@@ -2454,6 +2465,15 @@ SRJS.Query = function( query ){
 		}
 		return false;
 	};
+    
+    this.setUpTimeout = function( time, index ){
+        this.queryStatuses[index] = false;
+        var timeoutID = window.setTimeout(function(){
+            this.updateQueryStatus( index, true );
+        }.bind( this ), time * 1000);
+        
+        this.timeoutIDs.push( timeoutID );
+    };
 	
 	this.setUpQuery = function( obj, index ){
 		// ensure that the parameters are valid
