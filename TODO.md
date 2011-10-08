@@ -42,7 +42,6 @@
 
 #### Query
 
-* Be able to combine both query and timeout events in a single yield without window.setTimeout() hacks
 * Make it possible to set a variable containing the results of the query - the first parameter to the callback.
 * See if the use of eval() can be reduced
 
