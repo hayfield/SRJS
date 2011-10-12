@@ -211,7 +211,18 @@ robot.wait_for( new SRJS.Query( 'or',
     // do things here
 });
 ```
-When an or query returns, you will have to manually work out which comparison returned true.
+When an or query returns, it will pass the current status of the tracked items as a parameter to the callback. If there are any timeouts, they will be represented as `undefined` within the array.
+```Javascript
+robot.motor[0].target = 100;
+robot.motor[1].target = 100;
+robot.wait_for( new SRJS.Query( 'or',
+                            ['robot.io.rangeFinder[0].a', 'gt', 1],
+                            3,
+                            ['robot.io.bumpSensor[0].d', 'eq', true]), function( status ){
+    console.log(status);
+    // Output (values may differ slightly): [1.0040160642570304, undefined, false]
+});
+```
 
 ### Power ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/power/))
 
