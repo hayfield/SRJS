@@ -19,6 +19,10 @@
 * Make robots push each other
 * Update the vision code to work like the new vision system when it arrives
 
+#### Documentation
+
+ * Check to see how query.timeout() is implemented in the Python API v5
+
 ## Less Important Things
  
 #### Triggers
