@@ -98,20 +98,14 @@ It is possible to set functions running in the background, independent of other 
 
 ##### Python
 ```python
-@coroutine
-def aCoroutine():
-	while True:
-		yield 1
-		print "I'm a Robot"
-# OR:
-def anotherCoroutine():
-	while True:
-		print "I'm a Coroutine"
-		yield 1
+import time, thread
 
-def main():
-	# To add another function as a coroutine:
-	add_coroutine(anotherCoroutine)
+def cheese():
+    while True:
+        time.sleep(1)
+        print "I'm a Robot"
+
+thread.start_new_thread(cheese,())
 ```
 ##### Javascript
 ```javascript
