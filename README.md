@@ -140,9 +140,9 @@ The syntax to yield for non-timeout events is noticeably different to Python.
 ##### Python
 ```python
 # Wait for digital input 3 on JointIO board 0 to become digital '1'
-yield query.io[0].input[0].d == 1
+sr.wait_for( R.io[0].input[0].query.d == 1 )
 # Wait for the reading of analogue input 3 on JointIO board 0 to exceed 1V
-yield query.io[0].input[1].a > 1
+sr.wait_for( R.io[0].input[1].query.a > 1 )
 print "done!"
 ```
 ##### Javascript
@@ -169,11 +169,11 @@ It is possible to combine a number of events in a single query and wait for one 
 ##### Python
 ```python
 # OR:
-yield query.io[0].input[0].a < 2, query.io[0].input[0].a > 3
+sr.wait_for( R.io[0].input[0].query.a < 2, R.io[0].input[0].query.a > 3 )
 # AND:
-yield (query.io[0].input[2].d == 1) & (query.io[0].input[3].d == 0)
+sr.wait_for( (R.io[0].input[2].query.d == 1) & (R.io[0].input[3].query.d == 0) )
 # alternatively:
-yield And( query.io[0].input[3].d == 1, query.io[0].input[2].d == 0 )
+sr.wait_for( And( R.io[0].input[3].query.d == 1, R.io[0].input[2].query.d == 0 ) )
 print "done!"
 ```
 ##### Javascript
