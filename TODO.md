@@ -22,7 +22,7 @@
 
 #### Documentation
 
- * Check to see how query.timeout() is implemented in the Python API v5
+* Check to see how query.timeout() is implemented in the Python API v5
 
 ## Less Important Things
  
