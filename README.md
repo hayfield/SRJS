@@ -130,7 +130,7 @@ yield query.timeout(3)
 ```
 ##### Javascript
 ```javascript
-robot.Yield( 3, function(){
+robot.wait_for( 3, function(){
 	// do other things here
 });
 ```
@@ -147,13 +147,13 @@ print "done!"
 ```
 ##### Javascript
 ```javascript
-robot.Yield( new SRJS.Query( ['robot.io.bumpSensor[0].d', 'eq', true] ), function(){
-	robot.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
+robot.wait_for( new SRJS.Query( ['robot.io.bumpSensor[0].d', 'eq', true] ), function(){
+	robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
 		console.log( 'done!' );
 	});
 });
 ```
-Queries are created by passing `new SRJS.Query()` as the first parameter for `robot.Yield()`. The query is then passed an array with three parameters:
+Queries are created by passing `new SRJS.Query()` as the first parameter for `robot.wait_for()`. The query is then passed an array with three parameters:
 
  1. A string containing the name of the variable to watch
  2. A string to define the type of comparison to perform. Can be one of the following:
@@ -179,16 +179,16 @@ print "done!"
 ##### Javascript
 ```javascript
 // OR:
-robot.Yield( new SRJS.Query( 'or',
+robot.wait_for( new SRJS.Query( 'or',
 							['robot.io.rangeFinder[0].a', 'lt', 2],
 							['robot.io.rangeFinder[0].a', 'gt', 3]
 			), function(){
 	// AND:
-	robot.Yield( new SRJS.Query( 'and',
+	robot.wait_for( new SRJS.Query( 'and',
 								['robot.io.bumpSensor[2].d', 'eq', true],
 								['robot.io.bumpSensor[3].d', 'eq', false] ), function(){
 		// alternatively:
-		robot.Yield( new SRJS.Query( ['robot.io.bumpSensor[3].d', 'eq', true],
+		robot.wait_for( new SRJS.Query( ['robot.io.bumpSensor[3].d', 'eq', true],
 								['robot.io.bumpSensor[2].d', 'eq', false] ), function(){
 			console.log( 'done!' );
 		});
@@ -205,7 +205,7 @@ yield query.io[0].input[0].a > 1, query.timeout(3)
 ```
 ##### Javascript
 ```javascript
-robot.Yield( new SRJS.Query( 'or',
+robot.wait_for( new SRJS.Query( 'or',
                             ['robot.io.rangeFinder[0].a', 'gt', 1],
                             3 ), function(){
     // do things here
