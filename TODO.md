@@ -13,6 +13,7 @@
 #### Robots
 
 * Add a specific section of the robot that picks things up rather than picking items up whether you drive straight forward into it or just clip it with the back corner
+* Pass the query callback the results of the query
 
 #### Features
 
