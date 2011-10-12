@@ -17,9 +17,11 @@ SRJS.Query = function( query ){
 	
 	this.watchers = new Array();
 	this.callWatchers = function(){
+        var objID = 0;
 		this.args.forEach( function( element, index ){
-            if( typeof element === 'object' ){
-                this.watchers[index]( eval( element.prop ), index );
+            if( typeof element === 'object' ){console.log(element, element.prop, index, eval( element.prop ));
+                this.watchers[objID]( eval( element.prop ), index );
+                objID++;
             }
 		}, this );
 	};
@@ -44,13 +46,27 @@ SRJS.Query = function( query ){
 	
 	this.queryStatuses = new Array();
 	this.timeoutIDs = new Array();
+    
+    this.parseValues = function( index, newval ){
+        var a = 0,
+            values = [];
+        while( a < this.args.length ){
+            values.push( eval(this.args[a].prop) );
+            a++;
+        }
+        if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){
+            values[index] = newval;
+        }
+        console.log(values);
+        return values;
+    };
 	
-	this.updateQueryStatus = function( index, value ){
+	this.updateQueryStatus = function( index, value, newval ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
 		if( valid ){
 			this.unbindWatchers();
-			this.callback();
+			this.callback( this.parseValues( index, newval ) );
 			return true;
 		}
 		return false;
@@ -119,9 +135,9 @@ SRJS.Query = function( query ){
 			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				unbound = this.updateQueryStatus( index, true );
+				unbound = this.updateQueryStatus( index, true, newval );
 			} else {
-				this.updateQueryStatus( index, false );
+				this.updateQueryStatus( index, false, newval );
 			}
 			return unbound;
 		}.bind( this );
