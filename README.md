@@ -31,15 +31,15 @@ robot.hitAWall = true; // change the value after initialisation
 
 ### Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
 
-Setting the speed of the motors is similar to in Python. The only difference is the statements needs to be prefixed by `robot.`.
+Setting the speed of the motors is similar to in Python.
 
  * `robot.motor[0]` is the left wheel
  * `robot.motor[1]` is the right wheel
 
 ##### Python
 ```python
-motor[0].target = 100
-motor[1].target = 100
+R.motor[0].target = 100
+R.motor[1].target = 100
 ```
 ##### Javascript
 ```javascript
@@ -56,9 +56,9 @@ In SRJS, `io` is not an array, so `[IO_BOARD_NUMBER]` is not required. There are
 ##### Python
 ```python
 # to read JointIO board 0's digital pin 0...
-pin0 = io[0].input[0].d
+pin0 = R.io[0].input[0].d
 # to read JointIO board 0's analogue pin 2...
-pin2 = io[0].input[2].a
+pin2 = R.io[0].input[2].a
 ```
 ##### Javascript
 ```javascript
