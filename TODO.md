@@ -24,6 +24,10 @@
 * Check to see how query.timeout() is implemented in the Python API v5
 
 ## Less Important Things
+
+#### Robot
+
+* Allow more than one parameter to be passed to the callback bound using robot.bindCallbackToRobot()
  
 #### Triggers
 
