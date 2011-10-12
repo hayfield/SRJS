@@ -75,6 +75,9 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 									seconds * 999 );
 		}
 	};
+    
+    this.wait_for = this.Yield;
+    this.waitFor = this.Yield;
 	
 	this.invokeRepeating = function( callback, initialDelay, repeatRate ){
 		if( callback && typeof callback === 'function' ){
