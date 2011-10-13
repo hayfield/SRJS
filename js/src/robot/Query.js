@@ -63,7 +63,7 @@ SRJS.Query = function( query ){
 	this.updateQueryStatus = function( index, value, newval ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
-		if( valid ){
+		if( valid && !this.unboundWatchers ){
 			this.unbindWatchers();
             console.log('validating', index, value, newval, this.args[0].prop);
 			this.callback( this.parseValues( index, newval ) );
@@ -83,7 +83,11 @@ SRJS.Query = function( query ){
             console.log('clearing timeout', ID);
             window.clearTimeout( ID );
         }, this );
+        
+        this.unboundWatchers = true;
 	};
+    
+    this.unboundWatchers = false;
 	
 	this.andCheck = function(){
 		var i = 0;
