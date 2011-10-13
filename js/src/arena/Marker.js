@@ -86,3 +86,9 @@ SRJS.Marker = function( parentObject, code ){
 	this.update();
 
 };
+
+SRJS.MARKER_ARENA = 0;
+SRJS.MARKER_ROBOT = 1;
+SRJS.MARKER_TOKEN = 2;
+SRJS.MARKER_BUCKET_SIDE = 3;
+SRJS.MARKER_BUCKET_END = 4;
