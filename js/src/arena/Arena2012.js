@@ -92,25 +92,25 @@ SRJS.Arena2012 = function(){
             marker = new SRJS.Trigger( 1, 25, 25,
                                     new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
                                   );
-            SRJS.CreateMarker( marker, i );
+            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // bottom
             marker = new SRJS.Trigger( 25, 25, 1,
                                     new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
                                   );
-            SRJS.CreateMarker( marker, i + 7 );
+            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // left
             marker = new SRJS.Trigger( 1, 25, 25,
                                     new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
                                   );
-            SRJS.CreateMarker( marker, i + 14 );
+            SRJS.CreateMarker( marker, i + 14, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // top
             marker = new SRJS.Trigger( 25, 25, 1,
                                     new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
                                   );
-            SRJS.CreateMarker( marker, i + 21 );
+            SRJS.CreateMarker( marker, i + 21, SRJS.MARKER_ARENA );
             scene.addObject( marker );
         }
         
@@ -128,7 +128,7 @@ SRJS.Arena2012 = function(){
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
-			SRJS.CreateMarker( box, 32 + i );
+			SRJS.CreateMarker( box, 32 + i, SRJS.MARKER_TOKEN );
 			scene.addObject( box );
 		}
 		
@@ -144,7 +144,7 @@ SRJS.Arena2012 = function(){
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
-			SRJS.CreateMarker( bucket, 72 + i );
+			SRJS.CreateMarker( bucket, 72 + i, SRJS.MARKER_BUCKET );
 			scene.addObject( bucket );
 		}
 		

@@ -20,8 +20,8 @@ SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
 	}
 };
 
-SRJS.CreateMarker = function( object, code ){
-	var marker = new SRJS.Marker( object, code );
+SRJS.CreateMarker = function( object, code, type ){
+	var marker = new SRJS.Marker( object, code, type );
 	object.marker = marker;
 	SRJS.markers.push( marker );
 };

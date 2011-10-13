@@ -1,7 +1,8 @@
-SRJS.Marker = function( parentObject, code ){
+SRJS.Marker = function( parentObject, code, type ){
 	
 	this.object = parentObject;
 	this.code = code || 'Something important';
+    this.type = type || SRJS.MARKER_UNDEFINED;
 	
 	this.centre = {};
 	
@@ -87,8 +88,10 @@ SRJS.Marker = function( parentObject, code ){
 
 };
 
+SRJS.MARKER_UNDEFINED = -1;
 SRJS.MARKER_ARENA = 0;
 SRJS.MARKER_ROBOT = 1;
 SRJS.MARKER_TOKEN = 2;
-SRJS.MARKER_BUCKET_SIDE = 3;
-SRJS.MARKER_BUCKET_END = 4;
+SRJS.MARKER_BUCKET = 3;
+SRJS.MARKER_BUCKET_SIDE = SRJS.MARKER_BUCKET;
+SRJS.MARKER_BUCKET_END = SRJS.MARKER_BUCKET;
