@@ -65,6 +65,7 @@ SRJS.Query = function( query ){
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
 		if( valid ){
 			this.unbindWatchers();
+            console.log('validating', index, value, newval, this.args[0].prop);
 			this.callback( this.parseValues( index, newval ) );
 			return true;
 		}
@@ -79,6 +80,7 @@ SRJS.Query = function( query ){
 		}, this );
         
         this.timeoutIDs.forEach( function( ID ){
+            console.log('clearing timeout', ID);
             window.clearTimeout( ID );
         }, this );
 	};
@@ -134,6 +136,7 @@ SRJS.Query = function( query ){
 			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
+                console.log('if eval');
 				unbound = this.updateQueryStatus( index, true, newval );
 			} else {
 				this.updateQueryStatus( index, false, newval );
@@ -155,6 +158,7 @@ SRJS.Query = function( query ){
 			*/
 			if( unbound ){
 				this[id] = newval;
+                console.log('unbounded');
 			}
 			return newval;
 		};

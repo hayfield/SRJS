@@ -28,6 +28,7 @@
 #### Robot
 
 * Allow more than one parameter to be passed to the callback bound using robot.bindCallbackToRobot()
+    * Stop the callback being called twice in this situation
  
 #### Triggers
 
