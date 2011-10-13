@@ -19,7 +19,7 @@ SRJS.Query = function( query ){
 	this.callWatchers = function(){
         var objID = 0;
 		this.args.forEach( function( element, index ){
-            if( typeof element === 'object' ){console.log(element, element.prop, index, eval( element.prop ));
+            if( typeof element === 'object' ){
                 this.watchers[objID]( eval( element.prop ), index );
                 objID++;
             }
@@ -57,7 +57,6 @@ SRJS.Query = function( query ){
         if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){
             values[index] = newval;
         }
-        console.log(values);
         return values;
     };
 	
