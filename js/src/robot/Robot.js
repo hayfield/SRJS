@@ -46,12 +46,10 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.bindCallbackToRobot = function( callback ){
 		// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
 		var boundCallback = function(){
-			var boundCallback = callback.bind( this );
 			// Since we don't know when the callback will be called, we'll need to reassign
 			// robot so that it's referring to the correct thing
 			robot = this;
-            //callback.apply( this, arguments );
-            arguments.length === 0 ? boundCallback() : boundCallback( arguments[0] );
+            callback.apply( this, arguments );
 		}.bind( this );
 		
 		return boundCallback;
