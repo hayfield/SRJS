@@ -50,7 +50,6 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			// Since we don't know when the callback will be called, we'll need to reassign
 			// robot so that it's referring to the correct thing
 			robot = this;
-            console.log('calling bound');
             //callback.apply( this, arguments );
             arguments.length === 0 ? boundCallback() : boundCallback( arguments[0] );
 		}.bind( this );
@@ -65,9 +64,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 			
 			seconds.callback = typeof callback === 'function' ? function( status ){
 				this._continueTime = Date.now();
-                console.log('cont');
 				var boundCallback = this.bindCallbackToRobot( callback );
-                console.log('cont2');
 				boundCallback( status );
 			}.bind( this ) : function(){ this._continueTime = Date.now(); }.bind( this );
 			seconds.callWatchers();
