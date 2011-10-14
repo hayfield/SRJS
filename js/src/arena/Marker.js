@@ -4,8 +4,11 @@ SRJS.Marker = function( parentObject, code, type ){
 	
     this.info = new SRJS.MarkerInfo( code, type );
 	this.centre = {};
+    
+    this.timestamp = Date.now();
 	
 	this.update = function( source ){
+        this.timestamp = Date.now();
 		this.centre.world = this.object.position;
 		this.rotation = this._updateRotation();
 		this.bearing = this._updateBearing( source );
