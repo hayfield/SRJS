@@ -47,7 +47,7 @@ SRJS.Marker = function( parentObject, code, type ){
 		if( markerIsOnLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
 			angle = Math.PI * 2 - angle; // change it to be a bearing
 		}
-		return new SRJS.Vector2( SRJS.radToDeg(angle), 0 );
+		return new SRJS.Vector2( 0, SRJS.radToDeg(angle) );
 	};
 	
 	this._updateDistance = function( source ){
