@@ -9,11 +9,12 @@ SRJS.Marker = function( parentObject, code, type ){
 	
 	this.update = function( source ){
         this.timestamp = Date.now();
-		this.centre.world._update( this.object.position );
 		this.rotation = this._updateRotation();
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image._update( this._updateImagePosition( source ) );
+        this.centre.world._update( this.object.position );
+        this.centre.polar._update( this.distance, this.bearing );
 		
 		return this;
 	};
@@ -79,7 +80,7 @@ SRJS.Marker = function( parentObject, code, type ){
 	
 	this.print = function(){
 		console.log( 'code:', this.info.code );
-        console.log( 'centre:', this.centre );
+        console.log( 'centre:', this.centre, this.centre.polar, this.centre.polar.length );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
 		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
@@ -152,5 +153,17 @@ SRJS.MarkerPolarPoint = function(){
     this.length = null;
     this.rot_x = null;
     this.rot_y = null;
+    
+    this._update = function( length, rotation ){
+        if( length instanceof SRJS.Vector2 ){
+            this.length = length.length();
+        } else {
+            this.length = length;
+        }
+        if( rotation instanceof SRJS.Vector2 ){
+            this.rot_x = rotation.x;
+            this.rot_y = rotation.y;
+        }
+    };
     
 };
