@@ -42,7 +42,7 @@ SRJS.Arena = function( args ){
 		document.body.appendChild( this.container );
 		
 		this.camera = new THREE.QuakeCamera({
-            fov: 50,
+            fov: SRJS.fov,
             aspect: window.innerWidth / window.innerHeight,
             near: 1,
             far: 20000,

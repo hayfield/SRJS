@@ -6,3 +6,4 @@ SRJS.displayStats = true;
 SRJS.robotVision = false;
 SRJS.bumpSensorsPerRobot = 16;
 SRJS.rangeFindersPerRobot = 4;
+SRJS.fov = 50;
