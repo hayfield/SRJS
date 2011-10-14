@@ -1,4 +1,4 @@
-// REVISION: 3.1318066177.94
+// REVISION: 4.1318621876.16
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -792,6 +792,7 @@ SRJS.displayStats = true;
 SRJS.robotVision = false;
 SRJS.bumpSensorsPerRobot = 16;
 SRJS.rangeFindersPerRobot = 4;
+SRJS.fov = 50;
 
 // FILE: core/Utils.js
 SRJS.isZero = function( value ){
@@ -816,8 +817,8 @@ SRJS.invokeRepeating = function( callback, initialDelay, repeatRate ){
 	}
 };
 
-SRJS.CreateMarker = function( object, code ){
-	var marker = new SRJS.Marker( object, code );
+SRJS.CreateMarker = function( object, code, type ){
+	var marker = new SRJS.Marker( object, code, type );
 	object.marker = marker;
 	SRJS.markers.push( marker );
 };
@@ -1724,11 +1725,18 @@ SRJS.Arena = function( args ){
 		document.body.appendChild( this.container );
 		
 		this.camera = new THREE.QuakeCamera({
-			fov: 50, aspect: window.innerWidth / window.innerHeight,
-			near: 1, far: 20000,
-			constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
-			movementSpeed: 1000, lookSpeed: 0.125,
-			noFly: false, lookVertical: true, autoForward: false
+            fov: SRJS.fov,
+            aspect: window.innerWidth / window.innerHeight,
+            near: 1,
+            far: 20000,
+            constrainVertical: true,
+            verticalMin: 1.1,
+            verticalMax: 2.2,
+            movementSpeed: 1000,
+            lookSpeed: 0.125,
+            noFly: false,
+            lookVertical: true,
+            autoForward: false
 		});
 		this.camera.position.y = 100;
 		
@@ -1801,7 +1809,7 @@ SRJS.Arena.prototype.addRobot = function( robot ){
 	this.robots[this.robots.length - 1].ID = this.robots.length;
 	
 	this.scene.addObject( this.robots[this.robots.length - 1] );
-    SRJS.CreateMarker( this.robots[this.robots.length - 1], 28 + (this.robots.length - 1) );
+    SRJS.CreateMarker( this.robots[this.robots.length - 1], 28 + (this.robots.length - 1), SRJS.MARKER_ROBOT );
 	
 };
 
@@ -2111,25 +2119,25 @@ SRJS.Arena2012 = function(){
             marker = new SRJS.Trigger( 1, 25, 25,
                                     new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
                                   );
-            SRJS.CreateMarker( marker, i );
+            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // bottom
             marker = new SRJS.Trigger( 25, 25, 1,
                                     new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
                                   );
-            SRJS.CreateMarker( marker, i + 7 );
+            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // left
             marker = new SRJS.Trigger( 1, 25, 25,
                                     new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
                                   );
-            SRJS.CreateMarker( marker, i + 14 );
+            SRJS.CreateMarker( marker, i + 14, SRJS.MARKER_ARENA );
             scene.addObject( marker );
             // top
             marker = new SRJS.Trigger( 25, 25, 1,
                                     new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
                                   );
-            SRJS.CreateMarker( marker, i + 21 );
+            SRJS.CreateMarker( marker, i + 21, SRJS.MARKER_ARENA );
             scene.addObject( marker );
         }
         
@@ -2147,7 +2155,7 @@ SRJS.Arena2012 = function(){
 								new THREE.Vector3( 0, 0, 0 ),
 								boxAction
 								);
-			SRJS.CreateMarker( box, 32 + i );
+			SRJS.CreateMarker( box, 32 + i, SRJS.MARKER_TOKEN );
 			scene.addObject( box );
 		}
 		
@@ -2163,7 +2171,7 @@ SRJS.Arena2012 = function(){
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
-			SRJS.CreateMarker( bucket, 72 + i );
+			SRJS.CreateMarker( bucket, 72 + i, SRJS.MARKER_BUCKET );
 			scene.addObject( bucket );
 		}
 		
@@ -2288,24 +2296,29 @@ SRJS.Pushable.prototype = new SRJS.Wall();
 SRJS.Pushable.prototype.constructor = SRJS.Pushable;
 
 // FILE: arena/Marker.js
-SRJS.Marker = function( parentObject, code ){
-	
+SRJS.Marker = function( parentObject, code, type ){
+    
 	this.object = parentObject;
-	this.code = code || 'Something important';
 	
-	this.centre = {};
+    this.info = new SRJS.MarkerInfo( code, type );
+	this.centre = new SRJS.MarkerPoint();
+    this.orientation = new SRJS.MarkerOrientation();
+    this.res = new SRJS.Vector2(0, 0);
+    
+    this.timestamp = Date.now();
 	
-	this.update = function( source ){
-		this.centre.world = this.object.position;
-		this.rotation = this._updateRotation();
-		this.bearing = this._updateBearing( source );
-		this.distance = this._updateDistance( source );
-		this.centre.image = this._updateImagePosition( source );
+	this.update = function( source, width, height ){
+        this.timestamp = Date.now();
+		this.orientation._update( this._updateOrientation() );
+		this.centre.image._update( this._updateImagePosition( source, width, height ) );
+        this.centre.world._update( this.object.position );
+        this.centre.polar._update( this._updateDistance( source ), this._updateBearing( source ) );
+        this.res = new SRJS.Vector2(width, height);
 		
 		return this;
 	};
 	
-	this._updateRotation = function(){
+	this._updateOrientation = function(){
 		return new THREE.Vector3( SRJS.radToDeg(this.object.rotation.x), SRJS.radToDeg(this.object.rotation.y), SRJS.radToDeg(this.object.rotation.z) );
 	};
 	
@@ -2332,7 +2345,7 @@ SRJS.Marker = function( parentObject, code ){
 		if( markerIsOnLeft( sourcePosition, sourcePosition.add( up ), objectPosition ) ){
 			angle = Math.PI * 2 - angle; // change it to be a bearing
 		}
-		return new SRJS.Vector2( SRJS.radToDeg(angle), 0 );
+		return new SRJS.Vector2( 0, SRJS.radToDeg(angle) );
 	};
 	
 	this._updateDistance = function( source ){
@@ -2343,38 +2356,172 @@ SRJS.Marker = function( parentObject, code ){
 		return new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z ).length();
 	};
 	
-	this._updateImagePosition = function( source ){
+	this._updateImagePosition = function( source, width, height ){
 		if( !( source instanceof SRJS.Robot ) ){
 			return false;
 		}
 		
-		return this.toRendererXY( this.object.position, source.camera );
+		return this._toRendererXY( this.object.position, source.camera, width, height );
 	};
 	
 	// https://github.com/mrdoob/three.js/issues/78
-	this.toRendererXY = function( position, cameraToUse ){
+	this._toRendererXY = function( position, cameraToUse, width, height ){
 
 		var pos = position.clone(),
 			projScreenMat = new THREE.Matrix4();
 		projScreenMat.multiply( cameraToUse.projectionMatrix, cameraToUse.matrixWorldInverse );
 		projScreenMat.multiplyVector3( pos );
 
-		return new SRJS.Vector2( ( pos.x + 1 ) * SRJS.rendererDimension / 2,
-			 ( - pos.y + 1 ) * SRJS.rendererDimension / 2 );
+		return new SRJS.Vector2( ( pos.x + 1 ) * width / 2,
+			 ( - pos.y + 1 ) * height / 2 );
 
 	};
 	
 	this.print = function(){
-		console.log( 'code:', this.code );
+		console.log( 'code:', this.info.code );
+        console.log( 'centre:', this.centre, this.centre.polar, this.centre.polar.length );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
-		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
-		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') deg' );
-		console.log( 'distance (world):', this.distance, 'cm' );
+		console.log( 'orientation (world): (', this.orientation.rot_x, ',', this.orientation.rot_y, ',', this.orientation.rot_z, ') deg' );
+		console.log( 'centre (polar): (', this.centre.polar.rot_x, ',', this.centre.polar.rot_y, ') deg' );
+		console.log( 'distance (polar):', this.centre.polar.length, 'cm' );
 	};
 	
+    Object.defineProperty(this, 'dist', {
+        get: function(){
+            return this.centre.polar.length;
+        }
+    });
+    
+    Object.defineProperty(this, 'rot_y', {
+        get: function(){
+            return this.centre.polar.rot_y;
+        }
+    });
+    
 	this.update();
 
+};
+
+SRJS.MARKER_UNDEFINED = -1;
+SRJS.MARKER_ARENA = 0;
+SRJS.MARKER_ROBOT = 1;
+SRJS.MARKER_TOKEN = 2;
+SRJS.MARKER_BUCKET = 3;
+SRJS.MARKER_BUCKET_SIDE = SRJS.MARKER_BUCKET;
+SRJS.MARKER_BUCKET_END = SRJS.MARKER_BUCKET;
+
+SRJS.MarkerInfo = function( code, type ){
+    
+    this.code = typeof code === 'number' ? code : 'Something important';
+    this.type = typeof type === 'number' ? type : SRJS.MARKER_UNDEFINED;
+    
+    this._getOffset = function(){
+        var start = -1;
+        if( typeof this.code !== 'number' ){
+            return start;
+        }
+        if( this.type === SRJS.MARKER_ARENA ){
+            start = 0;
+        } else if( this.type === SRJS.MARKER_ROBOT ){
+            start = 28;
+        } else if( this.type === SRJS.MARKER_TOKEN ){
+            start = 32;
+        } else if( this.type === SRJS.MARKER_BUCKET ){
+            start = 72;
+        }
+        return this.code - start;
+    };
+    Object.defineProperty(this, 'offset', {
+        get: this._getOffset
+    });
+    
+    this._getSize = function(){
+        if( this.type === SRJS.MARKER_ARENA ){
+            return 0.25;
+        } else if( this.type === SRJS.MARKER_ROBOT ||
+                    this.type === SRJS.MARKER_TOKEN ||
+                    this.type === SRJS.MARKER_BUCKET ){
+            return 0.1;
+        }
+        return 0;
+    };
+    Object.defineProperty(this, 'size', {
+        get: this._getSize
+    });
+    
+};
+
+SRJS.MarkerOrientation = function(){
+    this.rot_x = null;
+    this.rot_y = null;
+    this.rot_z = null;
+    
+    this._update = function( newOrientation ){
+        if( newOrientation instanceof THREE.Vector3 ){
+            this.rot_x = newOrientation.x;
+            this.rot_y = newOrientation.y;
+            this.rot_z = newOrientation.z;
+        }
+    };
+};
+
+SRJS.MarkerPoint = function(){
+    
+    this.image = new SRJS.MarkerImagePoint();
+    this.world = new SRJS.MarkerWorldPoint();
+    this.polar = new SRJS.MarkerPolarPoint();
+    
+};
+
+SRJS.MarkerImagePoint = function(){
+    
+    this.x = null;
+    this.y = null;
+    
+    this._update = function( newPosition ){
+        if( newPosition instanceof SRJS.Vector2 ){
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+        }
+    };
+    
+};
+
+SRJS.MarkerWorldPoint = function(){
+    
+    this.x = null;
+    this.y = null;
+    this.z = null;
+    
+    this._update = function( newPosition ){
+        if( newPosition instanceof THREE.Vector3 ){
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+            this.z = newPosition.z;
+        }
+    };
+    
+};
+
+SRJS.MarkerPolarPoint = function(){
+    
+    this.length = null;
+    this.rot_x = null;
+    this.rot_y = null;
+    
+    this._update = function( length, rotation ){
+        if( length instanceof SRJS.Vector2 ){
+            this.length = length.length();
+        } else {
+            this.length = length;
+        }
+        if( rotation instanceof SRJS.Vector2 ){
+            this.rot_x = rotation.x;
+            this.rot_y = rotation.y;
+        }
+    };
+    
 };
 
 // FILE: robot/Query.js
@@ -2397,9 +2544,11 @@ SRJS.Query = function( query ){
 	
 	this.watchers = new Array();
 	this.callWatchers = function(){
+        var objID = 0;
 		this.args.forEach( function( element, index ){
             if( typeof element === 'object' ){
-                this.watchers[index]( eval( element.prop ), index );
+                this.watchers[objID]( eval( element.prop ), index );
+                objID++;
             }
 		}, this );
 	};
@@ -2424,13 +2573,26 @@ SRJS.Query = function( query ){
 	
 	this.queryStatuses = new Array();
 	this.timeoutIDs = new Array();
+    
+    this.parseValues = function( index, newval ){
+        var a = 0,
+            values = [];
+        while( a < this.args.length ){
+            values.push( eval(this.args[a].prop) );
+            a++;
+        }
+        if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){
+            values[index] = newval;
+        }
+        return values;
+    };
 	
-	this.updateQueryStatus = function( index, value ){
+	this.updateQueryStatus = function( index, value, newval ){
 		this.queryStatuses[index] = value;
 		var valid = this.queryType === 'and' ? this.andCheck() : this.orCheck();
-		if( valid ){
+		if( valid && !this.unboundWatchers ){
 			this.unbindWatchers();
-			this.callback();
+			this.callback( this.parseValues( index, newval ) );
 			return true;
 		}
 		return false;
@@ -2446,7 +2608,11 @@ SRJS.Query = function( query ){
         this.timeoutIDs.forEach( function( ID ){
             window.clearTimeout( ID );
         }, this );
+        
+        this.unboundWatchers = true;
 	};
+    
+    this.unboundWatchers = false;
 	
 	this.andCheck = function(){
 		var i = 0;
@@ -2499,9 +2665,9 @@ SRJS.Query = function( query ){
 			var unbound = false;
 			// is there a DRY way to do this without using eval()? function re-writing?
 			if( eval( newval + comparison + obj.val ) ){
-				unbound = this.updateQueryStatus( index, true );
+				unbound = this.updateQueryStatus( index, true, newval );
 			} else {
-				this.updateQueryStatus( index, false );
+				this.updateQueryStatus( index, false, newval );
 			}
 			return unbound;
 		}.bind( this );
@@ -2575,15 +2741,15 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.motor = new Array();
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
+    this.motors = this.motor;
 	
 	this.bindCallbackToRobot = function( callback ){
 		// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
 		var boundCallback = function(){
-			var boundCallback = callback.bind( this );
 			// Since we don't know when the callback will be called, we'll need to reassign
 			// robot so that it's referring to the correct thing
 			robot = this;
-			boundCallback();
+            callback.apply( this, arguments );
 		}.bind( this );
 		
 		return boundCallback;
@@ -2594,10 +2760,10 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		if( seconds instanceof SRJS.Query ){
 			this._continueTime = Number.MAX_VALUE;
 			
-			seconds.callback = typeof callback === 'function' ? function(){
+			seconds.callback = typeof callback === 'function' ? function( status ){
 				this._continueTime = Date.now();
 				var boundCallback = this.bindCallbackToRobot( callback );
-				boundCallback();
+				boundCallback( status );
 			}.bind( this ) : function(){ this._continueTime = Date.now(); }.bind( this );
 			seconds.callWatchers();
 		} else {
@@ -2608,6 +2774,9 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 									seconds * 999 );
 		}
 	};
+    
+    this.wait_for = this.Yield;
+    this.waitFor = this.Yield;
 	
 	this.invokeRepeating = function( callback, initialDelay, repeatRate ){
 		if( callback && typeof callback === 'function' ){
@@ -2632,6 +2801,11 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	};
 	
 	this.vision = SRJS.Vision( this );
+    this.see = function( width, height ){
+        if( typeof this.vision.see === 'function' ){
+            return this.vision.see( width, height );
+        }
+    };
 	
 	this.gameScore = 0;
 	this.gameSettings = {};
@@ -3216,23 +3390,25 @@ SRJS.VisionV2 = function( object ){
 	};
 	
 	this.printMarker = this.print_marker;
-	
-	this.grab_frame_get_markers = function(){
-		var markers = new Array(),
+    
+    this.see = function( width, height ){
+        var markers = new Array(),
 			i = 0,
 			marker;
-		while( i < SRJS.markers.length ){
-			marker = SRJS.markers[i].update( this.object );
-			if( marker.bearing.x < this.object.camera.fov / 2 || marker.bearing.x > 360 - this.object.camera.fov / 2){
+        
+        width = width || 800;
+        height = height || 600;
+        
+        while( i < SRJS.markers.length ){
+			marker = SRJS.markers[i].update( this.object, width, height );
+			if( marker.centre.polar.rot_x < this.object.camera.fov / 2 || marker.centre.polar.rot_x > 360 - this.object.camera.fov / 2){
 				markers.push( marker );
 			}
 			i++;
 		}
 		
 		return markers;
-	};
-	
-	this.grabFrameGetMarkers = this.grab_frame_get_markers;
+    };
 	
 };
 
