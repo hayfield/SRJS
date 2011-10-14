@@ -26,6 +26,7 @@
 #### Markers
 
 * Add code for offset and size for MarkerInfo
+* Add a Marker.vertices[] property
 
 ## Less Important Things
  
