@@ -61,11 +61,11 @@ SRJS.Marker = function( parentObject, code, type ){
 			return false;
 		}
 		
-		return this.toRendererXY( this.object.position, source.camera, width, height );
+		return this._toRendererXY( this.object.position, source.camera, width, height );
 	};
 	
 	// https://github.com/mrdoob/three.js/issues/78
-	this.toRendererXY = function( position, cameraToUse, width, height ){
+	this._toRendererXY = function( position, cameraToUse, width, height ){
 
 		var pos = position.clone(),
 			projScreenMat = new THREE.Matrix4();
