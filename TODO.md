@@ -33,6 +33,10 @@
 * Add a `Marker.vertices[]` property
 
 ## Less Important Things
+
+#### Examples
+
+* Motor Control - uses `yield query.timeout()` in Python examples
  
 #### Triggers
 
