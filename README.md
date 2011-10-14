@@ -70,26 +70,32 @@ var pin2 = robot.io.rangeFinder[0].a;
 
 ### Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
 
-**This section describes the blob-based vision system (VisionV1). The marker-based vision system (VisionV2) works differently and will be described here once it is 'complete'. Until then, see js/src/vision/VisionV2.js and js/src/arena/Marker.js**
+You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;`. Enabling vision will cause the framerate to drop.
 
-You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;` Enabling vision will cause the framerate to drop significantly.
+In SRJS, markers are attached to the centre of objects. This means that if there is a 50x50x50cm robot with a marker on it, the position of the marker is judged as being at the centre of the robot rather than on one of its sides. It also means that markers to not have a `vertices[]` property.
+
+To compare the type of marker that is visible, the type name needs to be prefixed by `SRJS`, so `MARKER_ROBOT` in Python becomes `SRJS.MARKER_ROBOT` in SRJS.
 
 ##### Python
 ```python
-ev = yield vision
-if ev.was(vision):
-	for blob in ev.vision.blobs:
-		if blob.colour == RED:
-		print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
+markers = R.see()
+for marker in markers:
+    if marker.dist < 50:
+        print "A marker is close to the robot!"
+    if marker.info.type == MARKER_ROBOT:
+        print "I spy a robot"
 ```
 ##### Javascript
 ```javascript
-var vision = robot.vision;
-vision.blobs.forEach(function( blob ){
-	if( blob.colour === SRJS.RED ){
-		console.log( 'Found red blob at', blob.x, ',', blob.y );
-	}
-}, robot);
+var markers = robot.see();
+markers.forEach(function(marker){
+    if( marker.dist < 50 ){
+        console.log( 'A marker is close to the robot!' );
+    }
+    if( marker.info.type === SRJS.MARKER_ROBOT ){
+        console.log( 'I spy a robot' );
+    }
+});
 ```
 
 ### Coroutines ([Python Docs](https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines))
@@ -231,3 +237,27 @@ Not available in SRJS.
 ### Pwm ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/pwm/))
 
 Not available in SRJS.
+
+### Blob-based Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
+
+**This section describes the blob-based vision system (VisionV1). The marker-based vision system (VisionV2) works differently and is described above**
+
+You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;`. Enabling vision will cause the framerate to drop significantly.
+
+##### Python
+```python
+ev = yield vision
+if ev.was(vision):
+	for blob in ev.vision.blobs:
+		if blob.colour == RED:
+		print "Found red blob at " + str(blob.x) + ", " + str(blob.y)
+```
+##### Javascript
+```javascript
+var vision = robot.vision;
+vision.blobs.forEach(function( blob ){
+	if( blob.colour === SRJS.RED ){
+		console.log( 'Found red blob at', blob.x, ',', blob.y );
+	}
+}, robot);
+```
