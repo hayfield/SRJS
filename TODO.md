@@ -40,6 +40,7 @@
 * Motor Control - uses `yield query.timeout()` in Python examples
 * Vision - demonstrates V1 code
 * Yield Query and Timeout - uses `yield` and `query.timeout()`
+* Yield Simple - uses `yield query.timeout()` in Python examples
  
 #### Triggers
 
