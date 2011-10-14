@@ -38,6 +38,7 @@
 
 * Coroutine - still old Python code
 * Motor Control - uses `yield query.timeout()` in Python examples
+* Vision - demonstrates V1 code
  
 #### Triggers
 
