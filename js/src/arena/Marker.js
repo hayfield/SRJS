@@ -9,7 +9,7 @@ SRJS.Marker = function( parentObject, code, type ){
 	
 	this.update = function( source ){
         this.timestamp = Date.now();
-		this.rotation = this._updateRotation();
+		this.orientation = this._updateOrientation();
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
 		this.centre.image._update( this._updateImagePosition( source ) );
@@ -19,7 +19,7 @@ SRJS.Marker = function( parentObject, code, type ){
 		return this;
 	};
 	
-	this._updateRotation = function(){
+	this._updateOrientation = function(){
 		return new THREE.Vector3( SRJS.radToDeg(this.object.rotation.x), SRJS.radToDeg(this.object.rotation.y), SRJS.radToDeg(this.object.rotation.z) );
 	};
 	
@@ -83,7 +83,7 @@ SRJS.Marker = function( parentObject, code, type ){
         console.log( 'centre:', this.centre, this.centre.polar, this.centre.polar.length );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
-		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
+		console.log( 'orientation (world): (', this.orientation.x, ',', this.orientation.y, ',', this.orientation.z, ') deg' );
 		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') deg' );
 		console.log( 'distance (world):', this.distance, 'cm' );
 	};
