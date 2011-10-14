@@ -72,7 +72,7 @@ var pin2 = robot.io.rangeFinder[0].a;
 
 You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;`. Enabling vision will cause the framerate to drop.
 
-In SRJS, markers are attached to the centre of objects. This means that if there is a 50x50x50cm robot with a marker on it, the position of the marker is judged as being at the centre of the robot rather than on one of its sides. It also means that markers to not have a `vertices[]` property.
+In SRJS, markers are attached to the centre of objects. This means that if there is a 50x50x50cm robot with a marker on it, the position of the marker is judged as being at the centre of the robot rather than on one of its sides. It also means that markers to not have a `vertices[]` property. In addition, buckets only have a single type of marker attached, `SRJS.MARKER_BUCKET`, rather than different markers for the ends and sides of the bucket.
 
 To compare the type of marker that is visible, the type name needs to be prefixed by `SRJS`, so `MARKER_ROBOT` in Python becomes `SRJS.MARKER_ROBOT` in SRJS.
 
