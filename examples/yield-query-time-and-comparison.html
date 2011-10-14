@@ -12,11 +12,11 @@
 // See https://www.studentrobotics.org/docs/programming/sr/query/
 // Port of the following code:
 // while True:
-//     motor[0].target = 100
-//     motor[1].target = 100
+//     R.motors[0].target = 100
+//     R.motors[1].target = 100
 //     yield query.io[0].input[0].a > 1, query.timeout(3)
-//     motor[0].target = -100
-//     motor[1].target = -100
+//     R.motors[0].target = -100
+//     R.motors[1].target = -100
 //     yield query.timeout(1)
 
 SRJS.Init();
@@ -28,16 +28,16 @@ SRJS.Init();
 */
 var mainFunct = function(){
 
-	robot.motor[0].target = 100;
-	robot.motor[1].target = 100;
+	robot.motors[0].target = 100;
+	robot.motors[1].target = 100;
 	
-	robot.Yield( new SRJS.Query( 'or',
+	robot.wait_for( new SRJS.Query( 'or',
 								['robot.io.rangeFinder[0].a', 'gt', 1],
 								3 ), function(){
 		
-		robot.motor[0].target = -100;
-		robot.motor[1].target = -100;
-		robot.Yield( 1 );
+		robot.motors[0].target = -100;
+		robot.motors[1].target = -100;
+		robot.wait_for( 1 );
 	});
 	
 };

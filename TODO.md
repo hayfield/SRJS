@@ -39,6 +39,7 @@
 * Coroutine - still old Python code
 * Motor Control - uses `yield query.timeout()` in Python examples
 * Vision - demonstrates V1 code
+* Yield Query and Timeout - uses `yield` and `query.timeout()`
  
 #### Triggers
 
