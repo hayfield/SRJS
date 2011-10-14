@@ -115,8 +115,8 @@ SRJS.MARKER_BUCKET_END = SRJS.MARKER_BUCKET;
 
 SRJS.MarkerInfo = function( code, type ){
     
-    this.code = code || 'Something important';
-    this.type = type || SRJS.MARKER_UNDEFINED;
+    this.code = typeof code === 'number' ? code : 'Something important';
+    this.type = typeof type === 'number' ? type : SRJS.MARKER_UNDEFINED;
     
     this._getOffset = function(){
         var start = -1;
@@ -135,7 +135,7 @@ SRJS.MarkerInfo = function( code, type ){
         return this.code - start;
     };
     Object.defineProperty(this, 'offset', {
-        get: this._getOffset();
+        get: this._getOffset
     });
     
     this._getSize = function(){
@@ -149,7 +149,7 @@ SRJS.MarkerInfo = function( code, type ){
         return 0;
     };
     Object.defineProperty(this, 'size', {
-        get: this._getSize();
+        get: this._getSize
     });
     
 };
