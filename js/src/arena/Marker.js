@@ -11,11 +11,9 @@ SRJS.Marker = function( parentObject, code, type ){
 	this.update = function( source, width, height ){
         this.timestamp = Date.now();
 		this.orientation._update( this._updateOrientation() );
-		this.bearing = this._updateBearing( source );
-		this.distance = this._updateDistance( source );
 		this.centre.image._update( this._updateImagePosition( source, width, height ) );
         this.centre.world._update( this.object.position );
-        this.centre.polar._update( this.distance, this.bearing );
+        this.centre.polar._update( this._updateDistance( source ), this._updateBearing( source ) );
 		
 		return this;
 	};
@@ -85,8 +83,8 @@ SRJS.Marker = function( parentObject, code, type ){
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
 		console.log( 'orientation (world): (', this.orientation.rot_x, ',', this.orientation.rot_y, ',', this.orientation.rot_z, ') deg' );
-		console.log( 'bearing (world): (', this.bearing.x, ',', this.bearing.y, ') deg' );
-		console.log( 'distance (world):', this.distance, 'cm' );
+		console.log( 'centre (polar): (', this.centre.polar.rot_x, ',', this.centre.polar.rot_y, ') deg' );
+		console.log( 'distance (polar):', this.centre.polar.length, 'cm' );
 	};
 	
 	this.update();
