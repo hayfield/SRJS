@@ -23,6 +23,10 @@
 
 * Check to see how query.timeout() is implemented in the Python API v5
 
+#### Markers
+
+* Add code for offset and size for MarkerInfo
+
 ## Less Important Things
  
 #### Triggers

@@ -1,9 +1,8 @@
 SRJS.Marker = function( parentObject, code, type ){
-	
+    
 	this.object = parentObject;
-	this.code = code || 'Something important';
-    this.type = type || SRJS.MARKER_UNDEFINED;
 	
+    this.info = new SRJS.MarkerInfo( code, type );
 	this.centre = {};
 	
 	this.update = function( source ){
@@ -76,7 +75,7 @@ SRJS.Marker = function( parentObject, code, type ){
 	};
 	
 	this.print = function(){
-		console.log( 'code:', this.code );
+		console.log( 'code:', this.info.code );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
 		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
@@ -95,3 +94,13 @@ SRJS.MARKER_TOKEN = 2;
 SRJS.MARKER_BUCKET = 3;
 SRJS.MARKER_BUCKET_SIDE = SRJS.MARKER_BUCKET;
 SRJS.MARKER_BUCKET_END = SRJS.MARKER_BUCKET;
+
+SRJS.MarkerInfo = function( code, type ){
+    
+    this.code = code || 'Something important';
+    this.type = type || SRJS.MARKER_UNDEFINED;
+    
+    this.offset = null;
+    this.size = null;
+    
+};
