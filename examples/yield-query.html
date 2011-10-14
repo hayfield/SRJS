@@ -11,24 +11,24 @@
 <script type="text/javascript">
 // See https://www.studentrobotics.org/docs/programming/sr/query/
 // Port of the following code:
-// motor[0].traget = 100
-// motor[1].target = 100
-// yield query.io[0].input[0].a > 1
-// motor[0].traget = 0
-// motor[1].target = 0
+// R.motors[0].traget = 100
+// R.motors[1].target = 100
+// sr.wait_for( query.io[0].input[0].a > 1 )
+// R.motors[0].traget = 0
+// R.motors[1].target = 0
 
 SRJS.Init();
 
 var initFunct = function(){
 	
 	// set the robot to move forward
-	robot.motor[0].target = 100;
-	robot.motor[1].target = 100;
+	robot.motors[0].target = 100;
+	robot.motors[1].target = 100;
 	
 	// when the Range Finder detects that there is a wall close ahead, stop
-	robot.Yield( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
-		robot.motor[0].target = 0;
-		robot.motor[1].target = 0;
+	robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'gt', 1] ), function(){
+		robot.motors[0].target = 0;
+		robot.motors[1].target = 0;
 	});
 	
 };
