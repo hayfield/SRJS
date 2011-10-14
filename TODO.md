@@ -36,6 +36,7 @@
 
 #### Examples
 
+* Coroutine - still old Python code
 * Motor Control - uses `yield query.timeout()` in Python examples
  
 #### Triggers
