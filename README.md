@@ -33,18 +33,18 @@ robot.hitAWall = true; // change the value after initialisation
 
 Setting the speed of the motors is similar to in Python.
 
- * `robot.motor[0]` is the left wheel
- * `robot.motor[1]` is the right wheel
+ * `robot.motors[0]` is the left wheel
+ * `robot.motors[1]` is the right wheel
 
 ##### Python
 ```python
-R.motor[0].target = 100
-R.motor[1].target = 100
+R.motors[0].target = 100
+R.motors[1].target = 100
 ```
 ##### Javascript
 ```javascript
-robot.motor[0].target = 100;
-robot.motor[1].target = 100;
+robot.motors[0].target = 100;
+robot.motors[1].target = 100;
 ```
 
 ### IO ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/io/))
@@ -213,8 +213,8 @@ robot.wait_for( new SRJS.Query( 'or',
 ```
 When an or query returns, it will pass the current status of the tracked items as a parameter to the callback. If there are any timeouts, they will be represented as `undefined` within the array.
 ```Javascript
-robot.motor[0].target = 100;
-robot.motor[1].target = 100;
+robot.motors[0].target = 100;
+robot.motors[1].target = 100;
 robot.wait_for( new SRJS.Query( 'or',
                             ['robot.io.rangeFinder[0].a', 'gt', 1],
                             3,
