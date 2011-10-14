@@ -102,6 +102,11 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	};
 	
 	this.vision = SRJS.Vision( this );
+    this.see = function( width, height ){
+        if( typeof this.vision.see === 'function' ){
+            return this.vision.see( width, height );
+        }
+    };
 	
 	this.gameScore = 0;
 	this.gameSettings = {};

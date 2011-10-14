@@ -64,7 +64,7 @@ var initFunct = function(){
 
 var mainFunct = function(){
     
-    var markers = robot.vision.see();
+    var markers = robot.see();
 	if(frame < 3 ){
 		console.log('frame', frame);
 		markers.forEach(function(marker){
