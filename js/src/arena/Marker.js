@@ -87,6 +87,18 @@ SRJS.Marker = function( parentObject, code, type ){
 		console.log( 'distance (polar):', this.centre.polar.length, 'cm' );
 	};
 	
+    Object.defineProperty(this, 'dist', {
+        get: function(){
+            return this.centre.polar.length;
+        }
+    });
+    
+    Object.defineProperty(this, 'rot_y', {
+        get: function(){
+            return this.centre.polar.rot_y;
+        }
+    });
+    
 	this.update();
 
 };
