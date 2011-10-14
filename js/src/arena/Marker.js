@@ -8,12 +8,12 @@ SRJS.Marker = function( parentObject, code, type ){
     
     this.timestamp = Date.now();
 	
-	this.update = function( source ){
+	this.update = function( source, width, height ){
         this.timestamp = Date.now();
 		this.orientation._update( this._updateOrientation() );
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
-		this.centre.image._update( this._updateImagePosition( source ) );
+		this.centre.image._update( this._updateImagePosition( source, width, height ) );
         this.centre.world._update( this.object.position );
         this.centre.polar._update( this.distance, this.bearing );
 		
@@ -58,24 +58,24 @@ SRJS.Marker = function( parentObject, code, type ){
 		return new SRJS.Vector2( source.position.x - this.object.position.x, source.position.z - this.object.position.z ).length();
 	};
 	
-	this._updateImagePosition = function( source ){
+	this._updateImagePosition = function( source, width, height ){
 		if( !( source instanceof SRJS.Robot ) ){
 			return false;
 		}
 		
-		return this.toRendererXY( this.object.position, source.camera );
+		return this.toRendererXY( this.object.position, source.camera, width, height );
 	};
 	
 	// https://github.com/mrdoob/three.js/issues/78
-	this.toRendererXY = function( position, cameraToUse ){
+	this.toRendererXY = function( position, cameraToUse, width, height ){
 
 		var pos = position.clone(),
 			projScreenMat = new THREE.Matrix4();
 		projScreenMat.multiply( cameraToUse.projectionMatrix, cameraToUse.matrixWorldInverse );
 		projScreenMat.multiplyVector3( pos );
 
-		return new SRJS.Vector2( ( pos.x + 1 ) * SRJS.rendererDimension / 2,
-			 ( - pos.y + 1 ) * SRJS.rendererDimension / 2 );
+		return new SRJS.Vector2( ( pos.x + 1 ) * width / 2,
+			 ( - pos.y + 1 ) * height / 2 );
 
 	};
 	

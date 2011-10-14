@@ -28,13 +28,17 @@ SRJS.VisionV2 = function( object ){
 	};
 	
 	this.printMarker = this.print_marker;
-	
-	this.grab_frame_get_markers = function(){
-		var markers = new Array(),
+    
+    this.see = function( width, height ){
+        var markers = new Array(),
 			i = 0,
 			marker;
-		while( i < SRJS.markers.length ){
-			marker = SRJS.markers[i].update( this.object );
+        
+        width = width || 800;
+        height = height || 600;
+        
+        while( i < SRJS.markers.length ){
+			marker = SRJS.markers[i].update( this.object, width, height );
 			if( marker.bearing.x < this.object.camera.fov / 2 || marker.bearing.x > 360 - this.object.camera.fov / 2){
 				markers.push( marker );
 			}
@@ -42,8 +46,6 @@ SRJS.VisionV2 = function( object ){
 		}
 		
 		return markers;
-	};
-	
-	this.grabFrameGetMarkers = this.grab_frame_get_markers;
+    };
 	
 };

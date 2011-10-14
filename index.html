@@ -63,19 +63,8 @@ var initFunct = function(){
 };
 
 var mainFunct = function(){
-    robot.motor[0].target = 100;
-    robot.motor[1].target = 100;
-    robot.wait_for( new SRJS.Query( 'or',
-                                ['robot.io.rangeFinder[0].a', 'gt', 1],
-                                3,
-                                ['robot.io.bumpSensor[0].d', 'eq', true]), function( status ){
-        console.log(Date.now(), status);
-        // Output (values may differ slightly): [1.0040160642570304, undefined, false]
-        robot.motor[0].target = -100;
-		robot.motor[1].target = -100;
-		robot.Yield( 1 );
-    });
-	/*var markers = robot.vision.grabFrameGetMarkers();
+    
+    var markers = robot.vision.see();
 	if(frame < 3 ){
 		console.log('frame', frame);
 		markers.forEach(function(marker){
@@ -83,7 +72,7 @@ var mainFunct = function(){
 		});
 	}
 	//console.log(SRJS.markers.length);
-	frame++;*/
+	frame++;
 };
 frame = 0;
 var args = {
