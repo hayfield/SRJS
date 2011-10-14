@@ -5,6 +5,7 @@ SRJS.Marker = function( parentObject, code, type ){
     this.info = new SRJS.MarkerInfo( code, type );
 	this.centre = new SRJS.MarkerPoint();
     this.orientation = new SRJS.MarkerOrientation();
+    this.res = new SRJS.Vector2(0, 0);
     
     this.timestamp = Date.now();
 	
@@ -14,6 +15,7 @@ SRJS.Marker = function( parentObject, code, type ){
 		this.centre.image._update( this._updateImagePosition( source, width, height ) );
         this.centre.world._update( this.object.position );
         this.centre.polar._update( this._updateDistance( source ), this._updateBearing( source ) );
+        this.res = new SRJS.Vector2(width, height);
 		
 		return this;
 	};
