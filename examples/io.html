@@ -11,11 +11,11 @@
 <script type="text/javascript">
 // See https://www.studentrobotics.org/docs/programming/sr/io/
 // Port of the following code:
-// motor[0].target = 100
-// motor[1].target = 100
+// R.motors[0].target = 100
+// R.motors[1].target = 100
 // while True:
-	// pin0 = io[0].input[0].d
-	// pin2 = io[0].input[2].a
+	// pin0 = R.io[0].input[0].d
+	// pin2 = R.io[0].input[2].a
 	// if pin0:
 	//     print "The digital input returned true"
 	// print "pin2 value: " + str(pin2)
@@ -25,8 +25,8 @@ SRJS.Init();
 var initFunct = function(){
 	
 	// set both the motors to move forward
-	robot.motor[0].target = 100;
-	robot.motor[1].target = 100;
+	robot.motors[0].target = 100;
+	robot.motors[1].target = 100;
 	
 };
 
