@@ -118,8 +118,39 @@ SRJS.MarkerInfo = function( code, type ){
     this.code = code || 'Something important';
     this.type = type || SRJS.MARKER_UNDEFINED;
     
-    this.offset = null;
-    this.size = null;
+    this._getOffset = function(){
+        var start = -1;
+        if( typeof this.code !== 'number' ){
+            return start;
+        }
+        if( this.type === SRJS.MARKER_ARENA ){
+            start = 0;
+        } else if( this.type === SRJS.MARKER_ROBOT ){
+            start = 28;
+        } else if( this.type === SRJS.MARKER_TOKEN ){
+            start = 32;
+        } else if( this.type === SRJS.MARKER_BUCKET ){
+            start = 72;
+        }
+        return this.code - start;
+    };
+    Object.defineProperty(this, 'offset', {
+        get: this._getOffset();
+    });
+    
+    this._getSize = function(){
+        if( this.type === SRJS.MARKER_ARENA ){
+            return 250;
+        } else if( this.type === SRJS.MARKER_ROBOT ||
+                    this.type === SRJS.MARKER_TOKEN ||
+                    this.type === SRJS.MARKER_BUCKET ){
+            return 100;
+        }
+        return 0;
+    };
+    Object.defineProperty(this, 'size', {
+        get: this._getSize();
+    });
     
 };
 
