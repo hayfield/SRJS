@@ -140,11 +140,11 @@ SRJS.MarkerInfo = function( code, type ){
     
     this._getSize = function(){
         if( this.type === SRJS.MARKER_ARENA ){
-            return 250;
+            return 0.25;
         } else if( this.type === SRJS.MARKER_ROBOT ||
                     this.type === SRJS.MARKER_TOKEN ||
                     this.type === SRJS.MARKER_BUCKET ){
-            return 100;
+            return 0.1;
         }
         return 0;
     };
