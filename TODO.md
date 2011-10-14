@@ -21,13 +21,13 @@
 
 #### Documentation
 
-* Check to see how query.timeout() is implemented in the Python API v5
+* Check to see how `query.timeout()` is implemented in the Python API v5
 
 #### Markers
 
 * Add code for offset and size for MarkerInfo
-* Add a Marker.vertices[] property
-* Marker.centre.polar.rot_y and .rot_x are possibly the wrong way round
+* Add a `Marker.vertices[]` property
+* `Marker.centre.polar.rot_y` and `.rot_x` are possibly the wrong way round
 
 ## Less Important Things
  
@@ -37,8 +37,8 @@
  
 #### Physics
 
-* Using SRJS.phys seems a bit hacky
-* SRJS.intersections also seems a bit hacky
+* Using `SRJS.phys` seems a bit hacky
+* `SRJS.intersections` also seems a bit hacky
 
 #### Bump Sensors
 
@@ -52,7 +52,7 @@
 
 #### Query
 
-* See if the use of eval() can be reduced
+* See if the use of `eval()` can be reduced
 
 #### API
 
