@@ -3,7 +3,7 @@ SRJS.Marker = function( parentObject, code, type ){
 	this.object = parentObject;
 	
     this.info = new SRJS.MarkerInfo( code, type );
-	this.centre = {};
+	this.centre = new SRJS.MarkerPoint();
     
     this.timestamp = Date.now();
 	
@@ -105,5 +105,36 @@ SRJS.MarkerInfo = function( code, type ){
     
     this.offset = null;
     this.size = null;
+    
+};
+
+SRJS.MarkerPoint = function(){
+    
+    this.image = new SRJS.MarkerImagePoint();
+    this.world = new SRJS.MarkerWorldPoint();
+    this.polar = new SRJS.MarkerPolarPoint();
+    
+};
+
+SRJS.MarkerImagePoint = function(){
+    
+    this.x = null;
+    this.y = null;
+    
+};
+
+SRJS.MarkerWorldPoint = function(){
+    
+    this.x = null;
+    this.y = null;
+    this.z = null;
+    
+};
+
+SRJS.MarkerPolarPoint = function(){
+    
+    this.length = null;
+    this.rot_x = null;
+    this.rot_y = null;
     
 };
