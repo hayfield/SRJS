@@ -32,6 +32,10 @@
 
 * Add a `Marker.vertices[]` property
 
+#### Vision
+
+* Add advanced VisionV2 code
+
 ## Less Important Things
 
 #### Examples
