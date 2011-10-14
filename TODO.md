@@ -27,6 +27,7 @@
 
 * Add code for offset and size for MarkerInfo
 * Add a Marker.vertices[] property
+* Marker.centre.polar.rot_y and .rot_x are possibly the wrong way round
 
 ## Less Important Things
  
