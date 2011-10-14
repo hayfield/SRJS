@@ -2,6 +2,12 @@ An attempt to port the [Student Robotics](https://www.studentrobotics.org/) API 
 
 ## Docs
 
+## Downloading SRJS
+
+The latest (possibly unstable) version of SRJS can be downloaded as a [zip](https://github.com/hayfield/SRJS/zipball/master).
+
+Alternatively, older versions of the code, which should be less prone to problems, have been [tagged](https://github.com/hayfield/SRJS/tags) and can be downloaded from there. The higher the tag number, the more recent the code.
+
 ## Running SRJS
 
 SRJS will run in the latest versions of [Chrome](http://www.google.com/chrome/) and [Firefox](http://www.mozilla.org/firefox/). Switching tabs while it is running will cause strange things to happen. Vision code will not work correctly unless your graphics card supports [WebGL](http://get.webgl.org).
