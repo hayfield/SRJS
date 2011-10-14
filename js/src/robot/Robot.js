@@ -42,6 +42,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	this.motor = new Array();
 	this.motor[0] = new SRJS.Motor();
 	this.motor[1] = new SRJS.Motor();
+    this.motors = this.motor;
 	
 	this.bindCallbackToRobot = function( callback ){
 		// https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/bind
