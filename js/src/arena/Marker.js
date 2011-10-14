@@ -9,11 +9,11 @@ SRJS.Marker = function( parentObject, code, type ){
 	
 	this.update = function( source ){
         this.timestamp = Date.now();
-		this.centre.world = this.object.position;
+		this.centre.world._update( this.object.position );
 		this.rotation = this._updateRotation();
 		this.bearing = this._updateBearing( source );
 		this.distance = this._updateDistance( source );
-		this.centre.image = this._updateImagePosition( source );
+		this.centre.image._update( this._updateImagePosition( source ) );
 		
 		return this;
 	};
@@ -79,6 +79,7 @@ SRJS.Marker = function( parentObject, code, type ){
 	
 	this.print = function(){
 		console.log( 'code:', this.info.code );
+        console.log( 'centre:', this.centre );
 		console.log( 'centre (world): (', this.centre.world.x, ',', this.centre.world.y, ',', this.centre.world.z, ') cm' );
 		console.log( 'centre (image): (', this.centre.image.x, ',', this.centre.image.y, ') px' );
 		console.log( 'rotation (world): (', this.rotation.x, ',', this.rotation.y, ',', this.rotation.z, ') deg' );
@@ -121,6 +122,13 @@ SRJS.MarkerImagePoint = function(){
     this.x = null;
     this.y = null;
     
+    this._update = function( newPosition ){
+        if( newPosition instanceof SRJS.Vector2 ){
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+        }
+    };
+    
 };
 
 SRJS.MarkerWorldPoint = function(){
@@ -128,6 +136,14 @@ SRJS.MarkerWorldPoint = function(){
     this.x = null;
     this.y = null;
     this.z = null;
+    
+    this._update = function( newPosition ){
+        if( newPosition instanceof THREE.Vector3 ){
+            this.x = newPosition.x;
+            this.y = newPosition.y;
+            this.z = newPosition.z;
+        }
+    };
     
 };
 
