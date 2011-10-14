@@ -42,11 +42,18 @@ SRJS.Arena = function( args ){
 		document.body.appendChild( this.container );
 		
 		this.camera = new THREE.QuakeCamera({
-			fov: 50, aspect: window.innerWidth / window.innerHeight,
-			near: 1, far: 20000,
-			constrainVertical: true, verticalMin: 1.1, verticalMax: 2.2,
-			movementSpeed: 1000, lookSpeed: 0.125,
-			noFly: false, lookVertical: true, autoForward: false
+            fov: 50,
+            aspect: window.innerWidth / window.innerHeight,
+            near: 1,
+            far: 20000,
+            constrainVertical: true,
+            verticalMin: 1.1,
+            verticalMax: 2.2,
+            movementSpeed: 1000,
+            lookSpeed: 0.125,
+            noFly: false,
+            lookVertical: true,
+            autoForward: false
 		});
 		this.camera.position.y = 100;
 		
