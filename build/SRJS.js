@@ -1,4 +1,4 @@
-// REVISION: 4.1318621876.16
+// REVISION: 4.1318794677.13
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -914,7 +914,7 @@ SRJS.Arena = function( args ){
 		SRJS.CURRENT_ARENA = this;
 		
 		this.physics = args.physics || new SRJS.Physics.Environment();
-		this.arenaDimension = args.arenaDimension || 1;
+		this.arenaDimension = typeof args.arenaDimension != 'undefined' ? args.arenaDimension : 1;
 		
 		this.triggers = new Array();
 		this.robots = new Array();
@@ -932,7 +932,7 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
-		this.visionVersion = args.visionVersion || 2;
+		this.visionVersion = typeof args.visionVersion != 'undefined' ? args.visionVersion : 2;
 		
 		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );
@@ -1929,8 +1929,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		}
 		return Math.ceil( val / 4.0 ) * 4;
 	};
-	this.bumpSensorCount = args.bumpSensorCount || args.numberOfBumpSensors || SRJS.bumpSensorsPerRobot;
-	this.rangeFinderCount = args.rangeFinderCount || args.numberOfRangeFinders || SRJS.rangeFindersPerRobot;
+	this.bumpSensorCount = typeof args.bumpSensorCount != 'undefined' ? args.bumpSensorCount : typeof args.numberOfBumpSensors != 'undefined' ? args.numberOfBumpSensors : SRJS.bumpSensorsPerRobot;
+	this.rangeFinderCount = typeof args.rangeFinderCount != 'undefined' ? args.rangeFinderCount : typeof args.numberOfRangeFinders != 'undefined' ? args.numberOfRangeFinders : SRJS.rangeFindersPerRobot;
 	this.bumpSensorCount = roundToMultipleOfFour( this.bumpSensorCount );
 	this.rangeFinderCount = roundToMultipleOfFour( this.rangeFinderCount );
 	
@@ -1954,7 +1954,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.lastUpdate = Date.now();
 	
-	this.speed = args.speed || 1;
+	this.speed = typeof args.speed != 'undefined' ? args.speed : 1;
 	
 	// motor[0] is the left wheel, motor[1] is the right one
 	this.motor = new Array();
@@ -2615,8 +2615,8 @@ SRJS.VisionV2 = function( object ){
 			i = 0,
 			marker;
         
-        width = width || 800;
-        height = height || 600;
+        width = typeof width != 'undefined' ? width : 800;
+        height = typeof height != 'undefined' ? height : 600;
         
         while( i < SRJS.markers.length ){
 			marker = SRJS.markers[i].update( this.object, width, height );
@@ -2638,7 +2638,7 @@ SRJS.Blob = function( x, y, width, height, color, normalised ){
 	this.y = y || 0;
 	this.width = width || 0;
 	this.height = height || 0;
-	this.color = color || SRJS.NOTHING;
+	this.color = typeof color != 'undefined' ? color : SRJS.NOTHING;
 	
 	this.normalisationFactor = 100 / SRJS.rendererDimension;
 	
