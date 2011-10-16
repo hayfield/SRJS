@@ -1,9 +1,9 @@
 SRJS.Blob = function( x, y, width, height, color, normalised ){
 
-	this.x = typeof x != 'undefined' ? x : 0;
-	this.y = typeof y != 'undefined' ? y : 0;
-	this.width = typeof width != 'undefined' ? width : 0;
-	this.height = typeof height != 'undefined' ? height : 0;
+	this.x = x || 0;
+	this.y = y || 0;
+	this.width = width || 0;
+	this.height = height || 0;
 	this.color = typeof color != 'undefined' ? color : SRJS.NOTHING;
 	
 	this.normalisationFactor = 100 / SRJS.rendererDimension;

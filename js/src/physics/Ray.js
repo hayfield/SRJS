@@ -4,7 +4,7 @@ SRJS.Physics.Ray = function( startPosition, rotation, object ){
 
 	SRJS.Physics.Polygon.call( this, false, true, object );
 
-	rotation = typeof rotation != 'undefined' ? rotation : 0;
+	rotation = rotation || 0;
 	
 	var length = 16777216; // make it long, so it'll hit into anything within the arena
 	
