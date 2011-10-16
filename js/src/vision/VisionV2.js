@@ -34,8 +34,8 @@ SRJS.VisionV2 = function( object ){
 			i = 0,
 			marker;
         
-        width = width || 800;
-        height = height || 600;
+        width = typeof width != 'undefined' ? width : 800;
+        height = typeof height != 'undefined' ? height : 600;
         
         while( i < SRJS.markers.length ){
 			marker = SRJS.markers[i].update( this.object, width, height );

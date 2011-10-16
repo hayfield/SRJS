@@ -12,7 +12,7 @@ SRJS.Arena = function( args ){
 		SRJS.CURRENT_ARENA = this;
 		
 		this.physics = args.physics || new SRJS.Physics.Environment();
-		this.arenaDimension = args.arenaDimension || 1;
+		this.arenaDimension = typeof args.arenaDimension != 'undefined' ? args.arenaDimension : 1;
 		
 		this.triggers = new Array();
 		this.robots = new Array();
@@ -30,7 +30,7 @@ SRJS.Arena = function( args ){
 		this.args = args;
 		this.scene = args.scene || new THREE.Scene();
 		
-		this.visionVersion = args.visionVersion || 2;
+		this.visionVersion = typeof args.visionVersion != 'undefined' ? args.visionVersion : 2;
 		
 		this.renderer = Detector.webgl ? new THREE.WebGLRenderer() : new THREE.CanvasRenderer;
 		this.renderer.setSize( SRJS.rendererDimension, SRJS.rendererDimension );

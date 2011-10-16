@@ -3,7 +3,7 @@ args = typeof args == 'undefined' ? {} : args;
 if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.length ){
 	
 	this.startPosition = SRJS.CURRENT_ARENA.robotStartPositions[ SRJS.CURRENT_ARENA.robots.length ];
-	this.startRotation = SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] || 0;
+	this.startRotation = typeof SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] != 'undefined' ? SRJS.CURRENT_ARENA.robotStartRotations[ SRJS.CURRENT_ARENA.robots.length ] : 0;
 	
 	var roundToMultipleOfFour = function( val ){
 		if( val < 4 ){
@@ -11,8 +11,8 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 		}
 		return Math.ceil( val / 4.0 ) * 4;
 	};
-	this.bumpSensorCount = args.bumpSensorCount || args.numberOfBumpSensors || SRJS.bumpSensorsPerRobot;
-	this.rangeFinderCount = args.rangeFinderCount || args.numberOfRangeFinders || SRJS.rangeFindersPerRobot;
+	this.bumpSensorCount = typeof args.bumpSensorCount != 'undefined' ? args.bumpSensorCount : typeof args.numberOfBumpSensors != 'undefined' ? args.numberOfBumpSensors : SRJS.bumpSensorsPerRobot;
+	this.rangeFinderCount = typeof args.rangeFinderCount != 'undefined' ? args.rangeFinderCount : typeof args.numberOfRangeFinders != 'undefined' ? args.numberOfRangeFinders : SRJS.rangeFindersPerRobot;
 	this.bumpSensorCount = roundToMultipleOfFour( this.bumpSensorCount );
 	this.rangeFinderCount = roundToMultipleOfFour( this.rangeFinderCount );
 	
@@ -36,7 +36,7 @@ if( SRJS.CURRENT_ARENA.robots.length < SRJS.CURRENT_ARENA.robotStartPositions.le
 	
 	this.lastUpdate = Date.now();
 	
-	this.speed = args.speed || 1;
+	this.speed = typeof args.speed != 'undefined' ? args.speed : 1;
 	
 	// motor[0] is the left wheel, motor[1] is the right one
 	this.motor = new Array();

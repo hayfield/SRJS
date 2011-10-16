@@ -10,7 +10,7 @@ SRJS.Robot.BumpSensor = function( parentRobot, ID ){
 	var numberOfBumpSensors = this.robot.bumpSensorCount,
 		xPos, yPos;
 	
-	ID = ID || 0;
+	ID = typeof ID != 'undefined' ? ID : 0;
 	this.ID = ID < 0 ? 0 : ID > numberOfBumpSensors ? numberOfBumpSensors : ID;
 	
 	// code to work out position is pretty much the same for the Range Finder
