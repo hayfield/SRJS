@@ -64,7 +64,7 @@ SRJS.Query = function( query ){
             }
             a++;
         }
-        if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){
+        if( typeof index !== 'undefined' && typeof newval !== 'undefined' && values[index] !== null ){
             values[index] = newval;
         }
         return values;
