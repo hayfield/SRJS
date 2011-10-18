@@ -226,7 +226,7 @@ robot.wait_for( new SRJS.Query( 'or',
 });
 ```
 When an or query returns, it will pass the current status of the tracked items as a parameter to the callback. If there are any timeouts, they will be represented as `undefined` within the array.
-```Javascript
+```javascript
 robot.motors[0].target = 100;
 robot.motors[1].target = 100;
 robot.wait_for( new SRJS.Query( 'or',
