@@ -51,7 +51,17 @@ SRJS.Query = function( query ){
         var a = 0,
             values = [];
         while( a < this.args.length ){
-            values.push( eval(this.args[a].prop) );
+            if( this.queryStatuses[a] ){
+                // if the query is a timeout, push a boolean indicating that it's finished
+                if( typeof this.args[a] === 'number' ){
+                    values.push( true );
+                } else {
+                    values.push( eval(this.args[a].prop) );
+                }
+            } else {
+                // push null if the query isn't true
+                values.push( null );
+            }
             a++;
         }
         if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){

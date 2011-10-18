@@ -225,7 +225,7 @@ robot.wait_for( new SRJS.Query( 'or',
     // do things here
 });
 ```
-When an or query returns, it will pass the current status of the tracked items as a parameter to the callback. If there are any timeouts, they will be represented as `undefined` within the array.
+When an or query returns, it will pass the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
 
 ```javascript
 robot.motors[0].target = 100;
@@ -235,7 +235,8 @@ robot.wait_for( new SRJS.Query( 'or',
                             3,
                             ['robot.io.bumpSensor[0].d', 'eq', true]), function( status ){
     console.log(status);
-    // Output (values may differ slightly): [1.0040160642570304, undefined, false]
+    // Output (values may differ slightly): [null, true, null]
+    // Alternative Output (values may differ slightly): [1.0040160642570304, null, null]
 });
 ```
 
