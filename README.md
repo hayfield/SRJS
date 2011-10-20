@@ -139,7 +139,7 @@ robot.invokeRepeating(function(){
 With the Python API, it's possible to stop the execution of the code to wait for something to occur. This cannot be done in SRJS, so queries have to be written differently.
 ##### Python
 ```python
-yield query.timeout(3)
+time.sleep(3)
 # do other things here
 ```
 ##### Javascript
