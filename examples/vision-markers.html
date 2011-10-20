@@ -1,0 +1,59 @@
+<!DOCTYPE HTML> 
+<html lang="en"> 
+<head> 
+	<title>SRJS: Marker Vision Example</title> 
+	<meta charset="utf-8"> 
+	<link rel="stylesheet" type="text/css" href="css/SRJS.css" />
+	<script type="text/javascript" src="../build/SRJS-full.js"></script>
+
+</head> 
+<body>
+<script type="text/javascript">
+// See https://www.studentrobotics.org/docs/programming/sr/vision/
+// Port of the following code:
+// R.motor[0].target = 70
+// R.motor[1].target = 100
+// while True:
+    // markers = R.see()
+    // for marker in markers:
+        // if marker.dist < 50:
+            // print "A marker is close to the robot!"
+        // if marker.info.type == MARKER_ROBOT:
+            // print "I spy a robot"
+    // time.sleep(1)
+
+// enable the robot vision
+SRJS.robotVision = true;
+SRJS.Init();
+
+var initFunct = function(){
+	
+	robot.motor[0].target = 70;
+	robot.motor[1].target = 100;
+	
+};
+
+var mainFunct = function(){
+	
+	var markers = robot.see();
+    markers.forEach(function(marker){
+        if( marker.dist < 50 ){
+            console.log( 'A marker is close to the robot!' );
+        }
+        if( marker.info.type === SRJS.MARKER_ROBOT ){
+            console.log( 'I spy a robot' );
+        }
+    });
+    robot.wait_for(1);
+	
+};
+
+var args = {
+	initialise: initFunct,
+	main: mainFunct
+};
+
+SRJS.CURRENT_ARENA.addRobot( args );
+</script>
+</body> 
+</html>
