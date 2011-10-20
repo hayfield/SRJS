@@ -106,9 +106,9 @@ markers.forEach(function(marker){
 });
 ```
 
-### Coroutines ([Python Docs](https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines))
+### Threads
 
-It is possible to set functions running in the background, independent of other code.
+It is possible to set functions running in the background, independent of other code. This code will still run in the background even when the robot is waiting for a call to `sr.wait_for()` or `robot.wait_for()` to return true.
 
 ##### Python
 ```python
