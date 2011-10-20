@@ -150,7 +150,7 @@ robot.wait_for( 3, function(){
 ```
 `robot.wait_for()` is a function which stops the robot's `main()` loop code until the query passed as the first parameter is true. The second parameter is a function which will be called when the query becomes true. In SRJS, `robot.wait_for()` can also be referenced as `robot.waitFor()` or `robot.Yield()`.
 
-The syntax to yield for non-timeout events is noticeably different to Python.
+The syntax to yield for non-sleep events is noticeably different to Python.
 ##### Python
 ```python
 # Wait for digital input 3 on JointIO board 0 to become digital '1'
