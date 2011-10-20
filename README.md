@@ -1,7 +1,5 @@
 An attempt to port the [Student Robotics](https://www.studentrobotics.org/) API to Javascript to allow easier testing of algorithms by providing a 3D arena which robots can move around in that doesn't involve card stuck to table legs. It also allows testing to be performed before anything has been physically constructed.
 
-### This version of the code is in transition between the 2011 and 2012 SR APIs. This means that examples and code may not match up exactly and things are likely to change in the near future. For a version of the code that's more stable and consistent (but old), see [here](https://github.com/hayfield/SRJS/tree/53135d36818fd48a3ea7e2795f82e3e435954996).
-
 ## Docs
 
 ## Downloading SRJS
