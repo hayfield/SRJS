@@ -110,7 +110,7 @@ markers.forEach(function(marker){
 
 ### Threads
 
-It is possible to set functions running in the background, independent of other code. This code will still run in the background even when the robot is waiting for a call to `sr.wait_for()` or `robot.wait_for()` to return true.
+It is possible to set functions running in the background, independent of other code. This code will still run in the background even when the robot is waiting for a call to `wait_for()` to return true.
 
 ##### Python
 ```python
@@ -156,9 +156,9 @@ The syntax to yield for non-sleep events is noticeably different to Python.
 ##### Python
 ```python
 # Wait for digital input 3 on JointIO board 0 to become digital '1'
-sr.wait_for( R.io[0].input[0].query.d == 1 )
+wait_for( R.io[0].input[0].query.d == 1 )
 # Wait for the reading of analogue input 3 on JointIO board 0 to exceed 1V
-sr.wait_for( R.io[0].input[1].query.a > 1 )
+wait_for( R.io[0].input[1].query.a > 1 )
 print "done!"
 ```
 ##### Javascript
@@ -185,11 +185,11 @@ It is possible to combine a number of events in a single query and wait for one 
 ##### Python
 ```python
 # OR:
-sr.wait_for( R.io[0].input[0].query.a < 2, R.io[0].input[0].query.a > 3 )
+wait_for( R.io[0].input[0].query.a < 2, R.io[0].input[0].query.a > 3 )
 # ALTERNATE OR:
-sr.wait_for( Or( R.io[0].input[3].query.a < 2, R.io[0].input[3].query.a > 3 ) )
+wait_for( Or( R.io[0].input[3].query.a < 2, R.io[0].input[3].query.a > 3 ) )
 # AND:
-sr.wait_for( And( R.io[0].input[3].query.d == 1, R.io[0].input[2].query.d == 0 ) )
+wait_for( And( R.io[0].input[3].query.d == 1, R.io[0].input[2].query.d == 0 ) )
 print "done!"
 ```
 ##### Javascript
