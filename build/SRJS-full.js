@@ -1,4 +1,4 @@
-// REVISION: 4.1318794677.13
+// REVISION: 4.1319147884.05
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2527,7 +2527,7 @@ SRJS.MarkerPolarPoint = function(){
 // FILE: robot/Query.js
 SRJS.Query = function( query ){
 	var args = Array.prototype.slice.call(arguments);
-	this.queryType = 'and';
+	this.queryType = 'or';
 	if( typeof query === 'string' ){
 		if( ['and', 'or'].indexOf( query ) === -1 ){
 			console.error( 'The type of query must be one of the following:\n',
@@ -2578,10 +2578,20 @@ SRJS.Query = function( query ){
         var a = 0,
             values = [];
         while( a < this.args.length ){
-            values.push( eval(this.args[a].prop) );
+            if( this.queryStatuses[a] ){
+                // if the query is a timeout, push a boolean indicating that it's finished
+                if( typeof this.args[a] === 'number' ){
+                    values.push( true );
+                } else {
+                    values.push( eval(this.args[a].prop) );
+                }
+            } else {
+                // push null if the query isn't true
+                values.push( null );
+            }
             a++;
         }
-        if( typeof index !== 'undefined' && typeof newval !== 'undefined' ){
+        if( typeof index !== 'undefined' && typeof newval !== 'undefined' && values[index] !== null ){
             values[index] = newval;
         }
         return values;
@@ -3401,7 +3411,8 @@ SRJS.VisionV2 = function( object ){
         
         while( i < SRJS.markers.length ){
 			marker = SRJS.markers[i].update( this.object, width, height );
-			if( marker.centre.polar.rot_x < this.object.camera.fov / 2 || marker.centre.polar.rot_x > 360 - this.object.camera.fov / 2){
+			if( (marker.centre.polar.rot_x < this.object.camera.fov / 2 || marker.centre.polar.rot_x > 360 - this.object.camera.fov / 2) 
+                    && marker.object !== robot ){
 				markers.push( marker );
 			}
 			i++;
