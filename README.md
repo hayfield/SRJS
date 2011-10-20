@@ -216,6 +216,7 @@ robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'lt', 2],
 The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `and`.
 
 **Variable watchers and timeouts cannot currently be combined within a single query in the Python API for the 2012 SR competition. This capability appears to have been removed when `yield` was replaced by `wait_for()`.**
+
 To use both a timeout and a comparison within a single query, pass the number of seconds to wait as a parameter.
 ##### Python
 ```python
