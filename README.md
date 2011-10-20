@@ -130,7 +130,7 @@ var aCoroutine = function(){
 robot.invokeRepeating( aCoroutine, 1000 );
 // OR:
 robot.invokeRepeating(function(){
-	console.log("I'm a Coroutine");
+	console.log("I'm a Robot");
 }, 0, 1000 );
 ```
 
