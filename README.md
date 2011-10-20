@@ -37,7 +37,7 @@ var shouldReverse = robot.hitAWall; // access the value and store it in another 
 robot.hitAWall = true; // change the value after initialisation
 ```
 
-### Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motor/))
+### Motor Control ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/motors/))
 
 Setting the speed of the motors is similar to in Python.
 
@@ -134,7 +134,7 @@ robot.invokeRepeating(function(){
 }, 0, 1000 );
 ```
 
-### Query ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/query/))
+### wait_for ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/io/wait_for))
 
 With the Python API, it's possible to stop the execution of the code to wait for something to occur. This cannot be done in SRJS, so queries have to be written differently.
 ##### Python
@@ -244,7 +244,7 @@ robot.wait_for( new SRJS.Query( 'or',
 
 Not available in SRJS.
 
-### Pwm ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/pwm/))
+### Servos ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/servos/))
 
 Not available in SRJS.
 
