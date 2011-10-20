@@ -84,9 +84,11 @@ In SRJS, markers are attached to the centre of objects. This means that if there
 
 To compare the type of marker that is visible, the type name needs to be prefixed by `SRJS`, so `MARKER_ROBOT` in Python becomes `SRJS.MARKER_ROBOT` in SRJS.
 
+`robot.see()` in SRJS accepts two parameters. The first is the `width` of the image, the second the `height`. This differs from the Python API which accepts a single `res` parameter. These dimensions are optional and will default to `800x600`.
+
 ##### Python
 ```python
-markers = R.see()
+markers = R.see( res=(1280,1024) )
 for marker in markers:
     if marker.dist < 50:
         print "A marker is close to the robot!"
@@ -95,7 +97,7 @@ for marker in markers:
 ```
 ##### Javascript
 ```javascript
-var markers = robot.see();
+var markers = robot.see( 1280, 1024 );
 markers.forEach(function(marker){
     if( marker.dist < 50 ){
         console.log( 'A marker is close to the robot!' );
