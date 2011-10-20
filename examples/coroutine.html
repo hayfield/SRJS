@@ -11,20 +11,12 @@
 <script type="text/javascript">
 // See https://www.studentrobotics.org/docs/programming/python/yield_and_coroutines
 // Port of the following code:
-// @coroutine
-// def aCoroutine():
-	// while True:
-		// yield 1
-		// print "I'm a Robot"
-// # OR:
-// def anotherCoroutine():
-	// while True:
-		// print "I'm a Coroutine"
-		// yield 1
-
-// def main():
-	// #To add another function as a coroutine:
-	// add_coroutine(anotherCoroutine)
+// import time, thread
+// def cheese():
+    // while True:
+        // time.sleep(1)
+        // print "I'm a Robot"
+// thread.start_new_thread(cheese,())
 
 SRJS.Init();
 
@@ -34,10 +26,11 @@ var initFunct = function(){
 		console.log("I'm a Robot");
 	};
 	robot.invokeRepeating( aCoroutine, 1000 );
-	// OR:
+    
+	// ALTERNATIVE PORT:
 	robot.invokeRepeating(function(){
-		console.log("I'm a Coroutine");
-	}, 0, 1000 );
+		console.log("I'm a Robot");
+	}, 1000, 1000 );
 	
 };
 
