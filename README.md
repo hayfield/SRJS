@@ -227,7 +227,7 @@ robot.wait_for( new SRJS.Query( 'or',
     // do things here
 });
 ```
-When an or query returns, it will pass the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
+When an or query returns, it will pass an array containing the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
 
 ```javascript
 robot.motors[0].target = 100;
