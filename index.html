@@ -65,12 +65,15 @@ var initFunct = function(){
 var mainFunct = function(){
     
     var markers = robot.see();
-	if(frame < 1 ){
-		console.log('frame', frame);
-		markers.forEach(function(marker){
-			marker.print();
-		});
-	}
+    markers.forEach(function(marker){
+        if( marker.dist < 50 ){
+            console.log( 'A marker is close to the robot!' );
+        }
+        if( marker.info.type === SRJS.MARKER_ROBOT ){
+            console.log( 'I spy a robot' );
+        }
+    });
+    robot.wait_for(1);
 	//console.log(SRJS.markers.length);
 	frame++;
 };
