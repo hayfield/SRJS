@@ -84,7 +84,7 @@ In SRJS, markers are attached to the centre of objects. This means that if there
 
 To compare the type of marker that is visible, the type name needs to be prefixed by `SRJS`, so `MARKER_ROBOT` in Python becomes `SRJS.MARKER_ROBOT` in SRJS.
 
-`robot.see()` in SRJS accepts two parameters. The first is the `width` of the image, the second the `height`. This differs from the Python API which accepts a single `res` parameter. These dimensions are optional and will default to `800x600`.
+`robot.see()` in SRJS accepts two parameters. The first is the `width` of the image, the second the `height`. This differs from the Python API which accepts a single `res` parameter. These dimensions are optional and will default to an `800x600` image.
 
 ##### Python
 ```python
