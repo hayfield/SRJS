@@ -112,6 +112,9 @@ markers.forEach(function(marker){
 
 It is possible to set functions running in the background, independent of other code. This code will still run in the background even when the robot is waiting for a call to `wait_for()` to return true.
 
+`robot.invokeRepeating()` takes three parameters: `robot.invokeRepeating( callback, initialDelay, repeatRate )`
+If only two parameters are passed, so `repeatRate` is missed out, it will default to the value given to `initialDelay`.
+
 ##### Python
 ```python
 import time, thread
