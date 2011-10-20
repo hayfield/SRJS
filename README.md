@@ -184,29 +184,28 @@ It is possible to combine a number of events in a single query and wait for one 
 ```python
 # OR:
 sr.wait_for( R.io[0].input[0].query.a < 2, R.io[0].input[0].query.a > 3 )
+# ALTERNATE OR:
+sr.wait_for( Or( R.io[0].input[3].query.a < 2, R.io[0].input[3].query.a > 3 ) )
 # AND:
-sr.wait_for( (R.io[0].input[2].query.d == 1) & (R.io[0].input[3].query.d == 0) )
-# alternatively:
 sr.wait_for( And( R.io[0].input[3].query.d == 1, R.io[0].input[2].query.d == 0 ) )
 print "done!"
 ```
 ##### Javascript
 ```javascript
 // OR:
-robot.wait_for( new SRJS.Query( 'or',
-							['robot.io.rangeFinder[0].a', 'lt', 2],
-							['robot.io.rangeFinder[0].a', 'gt', 3]
-			), function(){
-	// AND:
-	robot.wait_for( new SRJS.Query( 'and',
-								['robot.io.bumpSensor[2].d', 'eq', true],
-								['robot.io.bumpSensor[3].d', 'eq', false] ), function(){
-		// alternatively:
-		robot.wait_for( new SRJS.Query( ['robot.io.bumpSensor[3].d', 'eq', true],
-								['robot.io.bumpSensor[2].d', 'eq', false] ), function(){
-			console.log( 'done!' );
-		});
-	});
+robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'lt', 2],
+							    ['robot.io.rangeFinder[0].a', 'gt', 3] ), function(){
+    // ALTERNATE OR:
+    robot.wait_for( new SRJS.Query( 'or',
+                                    ['robot.io.rangeFinder[3].a', 'lt', 2],
+							        ['robot.io.rangeFinder[3].a', 'gt', 3] ), function(){
+        // AND:
+        robot.wait_for( new SRJS.Query( 'and',
+                                    ['robot.io.bumpSensor[2].d', 'eq', true],
+                                    ['robot.io.bumpSensor[3].d', 'eq', false] ), function(){
+            console.log( 'done!' );
+        });
+    });
 });
 ```
 The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `and`.

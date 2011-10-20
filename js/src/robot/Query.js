@@ -1,6 +1,6 @@
 SRJS.Query = function( query ){
 	var args = Array.prototype.slice.call(arguments);
-	this.queryType = 'and';
+	this.queryType = 'or';
 	if( typeof query === 'string' ){
 		if( ['and', 'or'].indexOf( query ) === -1 ){
 			console.error( 'The type of query must be one of the following:\n',
