@@ -1,5 +1,9 @@
 ## More Important Things
 
+#### 2012 vArena
+
+* The markers around the arena start in the top-right and move around clockwise. In the rulebook they start in the top-left and move anti-clockwise.
+
 #### Movement and Collisions
 
 * Currently uses multiple different techniques to do different things (collisions and pushing, see src/physics/Polygon.js). Unifying it into a single system that includes capabilities such as pushing things along walls or rotation when pushing would make sense.
