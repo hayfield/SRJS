@@ -127,10 +127,10 @@ thread.start_new_thread(cheese,())
 ##### Javascript
 ```javascript
 // Within the initialise() function for the robot
-var aCoroutine = function(){
+var cheese = function(){
 	console.log("I'm a Robot");
 };
-robot.invokeRepeating( aCoroutine, 1000 );
+robot.invokeRepeating( cheese, 1000 );
 // OR:
 robot.invokeRepeating(function(){
 	console.log("I'm a Robot");
