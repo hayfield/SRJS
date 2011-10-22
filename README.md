@@ -213,7 +213,22 @@ robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'lt', 2],
 ```
 The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `and`.
 
-**Variable watchers and timeouts cannot currently be combined within a single query in the Python API for the 2012 SR competition.**
+When an or query returns, it will pass an array containing the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
+
+```javascript
+robot.motors[0].target = 100;
+robot.motors[1].target = 100;
+robot.wait_for( new SRJS.Query( 'or',
+                            ['robot.io.rangeFinder[0].a', 'gt', 1],
+                            3,
+                            ['robot.io.bumpSensor[0].d', 'eq', true]), function( status ){
+    console.log(status);
+    // Output (values may differ slightly): [null, true, null]
+    // Alternative Output (values may differ slightly): [1.0040160642570304, null, null]
+});
+```
+
+**Variable watchers and timeouts cannot be combined within a single query in the Python API for the 2012 SR competition.**
 
 To use both a timeout and a comparison within a single query, pass the number of seconds to wait as a parameter.
 ##### Python
@@ -227,20 +242,6 @@ robot.wait_for( new SRJS.Query( 'or',
                             ['robot.io.rangeFinder[0].a', 'gt', 1],
                             3 ), function(){
     // do things here
-});
-```
-When an or query returns, it will pass an array containing the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
-
-```javascript
-robot.motors[0].target = 100;
-robot.motors[1].target = 100;
-robot.wait_for( new SRJS.Query( 'or',
-                            ['robot.io.rangeFinder[0].a', 'gt', 1],
-                            3,
-                            ['robot.io.bumpSensor[0].d', 'eq', true]), function( status ){
-    console.log(status);
-    // Output (values may differ slightly): [null, true, null]
-    // Alternative Output (values may differ slightly): [1.0040160642570304, null, null]
 });
 ```
 
