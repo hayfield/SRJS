@@ -231,7 +231,7 @@ robot.wait_for( new SRJS.Query( 'or',
 **Variable watchers and timeouts cannot be combined within a single query in the Python API for the 2012 SR competition.**
 
 To use both a timeout and a comparison within a single query, pass the number of seconds to wait as a parameter.
-##### Python
+##### Python (2011 competition and before)
 ```python
 yield query.io[0].input[0].a > 1, query.timeout(3)
 # do things here
