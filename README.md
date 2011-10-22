@@ -255,7 +255,7 @@ Not available in SRJS.
 
 ### Blob-based Vision ([Python Docs](https://www.studentrobotics.org/docs/programming/sr/vision/))
 
-**This section describes the blob-based vision system (VisionV1). The marker-based vision system (VisionV2) works differently and is described above**
+**This section describes the blob-based vision system (2011 competition and before). The marker-based vision system (2012 competition) works differently and is described above**
 
 You must explicitly enable vision in SRJS to use it by adding the following to your code: `SRJS.robotVision = true;`. Enabling vision will cause the framerate to drop significantly.
 
