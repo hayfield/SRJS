@@ -1,4 +1,4 @@
-// REVISION: 4.1319147884.05
+// REVISION: 4.1319279834.48
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2167,7 +2167,7 @@ SRJS.Arena2012 = function(){
 			new THREE.Vector3( -350, 100, 0 )
 		];
 		for( i = 0; i < 4; i++ ){
-			bucket = new SRJS.Pushable( 50, 100, 50,
+			bucket = new SRJS.Pushable( 24.5, 100, 37.2,
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);

@@ -1,4 +1,4 @@
-// REVISION: 4.1319147884.05
+// REVISION: 4.1319279834.48
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -1386,7 +1386,7 @@ SRJS.Arena2012 = function(){
 			new THREE.Vector3( -350, 100, 0 )
 		];
 		for( i = 0; i < 4; i++ ){
-			bucket = new SRJS.Pushable( 50, 100, 50,
+			bucket = new SRJS.Pushable( 24.5, 100, 37.2,
 										bucketPositions[i],
 										new THREE.Vector3( 0, 0, 0 )
 									);
