@@ -85,30 +85,33 @@ SRJS.Arena2012 = function(){
 									) );
         
         // add the markers around the edges of the arena
-        // start in the top-right corner on thr right wall and work round clockwise
+        // start in the top-left corner on the right wall and work round anti-clockwise
         var i, marker;
         for( i = 0; i < 7; i++ ){
-            // right
-            marker = new SRJS.Trigger( 1, 25, 25,
-                                    new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
-                                  );
-            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
-            scene.addObject( marker );
-            // bottom
-            marker = new SRJS.Trigger( 25, 25, 1,
-                                    new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
-                                  );
-            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
-            scene.addObject( marker );
             // left
             marker = new SRJS.Trigger( 1, 25, 25,
-                                    new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
+                                    new THREE.Vector3( -400, 67.5, -346 + i * (808/7) )
                                   );
             SRJS.CreateMarker( marker, i + 14, SRJS.MARKER_ARENA );
             scene.addObject( marker );
+            
+            // bottom
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( -346 + i * (808/7), 67.5, 400 )
+                                  );
+            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
+            scene.addObject( marker );
+            
+            // right
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( 400, 67.5, 346 - i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
+            scene.addObject( marker );
+            
             // top
             marker = new SRJS.Trigger( 25, 25, 1,
-                                    new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
+                                    new THREE.Vector3( 346 - i * (808/7), 67.5, -400 )
                                   );
             SRJS.CreateMarker( marker, i + 21, SRJS.MARKER_ARENA );
             scene.addObject( marker );
