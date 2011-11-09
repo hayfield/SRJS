@@ -1,4 +1,4 @@
-// REVISION: 4.1319279834.48
+// REVISION: 4.1320866065.6
 // FILE: Three.js
 // Three.js r44 - http://github.com/mrdoob/three.js
 var THREE=THREE||{};if(!window.Int32Array)window.Int32Array=Array,window.Float32Array=Array;THREE.Color=function(b){b!==void 0&&this.setHex(b);return this};
@@ -2112,30 +2112,33 @@ SRJS.Arena2012 = function(){
 									) );
         
         // add the markers around the edges of the arena
-        // start in the top-right corner on thr right wall and work round clockwise
+        // start in the top-left corner on the right wall and work round anti-clockwise
         var i, marker;
         for( i = 0; i < 7; i++ ){
-            // right
-            marker = new SRJS.Trigger( 1, 25, 25,
-                                    new THREE.Vector3( 400, 67.5, -346 + i * (808/7) )
-                                  );
-            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
-            scene.addObject( marker );
-            // bottom
-            marker = new SRJS.Trigger( 25, 25, 1,
-                                    new THREE.Vector3( 346 - i * (808/7), 67.5, 400 )
-                                  );
-            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
-            scene.addObject( marker );
             // left
             marker = new SRJS.Trigger( 1, 25, 25,
-                                    new THREE.Vector3( -400, 67.5, 346 - i * (808/7) )
+                                    new THREE.Vector3( -400, 67.5, -346 + i * (808/7) )
                                   );
             SRJS.CreateMarker( marker, i + 14, SRJS.MARKER_ARENA );
             scene.addObject( marker );
+            
+            // bottom
+            marker = new SRJS.Trigger( 25, 25, 1,
+                                    new THREE.Vector3( -346 + i * (808/7), 67.5, 400 )
+                                  );
+            SRJS.CreateMarker( marker, i + 7, SRJS.MARKER_ARENA );
+            scene.addObject( marker );
+            
+            // right
+            marker = new SRJS.Trigger( 1, 25, 25,
+                                    new THREE.Vector3( 400, 67.5, 346 - i * (808/7) )
+                                  );
+            SRJS.CreateMarker( marker, i, SRJS.MARKER_ARENA );
+            scene.addObject( marker );
+            
             // top
             marker = new SRJS.Trigger( 25, 25, 1,
-                                    new THREE.Vector3( -346 + i * (808/7), 67.5, -400 )
+                                    new THREE.Vector3( 346 - i * (808/7), 67.5, -400 )
                                   );
             SRJS.CreateMarker( marker, i + 21, SRJS.MARKER_ARENA );
             scene.addObject( marker );
@@ -2183,13 +2186,13 @@ SRJS.Arena2012 = function(){
 	args.arenaDimension = 800;
 	
 	args.robotStartPositions = [
+									new SRJS.Vector2( -365, 100 ),
 									new SRJS.Vector2( 100, 365 ),
 									new SRJS.Vector2( 365, -100 ),
-									new SRJS.Vector2( -100, -365 ),
-									new SRJS.Vector2( -365, 100 )
+									new SRJS.Vector2( -100, -365 )
 							   ];
 	
-	args.robotStartRotations = [ 0, Math.PI / 2, Math.PI, Math.PI * 1.5 ];
+	args.robotStartRotations = [ Math.PI * 1.5, 0, Math.PI / 2, Math.PI ];
 	
 	args.visionVersion = 2;
 	
