@@ -37,15 +37,15 @@ SRJS.Physics.Edge.prototype.translate = function( distance, theta ){
 SRJS.Physics.Edge.prototype.intersects = function( other ){
 	// cache the values so we aren't creating lots and lots of Vectors that are the same
 	var thisMovement = this.movement(),
-		otherMovement = other.movement();
+		otherMovement = other.movement(),
+		thisMovCrossOtherMov = thisMovement.cross( otherMovement );
     
 	// collinear or never intersect
-	if( thisMovement.cross( otherMovement ) === 0 ){
+	if( thisMovCrossOtherMov === 0 ){
 		return false;
 	}
 	
 	var otherStartSubThisStart = other.start.subtract( this.start ),
-		thisMovCrossOtherMov = thisMovement.cross( otherMovement ),
 		distAlongThisLine = otherStartSubThisStart.cross( otherMovement ) / thisMovCrossOtherMov,
 		distAlongOtherLine = otherStartSubThisStart.cross( thisMovement ) / thisMovCrossOtherMov;
 
