@@ -44,10 +44,10 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 		return false;
 	}
 	
-	var distAlongThisLine = (other.start.subtract( this.start )).cross( otherMovement ) / 
-								thisMovement.cross( otherMovement ),
-		distAlongOtherLine = (other.start.subtract( this.start )).cross( thisMovement ) /
-								thisMovement.cross( otherMovement );
+	var otherStartSubThisStart = other.start.subtract( this.start ),
+		thisMovCrossOtherMov = thisMovement.cross( otherMovement ),
+		distAlongThisLine = otherStartSubThisStart.cross( otherMovement ) / thisMovCrossOtherMov,
+		distAlongOtherLine = otherStartSubThisStart.cross( thisMovement ) / thisMovCrossOtherMov;
 
 	// not within the specified parts of the line
 	if( distAlongThisLine < 0 || distAlongThisLine > 1
