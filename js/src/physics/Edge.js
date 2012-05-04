@@ -35,22 +35,26 @@ SRJS.Physics.Edge.prototype.translate = function( distance, theta ){
 // http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 // or see Edge-README.txt
 SRJS.Physics.Edge.prototype.intersects = function( other ){
+	// cache the values so we aren't creating lots and lots of Vectors that are the same
+	var thisMovement = this.movement(),
+		otherMovement = other.movement();
+    
 	// collinear or never intersect
-	if( this.movement().cross( other.movement() ) === 0 ){
+	if( thisMovement.cross( otherMovement ) === 0 ){
 		return false;
 	}
 	
-	var distAlongThisLine = (other.start.subtract( this.start )).cross( other.movement() ) / 
-								this.movement().cross( other.movement() ),
-		distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
-								this.movement().cross( other.movement() );
+	var distAlongThisLine = (other.start.subtract( this.start )).cross( otherMovement ) / 
+								thisMovement.cross( otherMovement ),
+		distAlongOtherLine = (other.start.subtract( this.start )).cross( thisMovement ) /
+								thisMovement.cross( otherMovement );
 
 	// not within the specified parts of the line
 	if( distAlongThisLine < 0 || distAlongThisLine > 1
 		|| distAlongOtherLine < 0 || distAlongOtherLine > 1 ){
 		return false;
 	} else { // intersect
-		return this.start.add( this.movement().multiply( distAlongThisLine ) );
+		return this.start.add( thisMovement.multiply( distAlongThisLine ) );
 	}
 	
 };
