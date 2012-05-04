@@ -1,4 +1,4 @@
-// REVISION: 4.1320866065.6
+// REVISION: 4.1336165715.64
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -329,28 +329,33 @@ SRJS.Physics.Edge.prototype.translate = function( distance, theta ){
 // http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect
 // or see Edge-README.txt
 SRJS.Physics.Edge.prototype.intersects = function( other ){
+	// cache the values so we aren't creating lots and lots of Vectors that are the same
+	var thisMovement = this.movement(),
+		otherMovement = other.movement(),
+		thisMovCrossOtherMov = thisMovement.cross( otherMovement );
+    
 	// collinear or never intersect
-	if( this.movement().cross( other.movement() ) === 0 ){
+	if( thisMovCrossOtherMov === 0 ){
 		return false;
 	}
 	
-	var distAlongThisLine = (other.start.subtract( this.start )).cross( other.movement() ) / 
-								this.movement().cross( other.movement() ),
-		distAlongOtherLine = (other.start.subtract( this.start )).cross( this.movement() ) /
-								this.movement().cross( other.movement() );
+	var otherStartSubThisStart = other.start.subtract( this.start ),
+		distAlongThisLine = otherStartSubThisStart.cross( otherMovement ) / thisMovCrossOtherMov,
+		distAlongOtherLine = otherStartSubThisStart.cross( thisMovement ) / thisMovCrossOtherMov;
 
 	// not within the specified parts of the line
 	if( distAlongThisLine < 0 || distAlongThisLine > 1
 		|| distAlongOtherLine < 0 || distAlongOtherLine > 1 ){
 		return false;
 	} else { // intersect
-		return this.start.add( this.movement().multiply( distAlongThisLine ) );
+		return this.start.add( thisMovement.multiply( distAlongThisLine ) );
 	}
 	
 };
 
 SRJS.Physics.Edge.prototype.movement = function(){
-	return new SRJS.Vector2( this.end.x - this.start.x, this.end.y - this.start.y );
+	var thisEnd = this.end, thisStart = this.start;
+	return new SRJS.Vector2( thisEnd.x - thisStart.x, thisEnd.y - thisStart.y );
 };
 
 // FILE: physics/Polygon.js
@@ -411,19 +416,23 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons, pushableCh
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck ){
-	var e, o, intersects, intersection;
+	var e, o, intersects, intersection,
+		thisObj = this.object,
+		otherObj = other.object,
+		thisEdges = this.edges,
+		otherEdges = other.edges;
 	
-	if( other.object.heightOfBase > this.object.heightOfTop ||
-			this.object.heightOfBase > other.object.heightOfTop ){
+	if( otherObj.heightOfBase > thisObj.heightOfTop ||
+			thisObj.heightOfBase > otherObj.heightOfTop ){
 		return false;
 	}
 	
-	if( pushableCheck && other.object instanceof SRJS.Robot ){
+	if( pushableCheck && otherObj instanceof SRJS.Robot ){
 		return false;
 	}
 	
 	// make robots push pushable objects
-	if( !pushableCheck && other.object instanceof SRJS.Pushable && this.object instanceof SRJS.Robot ){
+	if( !pushableCheck && otherObj instanceof SRJS.Pushable && thisObj instanceof SRJS.Robot ){
 		var result = this.SAT( other, false );
 		if( result === null ) return false;
 		result.separation = result.vector.multiply( result.distance );
@@ -431,8 +440,8 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 		if( !other.hasIntersections( SRJS.phys.polygons, true ) ){
 			other.translate( result.separation.x, Math.PI * 0.5 );
 			other.translate( result.separation.y, 0 );
-			other.object.position.x += result.separation.x;
-			other.object.position.z += result.separation.y;
+			otherObj.position.x += result.separation.x;
+			otherObj.position.z += result.separation.y;
 			return false;
 		} else {
 			return true;
@@ -441,21 +450,21 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 	
 	intersects = false;
 	e = 0;
-	while( e < this.edges.length ){
+	while( e < thisEdges.length ){
 	
 		o = 0;
-		while( o < other.edges.length ){
-			intersection = this.edges[e].intersects( other.edges[o] );
+		while( o < otherEdges.length ){
+			intersection = thisEdges[e].intersects( otherEdges[o] );
 			if( intersection ){
-				if( this.object instanceof SRJS.Robot.BumpSensor ){
+				if( thisObj instanceof SRJS.Robot.BumpSensor ){
 					return true;
-				} else if( this.object instanceof SRJS.Robot.RangeFinder ){
-					if( other.object !== this.object.robot ){
-						this.object.ray.intersections.push( intersection, other.trigger );
+				} else if( thisObj instanceof SRJS.Robot.RangeFinder ){
+					if( otherObj !== thisObj.robot ){
+						thisObj.ray.intersections.push( intersection, other.trigger );
 						intersects = true;
 					}
 				} else {
-					SRJS.intersections.push( this.edges[e].intersects( other.edges[o] ), other.trigger );
+					SRJS.intersections.push( thisEdges[e].intersects( otherEdges[o] ), other.trigger );
 					intersects = true;
 				}
 			}
@@ -465,8 +474,8 @@ SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck )
 	}
 	
 	if( intersects ){
-		if( this.object instanceof SRJS.Robot && other.object instanceof SRJS.Trigger ){
-			other.object.intersectingRobots.push( this.object.ID );
+		if( thisObj instanceof SRJS.Robot && otherObj instanceof SRJS.Trigger ){
+			otherObj.intersectingRobots.push( thisObj.ID );
 		}
 	}
 	
