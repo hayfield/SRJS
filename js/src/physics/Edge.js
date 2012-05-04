@@ -1,27 +1,5 @@
 SRJS.Physics.Edge = function( start, end ){
 	
-	this._movementSetter = function(){
-		if( this._start && this._end ){
-			this._movement = new SRJS.Vector2( this._end.x - this._start.x, this._end.y - this._start.y );
-		}
-	};
-	
-	Object.defineProperty(this, 'start', {
-		get: function(){ return this._start; },
-		set: function( newVal ){
-			this._start = newVal;
-			this._movementSetter();
-		}
-	});
-	
-	Object.defineProperty(this, 'end', {
-		get: function(){ return this._end; },
-		set: function( newVal ){
-			this._end = newVal;
-			this._movementSetter();
-		}
-	});
-	
 	// start and end positions of edge are of type SRJS.Vector2
 	this.start = start;
 	this.end = end;
@@ -82,9 +60,5 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 };
 
 SRJS.Physics.Edge.prototype.movement = function(){
-	if( this._movement ){
-		return this._movement;
-	} else {
-		return new SRJS.Vector2( this._end.x - this._start.x, this._end.y - this._start.y );
-	}
+	return new SRJS.Vector2( this.end.x - this.start.x, this.end.y - this.start.y );
 };
