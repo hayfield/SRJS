@@ -1,4 +1,4 @@
-// REVISION: 4.1336167289.26
+// REVISION: 4.1336169183.17
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -2338,18 +2338,18 @@ SRJS.VisionV1 = function(){
 	this.context = this.canvas.getContext('2d');
 	
 	this.update = function( renderer ){
-		var img = new Image();
+		//var img = new Image();
 		
-		img.onload = function(){
+		//img.onload = function(){
 			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
-			vision.context.drawImage( img, 0, 0 );
+			vision.context.drawImage( renderer.domElement, 0, 0 );
 			
 			var imageData = vision.processData( vision.getImageData( vision.context ));
 			vision.blobs = vision.detectBlobs( imageData );
 			vision.context.putImageData( imageData, 0, 0 );
 			vision.displayBlobs();
-		};
-		img.src = renderer.domElement.toDataURL('image/png');
+		//};
+		//img.src = renderer.domElement.toDataURL('image/png');
 	};
 	
 	// https://www.studentrobotics.org/cgit/robovis.git/tree/visfunc.cpp?id=bf115f6be5025c559e1f91bb39f90ac380150a6b

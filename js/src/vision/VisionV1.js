@@ -12,18 +12,13 @@ SRJS.VisionV1 = function(){
 	this.context = this.canvas.getContext('2d');
 	
 	this.update = function( renderer ){
-		var img = new Image();
+		vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
+		vision.context.drawImage( renderer.domElement, 0, 0 );
 		
-		img.onload = function(){
-			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
-			vision.context.drawImage( img, 0, 0 );
-			
-			var imageData = vision.processData( vision.getImageData( vision.context ));
-			vision.blobs = vision.detectBlobs( imageData );
-			vision.context.putImageData( imageData, 0, 0 );
-			vision.displayBlobs();
-		};
-		img.src = renderer.domElement.toDataURL('image/png');
+		var imageData = vision.processData( vision.getImageData( vision.context ));
+		vision.blobs = vision.detectBlobs( imageData );
+		vision.context.putImageData( imageData, 0, 0 );
+		vision.displayBlobs();
 	};
 	
 	// https://www.studentrobotics.org/cgit/robovis.git/tree/visfunc.cpp?id=bf115f6be5025c559e1f91bb39f90ac380150a6b
