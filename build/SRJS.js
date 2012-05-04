@@ -1,4 +1,4 @@
-// REVISION: 4.1336165715.64
+// REVISION: 4.1336167289.26
 // FILE: SRJS.js
 var SRJS = SRJS || {};
 
@@ -2615,13 +2615,8 @@ SRJS.VisionV2 = function( object ){
 	this.context = this.canvas.getContext('2d');
 	
 	this.update = function( renderer ){
-		var img = new Image();
-		
-		img.onload = function(){
-			vision.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
-			vision.context.drawImage( img, 0, 0 );
-		};
-		img.src = renderer.domElement.toDataURL('image/png');
+		this.context.clearRect( 0, 0, vision.canvas.width, vision.canvas.height );
+		this.context.drawImage( renderer.domElement, 0, 0 );
 	};
 	
 	this.print_marker = function( marker ){
