@@ -55,8 +55,11 @@ SRJS.Physics.Polygon.prototype.hasIntersections = function( polygons, pushableCh
 };
 
 SRJS.Physics.Polygon.prototype.intersectsWith = function( other, pushableCheck ){
-	var e, o, intersects, intersection;
-	var thisObj = this.object, otherObj = other.object, thisEdges = this.edges, otherEdges = other.edges;
+	var e, o, intersects, intersection,
+		thisObj = this.object,
+		otherObj = other.object,
+		thisEdges = this.edges,
+		otherEdges = other.edges;
 	
 	if( otherObj.heightOfBase > thisObj.heightOfTop ||
 			thisObj.heightOfBase > otherObj.heightOfTop ){
