@@ -60,5 +60,6 @@ SRJS.Physics.Edge.prototype.intersects = function( other ){
 };
 
 SRJS.Physics.Edge.prototype.movement = function(){
-	return new SRJS.Vector2( this.end.x - this.start.x, this.end.y - this.start.y );
+	var thisEnd = this.end, thisStart = this.start;
+	return new SRJS.Vector2( thisEnd.x - thisStart.x, thisEnd.y - thisStart.y );
 };
