@@ -24,7 +24,7 @@ See examples/boilerplate.html for an annotated layout which can be used as the b
 ## SRJS Functions and Notes
 
 #### Using `this` and `robot`
-When writing code for the robot within the `main()` and `initialise()` functions, `this` and `robot` refers to the Robot being controlled. In some cases such as within a [forEach](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) loop it's necessary to pass one of the two as a parameter if `this` is to reference the correct thing.
+When writing code for the robot within the `main()` and `initialise()` functions, `this` and `robot` refers to the Robot being controlled. In some cases, such as within a [forEach](https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/foreach) loop, it's necessary to pass one of the two as a parameter if `this` is to reference the correct object.
 
 #### Using `robot.createProperty( name, initialValue )`
 Used to create a property with a given name which will keep its value between calls to `robot.main()`, while allowing multiple robots to use the same variable names.
