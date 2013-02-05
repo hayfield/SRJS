@@ -17,6 +17,8 @@ Some of the examples use the console to display output, so you'll need to open i
 * [Opening the console in Chrome](http://code.google.com/chrome/devtools/docs/overview.html#access).
 * [Opening the console in Firefox](https://developer.mozilla.org/en/Using_the_Web_Console#Opening_the_Web_Console).
 
+The examples can be run in the browser [here](http://hayfield.github.com/student-robotics/SRJS/).
+
 ## Getting Started
 
 See examples/boilerplate.html for an annotated layout which can be used as the basis of code you write.
