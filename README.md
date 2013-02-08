@@ -213,9 +213,9 @@ robot.wait_for( new SRJS.Query( ['robot.io.rangeFinder[0].a', 'lt', 2],
     });
 });
 ```
-The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `and`.
+The first parameter is a string, either `and` or `or` to specify how the query should work. This is then followed by a number of arrays containing the comparisons. If there are multiple comparisons being made, but no string to specify how the query should operate, it will default to `or`.
 
-When an or query returns, it will pass an array containing the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
+When an `or` query returns, it will pass an array containing the status of the tracked items as a parameter to the callback. Any tracked items that do not return true when the query returns will be represented as `null`. If a timeout has completed, it will be represented by `true`.
 
 ```javascript
 robot.motors[0].target = 100;
